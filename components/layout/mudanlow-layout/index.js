@@ -24,7 +24,7 @@ export default function MudanlowLayout({ title = 'Mudanlow', children }) {
         <meta name="viewport" content="width=device-width" />
       </Head>
       {isHomePage ? null : auth.isAuth ? <NavbarLogin /> : <Navbar />}
-      <div className="flex-shrink-0">
+      <div className="flex-shrink-0 background2">
         <div
           className=""
           style={{

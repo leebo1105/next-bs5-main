@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Footer from '@/components/layout/mudanlow-layout/footer'
 import Navbar from '@/components/layout/mudanlow-layout/navbar'
+import { Image } from 'react-bootstrap'
 
 export default function NewsContent() {
   const [article, setArticle] = useState(null)
   const [articleIds, setArticleIds] = useState([])
+  const [latestArticles, setLatestArticles] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const router = useRouter()
@@ -43,7 +45,13 @@ export default function NewsContent() {
         const response = await fetch(`http://localhost:3005/api/articles/api`)
         const data = await response.json()
         if (data.success) {
-          setArticleIds(data.rows.map((article) => article.a_id))
+          const ids = data.rows.map((article) => article.a_id)
+          setArticleIds(ids)
+
+          const latest = data.rows
+            .filter((article) => article.a_id !== parseInt(a_id))
+            .slice(0, 5)
+          setLatestArticles(latest)
         } else {
           setError('無法獲取文章列表')
         }
@@ -53,7 +61,7 @@ export default function NewsContent() {
     }
 
     fetchArticleIds()
-  }, [])
+  }, [a_id])
 
   const NextArticle = () => {
     if (articleIds.length > 0) {
@@ -113,7 +121,7 @@ export default function NewsContent() {
 
   return (
     <>
-      <div className="container-fluid newsPage">
+      <div className="container-fluid newsPage position-relative background2">
         <div className="newsNavbarPic bg-secondary position-relative">
           <div className="position-absolute newsNavbarPicText">最新消息</div>
           <div className="newsNavbarPicOverlay" />
@@ -144,20 +152,20 @@ export default function NewsContent() {
               <div className="newsTitle">其他消息</div>
               <div>
                 <ul>
-                  <li />
-                  132456
-                  <li />
-                  123456
-                  <li />
-                  123546
-                  <li />
-                  123456
-                  <li />
-                  123456
+                  {latestArticles.map((latestArticle) => (
+                    <li key={latestArticle.a_id}>
+                      <a href={`/mudanlow/news/${latestArticle.a_id}`}>
+                        {latestArticle.content}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
           </div>
+        </div>
+        <div className="newsPicture">
+          <Image src="/pics/background-pic1 (1).png" />
         </div>
       </div>
       <style jsx>{`
@@ -262,6 +270,11 @@ export default function NewsContent() {
 
         .insideContent {
           height: 75%;
+        }
+        .newsPicture {
+          position: absolute;
+          right: 0;
+          bottom: 0;
         }
       `}</style>
     </>

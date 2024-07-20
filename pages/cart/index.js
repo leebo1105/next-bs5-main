@@ -6,26 +6,18 @@ import Swal from 'sweetalert2'
 import Navbar from '@/components/layout/mudanlow-layout/navbar'
 import NavbarLogin from '@/components/layout/mudanlow-layout/navbar-login'
 import Footer from '@/components/layout/mudanlow-layout/footer'
+import List from '@/components/cart/list'
 
 export default function CartIndex() {
   const { cart, increment, decrement, removeItem, applyCoupon } = useCart()
 
-  const [couponsOptions, setCouponsOptions] = useState([
-    {
-      user_id: 0,
-      member_name: '',
-      coupons_sentDate: '',
-      coupons_maxAge: '',
-      coupons_sample_price: 0,
-      car_id: '',
-    },
-  ])
+  const [couponsOptions, setCouponsOptions] = useState([])
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
   const [coupon, setCoupon] = useState(0)
 
   const { auth } = useAuth()
-  const [selectedCoupon, setSelectedCoupon] = useState(0)
+  const [selectedCoupon, setSelectedCoupon] = useState(null)
 
   useEffect(() => {
     if (auth.userData.id) {
@@ -33,9 +25,20 @@ export default function CartIndex() {
         .then((r) => r.json())
         .then((data) => {
           if (Array.isArray(data.result)) {
-            setCouponsOptions(data.result)
+            setCouponsOptions(
+              data.result.map((item) => ({
+                ...item,
+                coupons_sample_price: item.coupons_sample_price || 0,
+              }))
+            )
           } else {
-            setCouponsOptions([data.result])
+            const result = data.result
+            setCouponsOptions([
+              {
+                ...result,
+                coupons_sample_price: result.coupons_sample_price || 0,
+              },
+            ])
           }
           setMessage(data.message || '')
           setError('')
@@ -112,65 +115,14 @@ export default function CartIndex() {
 
   return (
     <>
-      <div className="bodycart">
-        <div className="col-lg-10">
-          <div className="row d-flex justify-content-center">
-            <div className="card mb-4 shadow-sm">
-              <div className="card-body">
+      <div className="bodycart ">
+        <div className="col-lg-10 ">
+          <div className="row">
+            <div className=" justify-content-center">
+              <div className=" mb-4 shadow-sm">
                 <h4 className="card-title mb-4">購物車</h4>
-                <table className="table table-hover">
-                  <thead>
-                    <tr>
-                      <th scope="col">名稱</th>
-                      <th scope="col">單價</th>
-                      <th scope="col">數量</th>
-                      <th scope="col">小計</th>
-                      <th scope="col">移除</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {cart.items.map((item) => (
-                      <tr key={item.id}>
-                        <td>{item.name}</td>
-                        <td>{item.price}</td>
-                        <td>
-                          <div className="d-flex justify-content-center align-items-center">
-                            <button
-                              onClick={() => decrement(item.id)}
-                              className="btn btn-outline-secondary btn-sm mx-1"
-                            >
-                              -
-                            </button>
-                            {item.quantity}
-                            <button
-                              onClick={() => increment(item.id)}
-                              className="btn btn-outline-secondary btn-sm mx-1"
-                            >
-                              +
-                            </button>
-                          </div>
-                        </td>
-                        <td>{item.price * item.quantity}</td>
-                        <td>
-                          <button
-                            onClick={() => removeItem(item.id)}
-                            className="btn btn-danger btn-sm"
-                          >
-                            X
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                    {cart.isEmpty && (
-                      <tr>
-                        <td colSpan="5" className="text-center">
-                          購物車為空
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-                <div>
+                <List />
+                <form className="discount-form">
                   <select
                     value={
                       selectedCoupon ? selectedCoupon.coupons_sample_price : ''
@@ -178,7 +130,7 @@ export default function CartIndex() {
                     onChange={(e) => {
                       const selectedOption = couponsOptions.find(
                         (option) =>
-                          option.coupons_sample_price.toString() ===
+                          option.coupons_sample_price?.toString() ===
                           e.target.value
                       )
                       setSelectedCoupon(selectedOption)
@@ -188,28 +140,32 @@ export default function CartIndex() {
                   >
                     <option value="">請選擇要使用的折價卷</option>
                     {couponsOptions.length > 0 &&
-                      couponsOptions.map((v, i) => (
-                        <option key={i} value={v.coupons_sample_price}>
-                          折價金額: {v.coupons_sample_price}
-                        </option>
-                      ))}
+                      couponsOptions.map((v, i) =>
+                        v.coupons_sample_price ? (
+                          <option key={i} value={v.coupons_sample_price}>
+                            折價金額: {v.coupons_sample_price}
+                          </option>
+                        ) : null
+                      )}
                   </select>
                   {message && <p>{message}</p>}
                   <div className="d-flex justify-flex-start ">
                     <button
+                      type="button"
                       onClick={handleApplyCoupon}
                       className="btn btn-primary me-2"
                     >
                       計算折價金額
                     </button>
                     <button
+                      type="button"
                       className="btn btn-primary"
                       onClick={handleUseCoupon}
                     >
                       確認使用折價卷
                     </button>
                   </div>
-                </div>
+                </form>
                 <hr />
                 <div className="d-flex justify-content-between mt-3">
                   <span>數量： {cart.totalItems}</span>
@@ -225,8 +181,18 @@ export default function CartIndex() {
           </div>
         </div>
       </div>
-
       <style jsx>{`
+        .row {
+          width: 1200px;
+          margin: 0 auto;
+          padding: 20px;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background-color: rgba(255, 255, 255, 0.8);
+          border-radius: 15px;
+          box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+
+          background-size: cover;
+        }
         .bodycart {
           max-width: 100%;
           padding: 20px;
@@ -257,6 +223,8 @@ export default function CartIndex() {
 
         .card-body {
           padding: 20px;
+          width: 100vh;
+          height: 70vh;
         }
 
         .card-footer {

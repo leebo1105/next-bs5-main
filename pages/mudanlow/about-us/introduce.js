@@ -59,7 +59,7 @@ export default function Introduce() {
         <h3 className="text-center my-4 border title">室內全景</h3>
         <div className="text-center">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!4v1712890573328!6m8!1m7!1sCAoSLEFGMVFpcFBHeFNRNnJfQmgyeGFueVFLYnc1TURmTXJyUlY2RGVsODMtRlBu!2m2!1d25.04490901184974!2d121.5393301299798!3f277.69705056654783!4f2.1722639438553557!5f0.7820865974627469"
+            src="https://www.koala360.com/tour?id=7833"
             width={1300}
             height={500}
             style={{ border: 0 }}

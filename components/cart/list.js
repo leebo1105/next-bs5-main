@@ -78,7 +78,8 @@ export default function CartList() {
         }
         .cart-list {
           width: 100%;
-          overflow-x: auto;
+          max-height: 500px; /* 設定最大高度 */
+          overflow-y: auto; /* 開啟垂直滾動 */
           margin-bottom: 20px;
         }
         .table {

@@ -60,7 +60,6 @@ export default function RegisterForm() {
 
   return (
     <>
-      <Navbar />
       <main className={`w-100 m-auto text-center form-member`}>
         <h2 className="text-center mb-3">加入會員</h2>
         <form onSubmit={handleSubmit}>
@@ -226,7 +225,6 @@ export default function RegisterForm() {
         {/* 土司訊息視窗用 */}
         <Toaster />
       </main>
-      <Footer />
     </>
   )
 }

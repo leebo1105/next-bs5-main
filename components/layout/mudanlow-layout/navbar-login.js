@@ -95,12 +95,20 @@ export default function NavbarLogin() {
           </a>
         </div>
         <div className="d-flex">
-          <a href="#" data-nav-section="reservation" className={styles.navLink}>
+          <Link
+            href="/ReservationRules"
+            data-nav-section="reservation"
+            className={styles.navLink}
+          >
             立即預約
-          </a>
-          <a href="#" data-nav-section="order" className={styles.navLink}>
+          </Link>
+          <Link
+            href="/ReservationGet"
+            data-nav-section="order"
+            className={styles.navLink}
+          >
             我的訂單
-          </a>
+          </Link>
           <Link
             href="/member/profile"
             data-nav-section="sign"
@@ -141,9 +149,9 @@ export default function NavbarLogin() {
       >
         <ul>
           <li>
-            <a href="#" className={styles.canvasLink}>
+            <Link href="/" className={styles.canvasLink}>
               <div>主頁</div>
-            </a>
+            </Link>
           </li>
           <li>
             <a
@@ -178,36 +186,36 @@ export default function NavbarLogin() {
             >
               <ul className="dropdown-item">
                 <li className={styles.dropdownLink}>
-                  <a href="#">區域介紹</a>
+                  <Link href="/mudanlow/about-us/introduce">區域介紹</Link>
                 </li>
                 <li className={styles.dropdownLink}>
-                  <a href="#">最新消息</a>
+                  <Link href="/mudanlow/news/news-list">最新消息</Link>
                 </li>
                 <li className={styles.dropdownLink}>
-                  <a href="#">人才招募</a>
+                  <Link href="/mudanlow/about-us/hire">人才招募</Link>
                 </li>
               </ul>
             </div>
           </li>
           <li>
-            <a href="#" className={styles.canvasLink}>
+            <Link href="/menu" className={styles.canvasLink}>
               菜單
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#" className={styles.canvasLink}>
+            <Link href="/product" className={styles.canvasLink}>
               購物專區
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#" className={styles.canvasLink}>
+            <Link href="/ReservationRules" className={styles.canvasLink}>
               立即預約
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#" className={styles.canvasLink}>
+            <Link href="/ReservationGet" className={styles.canvasLink}>
               我的訂單
-            </a>
+            </Link>
           </li>
           <li>
             <a href="#" className={styles.canvasLink}>
@@ -215,9 +223,14 @@ export default function NavbarLogin() {
             </a>
           </li>
           <li>
-            <a href="#" className={styles.canvasLink}>
+            <Link
+              onClick={handleLogout}
+              href="/"
+              data-nav-section="login"
+              className={styles.canvasLink}
+            >
               登出
-            </a>
+            </Link>
           </li>
         </ul>
       </div>

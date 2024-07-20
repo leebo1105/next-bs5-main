@@ -9,6 +9,7 @@ body {
   height: 100%;
   overflow-x: hidden; /* 隱藏水平scroll條 */
   /* overflow-y: auto; 自動顯示垂直scroll條（如果需要） */
+  font-family: 'LXGW WenKai Mono TC', monospace;
 }
 
 /* 字體 */
@@ -55,6 +56,7 @@ h6 {
 
 p {
   margin-bottom: 30px;
+  font-family: 'LXGW WenKai Mono TC', monospace;
 }
 
 /* ul、li基本設置 */
@@ -233,12 +235,12 @@ section {
   background-size: cover;
 }
 
-/*菜色介紹輪播圖*/
+/* 菜色介紹輪播圖 */
 .cardCarousel {
-  --card-width: 80%;
-  --card-max-width: 800px;
+  --card-width: 100%;
+  --card-max-width: 600px;
   --card-height: 400px;
-  --carousel-min-width: 600px;
+  --carousel-min-width: 300px;
   z-index: 0;
   position: relative;
   margin: 0 auto;
@@ -258,7 +260,7 @@ section {
   transition: all 0.2s ease;
 }
 
-/*輪播圖卡片*/
+/* 輪播圖卡片 */
 .cardCarousel .ImgCard {
   background: whitesmoke;
   width: var(--card-width);
@@ -285,7 +287,8 @@ section {
 .ImgCard.highlight {
   filter: brightness(1);
 }
-/*輪播圖照片*/
+
+/* 輪播圖照片 */
 .ImgCard:nth-of-type(1) {
   background-image: url('/images/mudanlow-小圖檔/DSC00596.jpg');
   background-size: cover;
@@ -303,19 +306,18 @@ section {
   background-size: cover;
   background-position: center;
 }
+
 .ImgCard:nth-of-type(4) {
   background-image: url('/images/mudanlow-小圖檔/DSC00719.jpg');
   background-size: cover;
   background-position: center;
 }
+
 .ImgCard:nth-of-type(5) {
   background-image: url('/images/mudanlow-小圖檔/DSC00626.jpg');
   background-size: cover;
   background-position: center;
 }
-/* .card:nth-of-type(5) .image-container {
-  background-image: url("https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg");
-} */
 
 .imageContainer {
   width: 100%;
@@ -324,12 +326,9 @@ section {
   background-size: cover;
   border-radius: 1em;
   padding: 1em;
-  /* -webkit-box-shadow: inset 0px 0px 17px 0px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: inset 0px 0px 17px 0px rgba(0, 0, 0, 0.3);
-  box-shadow: inset 0px 0px 17px 0px rgba(0, 0, 0, 0.3); */
 }
 
-/*輪播圖按鈕*/
+/* 輪播圖按鈕 */
 .carouselBtn {
   padding: 1px 8px;
   border-radius: 0.5em;
@@ -339,14 +338,48 @@ section {
   font-size: 18px;
 }
 
-/*輪播圖前後按鈕*/
-.preBtn {
-  color: lightblue;
-  cursor: pointer;
+@keyframes moveLeftRight {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(20px);
+  }
 }
-.nextBtn {
-  color: lightblue;
+
+@keyframes moveRightLeft {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-20px);
+  }
+}
+
+.cardCarousel:hover .preBtn {
+  animation: moveRightLeft 1.5s ease-in-out infinite;
+}
+
+.cardCarousel:hover .nextBtn {
+  animation: moveLeftRight 1.5s ease-in-out infinite;
+}
+
+.preBtn {
+  color: rgb(76, 78, 78);
   cursor: pointer;
+  position: absolute;
+  left: 80px;
+  top: 150px;
+}
+
+.nextBtn {
+  color: rgb(76, 78, 78);
+  cursor: pointer;
+  position: absolute;
+  right: 80px;
+  top: 150px;
 }
 
 /*關於我們section內部設置*/
@@ -482,13 +515,4 @@ section {
 .mapBackground {
   background-image: url('/pics/background3.png');
   height: 100%;
-}
-
-/*最新消息new-list(非首頁)列表顏色設置*/
-.newsMaintain {
-  background-color: #e4e3e3;
-  border-radius: 10px;
-  box-shadow: 3px 3px 7px gray;
-  padding-left: 15px;
-  padding-right: 15px;
 }

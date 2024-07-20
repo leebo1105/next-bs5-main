@@ -2,13 +2,11 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { Modal, Button } from 'react-bootstrap'
 import { useCart } from '@/hooks/use-cart-state'
-import { useAuth } from '@/hooks/use-auth'
-import Image from 'next/image'
 import axios from 'axios'
 import Cart from '@/components/cart/cart'
-import Navbar from '@/components/layout/mudanlow-layout/navbar'
-import NavbarLogin from '@/components/layout/mudanlow-layout/navbar-login'
-import Footer from '@/components/layout/mudanlow-layout/footer'
+import ProductCard from '@/components/fav-test/product-card'
+import { Toaster } from 'react-hot-toast'
+
 export default function List() {
   const brandNames = {
     1: '肉類',
@@ -23,9 +21,9 @@ export default function List() {
   const [filteredProducts, setFilteredProducts] = useState([])
   const [sortedProducts, setSortedProducts] = useState([])
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
-  const [minPrice, setMinPrice] = useState('')
-  const [maxPrice, setMaxPrice] = useState('')
-  const [selectedBrands, setSelectedBrands] = useState([])
+  const [selectedBrand, setSelectedBrand] = useState([])
+  const [selectedPriceRanges, setSelectedPriceRanges] = useState([])
+  const [showFavorites, setShowFavorites] = useState(false)
   const [loading, setLoading] = useState(false)
   const [hasMore, setHasMore] = useState(true)
   const [page, setPage] = useState(1)
@@ -33,7 +31,6 @@ export default function List() {
   const lastProductElementRef = useRef()
 
   const { addItem } = useCart()
-  const { auth } = useAuth()
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -105,45 +102,56 @@ export default function List() {
   }, [loading, hasMore])
 
   const handleFilter = (
-    updatedBrands = selectedBrands,
-    updatedMinPrice = minPrice,
-    updatedMaxPrice = maxPrice
+    updatedBrand = selectedBrand,
+    updatedPriceRanges = selectedPriceRanges,
+    showFavoritesOnly = showFavorites
   ) => {
-    let filtered = products.filter(
-      (product) =>
-        (!updatedMinPrice || product.price >= parseInt(updatedMinPrice)) &&
-        (!updatedMaxPrice || product.price <= parseInt(updatedMaxPrice)) &&
-        (updatedBrands.length === 0 || updatedBrands.includes(product.brand_id))
-    )
+    let filtered = products.filter((product) => {
+      const isFavorite = showFavoritesOnly
+        ? JSON.parse(localStorage.getItem('favoriteList') || '[]').includes(
+            product.id
+          )
+        : true
+      const inPriceRange =
+        updatedPriceRanges.length === 0 ||
+        updatedPriceRanges.some((range) => {
+          switch (range) {
+            case 'range1':
+              return product.price <= 150
+            case 'range2':
+              return product.price >= 151 && product.price <= 300
+            case 'range3':
+              return product.price >= 301 && product.price <= 599
+            case 'range4':
+              return product.price >= 600
+            default:
+              return true
+          }
+        })
+      const inBrand =
+        updatedBrand.length === 0 ||
+        updatedBrand.includes(product.brand_id.toString())
+      return isFavorite && inPriceRange && inBrand
+    })
     setFilteredProducts(filtered)
     setSortedProducts(filtered)
   }
 
   const handlePriceFilter = (range) => {
-    switch (range) {
-      case 'range1':
-        handleFilter(selectedBrands, '', 150)
-        break
-      case 'range2':
-        handleFilter(selectedBrands, 151, 300)
-        break
-      case 'range3':
-        handleFilter(selectedBrands, 301, 599)
-        break
-      case 'range4':
-        handleFilter(selectedBrands, 600, '')
-        break
-      default:
-        handleFilter(selectedBrands, '', '')
-    }
+    const updatedPriceRanges = selectedPriceRanges.includes(range)
+      ? selectedPriceRanges.filter((r) => r !== range)
+      : [...selectedPriceRanges, range]
+    setSelectedPriceRanges(updatedPriceRanges)
+    handleFilter(selectedBrand, updatedPriceRanges)
   }
 
   const handleBrandToggle = (brandId) => {
-    const updatedBrands = selectedBrands.includes(brandId)
-      ? selectedBrands.filter((id) => id !== brandId)
-      : [...selectedBrands, brandId]
-    setSelectedBrands(updatedBrands)
-    handleFilter(updatedBrands, minPrice, maxPrice)
+    const brandIdStr = brandId.toString()
+    const updatedBrand = selectedBrand.includes(brandIdStr)
+      ? selectedBrand.filter((id) => id !== brandIdStr)
+      : [...selectedBrand, brandIdStr]
+    setSelectedBrand(updatedBrand)
+    handleFilter(updatedBrand, selectedPriceRanges)
   }
 
   const handleSort = (order) => {
@@ -166,6 +174,11 @@ export default function List() {
 
   const toggleSidebar = () => {
     setSidebarCollapsed(!sidebarCollapsed)
+  }
+
+  const handleFavoritesToggle = () => {
+    setShowFavorites(!showFavorites)
+    handleFilter(selectedBrand, selectedPriceRanges, !showFavorites)
   }
 
   const filterBar = (
@@ -192,11 +205,12 @@ export default function List() {
               <div className="form-check">
                 <input
                   className="form-check-input"
-                  type="radio"
+                  type="checkbox"
                   name="priceRange"
                   value="range1"
                   id="flexCheckDefault"
                   onChange={() => handlePriceFilter('range1')}
+                  checked={selectedPriceRanges.includes('range1')}
                 />
                 <label className="form-check-label" htmlFor="flexCheckDefault">
                   $150以下
@@ -205,11 +219,12 @@ export default function List() {
               <div className="form-check">
                 <input
                   className="form-check-input"
-                  type="radio"
+                  type="checkbox"
                   name="priceRange"
                   value="range2"
                   id="flexCheckChecked"
                   onChange={() => handlePriceFilter('range2')}
+                  checked={selectedPriceRanges.includes('range2')}
                 />
                 <label className="form-check-label" htmlFor="flexCheckChecked">
                   $150 - $300
@@ -218,11 +233,12 @@ export default function List() {
               <div className="form-check">
                 <input
                   className="form-check-input"
-                  type="radio"
+                  type="checkbox"
                   name="priceRange"
                   value="range3"
                   id="flexCheckChecked"
                   onChange={() => handlePriceFilter('range3')}
+                  checked={selectedPriceRanges.includes('range3')}
                 />
                 <label className="form-check-label" htmlFor="flexCheckChecked">
                   $301 - $599
@@ -231,11 +247,12 @@ export default function List() {
               <div className="form-check">
                 <input
                   className="form-check-input"
-                  type="radio"
+                  type="checkbox"
                   name="priceRange"
                   value="range4"
                   id="flexCheckChecked"
                   onChange={() => handlePriceFilter('range4')}
+                  checked={selectedPriceRanges.includes('range4')}
                 />
                 <label className="form-check-label" htmlFor="flexCheckChecked">
                   $600以上
@@ -268,10 +285,11 @@ export default function List() {
                     <input
                       className="form-check-input"
                       type="checkbox"
+                      name="brand"
                       value={brandId}
                       id={`brand${brandId}`}
                       onChange={() => handleBrandToggle(brandId)}
-                      checked={selectedBrands.includes(brandId)}
+                      checked={selectedBrand.includes(brandId.toString())}
                     />
                     <label
                       className="form-check-label"
@@ -281,6 +299,39 @@ export default function List() {
                     </label>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="accordion-item">
+          <h2 className="accordion-header">
+            <button
+              className="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#panelsStayOpen-collapseFive"
+              aria-expanded="false"
+              aria-controls="panelsStayOpen-collapseFive"
+            >
+              我的最愛
+            </button>
+          </h2>
+          <div
+            id="panelsStayOpen-collapseFive"
+            className="accordion-collapse collapse"
+          >
+            <div className="accordion-body px-1">
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  id="favoriteCheck"
+                  checked={showFavorites}
+                  onChange={handleFavoritesToggle}
+                />
+                <label className="form-check-label" htmlFor="favoriteCheck">
+                  僅顯示我的最愛
+                </label>
               </div>
             </div>
           </div>
@@ -321,46 +372,15 @@ export default function List() {
       {sortedProducts.map((v, index) => {
         const isLastElement = index === sortedProducts.length - 1
         const ref = isLastElement ? lastProductElementRef : null
-        const productUrl = `/product/${v.id.toString().padStart(2, '0')}`
         return (
-          <div className="col" key={v.id} ref={ref}>
-            <div className="card product-card">
-              <a href={productUrl}>
-                <Image
-                  className="card-img-top"
-                  src={`/images/product/thumb/${v.photos.split(',')[0]}`}
-                  alt={v.name}
-                  width={300}
-                  height={200}
-                  placeholder="blur"
-                  blurDataURL={`/images/product/thumb/${
-                    v.photos.split(',')[0]
-                  }`}
-                  style={{ width: '100%', height: '200px' }}
-                />
-              </a>
-              <div className="card-body">
-                <h5 className="card-title">
-                  <a href={productUrl}>{v.name}</a>
-                </h5>
-                <p className="card-text">
-                  這裡只是放一些商品的描述說明。這裡只是放一些商品的描述說明。
-                </p>
-                <p className="card-text text-danger">NTD {v.price}元</p>
-              </div>
-
-              <button
-                type="button"
-                className="btn btn-success"
-                onClick={() => {
-                  const item = { ...v, quantity: 1 }
-                  addItem(item)
-                  showModal(v.name)
-                }}
-              >
-                加入購物車
-              </button>
-            </div>
+          <div className="col btn btn btn-light" key={v.id} ref={ref}>
+            <ProductCard
+              id={v.id}
+              name={v.name}
+              price={v.price}
+              photos={v.photos}
+              info={v.info}
+            />
           </div>
         )
       })}
@@ -440,6 +460,7 @@ export default function List() {
         </div>
       </div>
       {messageModal}
+      <Toaster />
       <style jsx>{`
         .row {
           width: 1200px;
@@ -448,10 +469,21 @@ export default function List() {
           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
           background-color: rgba(255, 255, 255, 0.8);
           border-radius: 15px;
-          box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+          box-shadow: a0 0 15px rgba(0, 0, 0, 0.1);
           background: url('/images/product/bg/花2.webp') no-repeat center center
             fixed;
           background-size: cover;
+        }
+
+        .custom-title {
+          display: inline-block;
+          font-size: 5rem;
+          font-weight: bold;
+          color: #8b4513;
+          text-align: center;
+          padding-bottom: 5px;
+          margin-bottom: 20px;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .sidebar-wrapper.collapsed {
@@ -486,7 +518,7 @@ export default function List() {
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
           border-radius: 10px;
           overflow: hidden;
-          transition: transform 0.2s;
+          transition: transform 0.2s ease-in-out;
           background-color: rgba(255, 255, 255, 0.9);
           background: url('/images/product/bg/mudan.webp') no-repeat center
             center;
@@ -494,25 +526,7 @@ export default function List() {
         }
 
         .product-card:hover {
-          transform: translateY(-10px);
-        }
-
-        .product-card .card-body {
-          background-color: rgba(255, 255, 255, 0.8);
-          border: 2px solid #d1b7a1;
-          border-radius: 10px;
-          padding: 10px;
-          background: rgba(255, 255, 255, 0.8)
-            url('/images/product/bg/mudan.webp') no-repeat center center;
-          background-size: cover;
-          border: 1px solid #d1b7a1;
-          border-radius: 8px;
-          box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .product-card .card-title a {
-          color: #e74c3c;
-          text-decoration: none;
+          transform: scale(1.05);
         }
 
         .product-card .card-title a:hover {
@@ -524,13 +538,30 @@ export default function List() {
         }
 
         .product-card .btn-success {
-          background-color: #ff7f50; /* 橙色 */
+          background-color: #ff7f50;
           border: none;
           transition: background-color 0.3s ease;
         }
 
         .product-card .btn-success:hover {
-          background-color: #ff6347; /* 番茄色 */
+          background-color: #ff6347;
+        }
+
+        .product-card .card-img-top {
+          border: 2px solid #d1b7a1;
+          border-radius: 10px;
+        }
+
+        .btn-favorite {
+          background: none;
+          border: none;
+          cursor: pointer;
+          margin-left: 10px;
+        }
+
+        .price-favorite {
+          display: flex;
+          align-items: center;
         }
 
         .accordion-header .accordion-button {
@@ -589,24 +620,24 @@ export default function List() {
 
         .toolbar .btn,
         .dropdown .btn {
-          background-color: #8b4513; /* 棕色 */
+          background-color: #8b4513;
           border-color: #8b4513;
           color: #fff;
         }
 
         .toolbar .btn:hover,
         .dropdown .btn:hover {
-          background-color: #a0522d; /* 更深的棕色 */
+          background-color: #a0522d;
           border-color: #a0522d;
         }
 
         .toolbar .dropdown-menu .dropdown-item {
-          background-color: #f5deb3; /* 小麥色 */
+          background-color: #f5deb3;
           color: #8b4513;
         }
 
         .toolbar .dropdown-menu .dropdown-item:hover {
-          background-color: #deb887; /* 更深的小麥色 */
+          background-color: #deb887;
           color: #fff;
         }
 
@@ -623,21 +654,10 @@ export default function List() {
         .accordion-button:focus {
           box-shadow: none;
         }
-        .custom-title {
-          display: inline-block;
-          font-size: 4rem; /* 調整字體大小 */
-          font-weight: bold; /* 加粗字體 */
-          color: #8b4513; /* 棕色 */
-          text-align: center; /* 置中 */
-          border-bottom: 3px solid #a0522d; /* 底部邊框 */
-          padding-bottom: 5px; /* 底部填充 */
-          margin-bottom: 20px; /* 底部外邊距 */
-          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* 字體樣式 */
-        }
 
         @media (max-width: 768px) {
           .custom-title {
-            font-size: 1.5rem; /* 調整小螢幕上的字體大小 */
+            font-size: 1.5rem;
           }
         }
       `}</style>

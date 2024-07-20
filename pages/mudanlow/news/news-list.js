@@ -1,47 +1,108 @@
-import React, { useState, useEffect } from 'react'
-import Footer from '@/components/layout/mudanlow-layout/footer'
-import Navbar from '@/components/layout/mudanlow-layout/navbar'
+import React, { useState, useEffect, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 
 export default function NewsList() {
-  const [articles, setArticles] = useState([])
+  const [articles, setArticles] = useState([]) // 存儲所有文章數據的狀態
+  const [currentPage, setCurrentPage] = useState(1) // 當前頁面的狀態
+  const [selectedKeywords, setSelectedKeywords] = useState([]) // 選中的關鍵字的狀態
+  const [sortOrder, setSortOrder] = useState('desc') // 排序順序的狀態
+  const [filteredArticles, setFilteredArticles] = useState([]) // 過濾後文章數據的狀態
+  const articlesPerPage = 5 // 每頁顯示的文章數量
 
-  const getArticles = () => {
-    fetch('http://localhost:3005/api/articles/api')
+  // 關鍵字數據
+  const keywords = [
+    { id: 2, name: '新菜消息' },
+    { id: 3, name: '節慶活動' },
+    { id: 4, name: '公休時間' },
+    { id: 5, name: '貓咪認養' },
+  ]
+
+  // 從API獲取文章數據
+  const getArticles = (order) => {
+    // 根據排序順序選擇API端點
+    const apiEndpoint = order === 'desc' ? 'api' : 'api/sortedAsc'
+    fetch(`http://localhost:3005/api/articles/${apiEndpoint}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log('Fetched data:', data)
         if (data.success) {
-          console.log('Fetched articles:', data.rows)
-          setArticles(data.rows || [])
+          console.log('獲取的文章：', data.rows) // 調試信息
+          setArticles(data.rows || []) // 更新文章數據狀態
+          setFilteredArticles(data.rows || []) // 初始化過濾後的文章數據
         } else {
-          console.log('獲取評論失敗')
+          console.log('獲取文章失敗')
         }
       })
       .catch((error) => {
-        console.log('fetch() 發生錯誤, 回傳的 JSON 格式是錯的')
+        console.log('fetch() 發生錯誤，返回的 JSON 格式錯誤')
         console.log(error)
-        setArticles([]) // 確保在發生錯誤時也設置 articles 為空陣列
+        setArticles([]) // 確保在發生錯誤時也設置 articles 為空數組
       })
   }
 
+  // 初次加載和排序順序改變時重新獲取文章數據
   useEffect(() => {
-    getArticles()
-  }, [])
+    getArticles(sortOrder)
+  }, [sortOrder])
 
+  // 處理關鍵字選擇變化
+  const handleKeywordChange = (event) => {
+    const { value, checked } = event.target
+    const updatedKeywords = checked
+      ? [...selectedKeywords, value]
+      : selectedKeywords.filter((keyword) => keyword !== value)
+    setSelectedKeywords(updatedKeywords)
+  }
+
+  // 處理排序順序選擇變化
+  const handleSortOrderChange = (event) => {
+    setSortOrder(event.target.value)
+  }
+
+  // 過濾並排序文章數據
+  const getFilteredAndSortedArticles = useCallback(
+    (order, keywords) => {
+      let filteredArticles = articles
+
+      // 根據選中的關鍵字過濾文章
+      if (keywords.length > 0) {
+        filteredArticles = articles.filter((article) =>
+          keywords.includes(article.key_word_id.toString())
+        )
+      }
+
+      // 根據日期排序文章
+      return filteredArticles.sort((a, b) => {
+        const dateA = new Date(a.date)
+        const dateB = new Date(b.date)
+        if (order === 'asc') {
+          return dateA - dateB
+        } else {
+          return dateB - dateA
+        }
+      })
+    },
+    [articles]
+  )
+
+  // 更新過濾後的文章數據
   useEffect(() => {
-    console.log('Articles state:', articles)
+    const filtered = getFilteredAndSortedArticles(sortOrder, selectedKeywords)
+    setFilteredArticles(filtered)
+  }, [articles, selectedKeywords, sortOrder, getFilteredAndSortedArticles])
+
+  // 文章內容動畫效果
+  useEffect(() => {
     const contents = document.querySelectorAll('.content')
-
     contents.forEach((content, index) => {
       setTimeout(() => {
         content.classList.add('show')
       }, index * 300) // 每個元素延遲 300ms
     })
-  }, [articles])
+  }, [filteredArticles, currentPage])
 
+  // 截斷文章內容
   const truncateContent = (content, maxLength = 30) => {
     if (content.length > maxLength) {
       return content.substring(0, maxLength) + '...'
@@ -49,87 +110,148 @@ export default function NewsList() {
     return content
   }
 
+  // 滾動到頁面頂部
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  // 處理頁面點擊
+  const handlePageClick = (pageNumber) => {
+    setCurrentPage(pageNumber)
+    scrollToTop() // 切換頁面時回到頂部
+  }
+
+  // 重置選項
+  const handleReset = () => {
+    setSelectedKeywords([])
+    setSortOrder('desc')
+    getArticles('desc')
+  }
+
+  const totalPages = Math.ceil(filteredArticles.length / articlesPerPage)
+  const displayedCurrentPageArticles = filteredArticles.slice(
+    (currentPage - 1) * articlesPerPage,
+    currentPage * articlesPerPage
+  )
+
   return (
     <>
-      <div className="container-fluid">
-        <div className="position-relative">
-          <button className="btn btn-success back-btn">
-            <Link href="/">回上頁</Link>
-          </button>
-          <div className="row justify-content-center text-center keyword-title">
-            <div className="col-4">
-              <h1>關鍵字</h1>
+      <div className="newsListPage">
+        <div className="container-fluid">
+          <div className="position-relative">
+            <button className="btn btn-success back-btn">
+              <Link href="/">回上頁</Link>
+            </button>
+            <div className="row justify-content-center text-center keyword-title">
+              <div className="col-4">
+                <h1>所有文章</h1>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="container-fluid">
-        <div className="d-flex flex-wrap justify-content-center text-center hashtag text-nowrap">
-          <div className="col-lg-2 col-3 fs-4 keyword" data-value={1}>
-            #所有文件
-          </div>
-          <div className="col-lg-2 col-3 fs-4 keyword" data-value={2}>
-            #新菜消息
-          </div>
-          <div className="col-lg-2 col-3 fs-4 keyword" data-value={3}>
-            #節慶活動
+        <div className="container-fluid d-flex justify-content-center align-items-center ">
+          <div className="d-flex justify-content-between align-items-center text-center hashtag text-nowrap mb-3">
+            <button
+              className="btn btn-secondary resetBtn "
+              onClick={handleReset}
+            >
+              重置
+            </button>
+            {keywords.map((keyword) => (
+              <div key={keyword.id} className=" fs-4 keyword">
+                <input
+                  type="checkbox"
+                  value={keyword.id}
+                  onChange={handleKeywordChange}
+                  checked={selectedKeywords.includes(keyword.id.toString())}
+                />
+                {`${keyword.name}`}
+              </div>
+            ))}
+            <div className="d-flex justify-content-center align-items-center lxgw-wenkai-mono-tc-regular">
+              <div className="fs-5">日期:</div>
+              <div>
+                <select
+                  onChange={handleSortOrderChange}
+                  value={sortOrder}
+                  className="form-select fs-5"
+                >
+                  <option value="asc">從舊到新</option>
+                  <option value="desc">從新到舊</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="d-flex justify-content-center text-center hashtag text-nowrap">
-          <div className="col-lg-2 col-3 fs-4 keyword" data-value={4}>
-            #公休時間
-          </div>
-          <div className="col-lg-2 col-3 fs-4 keyword" data-value={5}>
-            #貓咪認養
-          </div>
-        </div>
-      </div>
-      <div className="container-fluid d-flex justify-content-center align-items-center">
-        <ul className="list-unstyled newsMaintain" id="news-list">
-          {articles.length > 0 ? (
-            articles.map((article) => (
-              <li key={article.a_id}>
-                <div className="content fade-in">
-                  <div className="w-25 my-2 text-secondary">{article.date}</div>
-                  <div className="w-50 fw-bolder my-2">{article.title}</div>
-                  <div className="d-flex justify-content-between position-relative">
-                    <div className="inside-content w-75 py-4">
-                      {truncateContent(article.content)}
+        <div className="container-fluid d-flex justify-content-center align-items-center">
+          <ul className="list-unstyled newsMaintain" id="news-list">
+            {displayedCurrentPageArticles.length > 0 ? (
+              displayedCurrentPageArticles.map((article) => (
+                <li key={article.a_id}>
+                  <div className="content fade-in">
+                    <div className="w-25 my-2 text-secondary">
+                      {article.date}
                     </div>
-                    <div className="position-absolute end-0 ">
-                      <Link href={`/mudanlow/news/${article.a_id}`}>
-                        <FontAwesomeIcon icon={faChevronRight} height={30} />
-                      </Link>
+                    <div className="w-50 fw-bolder my-2">{article.title}</div>
+                    <div className="d-flex justify-content-between position-relative">
+                      <div className="inside-content w-75 py-4">
+                        {truncateContent(article.content)}
+                      </div>
+                      <div className="position-absolute end-0">
+                        <Link href={`/mudanlow/news/${article.a_id}`}>
+                          <FontAwesomeIcon icon={faChevronRight} height={30} />
+                        </Link>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </li>
+              ))
+            ) : (
+              <li>無文章可顯示</li>
+            )}
+          </ul>
+        </div>
+        <div>
+          <ul className="pagination" id="pagination">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <li
+                key={index + 1}
+                className={`page-item ${
+                  currentPage === index + 1 ? 'active' : ''
+                }`}
+              >
+                <button
+                  className="page-link"
+                  onClick={() => handlePageClick(index + 1)}
+                >
+                  {index + 1}
+                </button>
               </li>
-            ))
-          ) : (
-            <li>無文章可顯示</li>
-          )}
-        </ul>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <button id="scrollToTopBtn" onClick={scrollToTop}>
+            回到頂部
+          </button>
+        </div>
       </div>
-      <nav aria-label="Page navigation">
-        <ul className="pagination" id="pagination">
-          <li className="page-item">
-            <a className="page-link" href="">
-              1
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <div>
-        <button id="scrollToTopBtn" onClick={scrollToTop}>
-          回到頂部
-        </button>
-      </div>
-
       <style jsx>{`
+        .resetBtn {
+          background-color: #465952;
+          font-family: 'LXGW WenKai Mono TC', monospace;
+          font-size: 20px;
+        }
+        .resetBtn:hover {
+          background-color: gray;
+        }
+        .newsListPage {
+          background-image: url('/pics/background2.png');
+          background-repeat: no-repeat;
+          background-size: cover;
+          height: 100%;
+        }
+
         .SlideMediaBox {
           background-color: cornflowerblue;
           text-align: center;
@@ -142,7 +264,11 @@ export default function NewsList() {
         }
 
         .hashtag {
-          margin-top: 30px;
+          width: 730px;
+          background-color: #e4e3e3;
+          padding: 5px 20px;
+          border-radius: 10px;
+          box-shadow: 3px 3px 7px gray;
         }
 
         .content {
@@ -184,6 +310,7 @@ export default function NewsList() {
           justify-content: center;
           list-style-type: none;
           padding: 0;
+          margin: 0;
         }
 
         .pagination li {
@@ -201,12 +328,12 @@ export default function NewsList() {
         }
 
         .page-link:hover {
-          background-color: #336e53;
+          background-color: #465952;
           color: #fff;
         }
 
         .page-item.active .page-link {
-          background-color: #458068;
+          background-color: #465952;
           border-color: #458068;
           color: #fff;
         }
@@ -234,6 +361,7 @@ export default function NewsList() {
           cursor: pointer;
           text-shadow: 1px 1px gray;
           font-weight: 900;
+          font-family: 'LXGW WenKai Mono TC', monospace;
         }
 
         .keyword-title {
@@ -288,6 +416,15 @@ export default function NewsList() {
             width: 700px;
             font-size: 18px;
           }
+        }
+
+        /*最新消息new-list(非首頁)列表顏色設置*/
+        .newsMaintain {
+          background-color: #e4e3e3;
+          border-radius: 10px;
+          box-shadow: 3px 3px 7px gray;
+          padding-left: 15px;
+          padding-right: 15px;
         }
       `}</style>
     </>
