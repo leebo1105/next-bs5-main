@@ -9,6 +9,9 @@ export default function FrontPageCarousel() {
   const cardsContainerRef = useRef(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const totalCards = 5
+  const [isDragging, setIsDragging] = useState(false)
+  const [startX, setStartX] = useState(0)
+  const [currentTranslate, setCurrentTranslate] = useState(0)
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % totalCards)
@@ -18,265 +21,66 @@ export default function FrontPageCarousel() {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + totalCards) % totalCards)
   }
 
+  const handleMouseDown = (e) => {
+    setIsDragging(true)
+    setStartX(e.clientX)
+  }
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return
+    const deltaX = e.clientX - startX
+    setCurrentTranslate(deltaX)
+  }
+
+  const handleMouseUp = () => {
+    if (!isDragging) return
+    if (currentTranslate > 50) {
+      handlePrev()
+    } else if (currentTranslate < -50) {
+      handleNext()
+    }
+    setIsDragging(false)
+    setCurrentTranslate(0)
+  }
+
   useEffect(() => {
     const cardsContainer = cardsContainerRef.current
 
     if (!cardsContainer) return
 
-    class DraggingEvent {
-      constructor(target = undefined) {
-        this.target = target
-      }
+    const radius = 200 // 圓柱體的半徑
+    const angle = (2 * Math.PI) / totalCards
 
-      event(callback) {
-        let handler
+    const cards = cardsContainer.querySelectorAll('.ImgCard')
 
-        this.target.addEventListener('mousedown', (e) => {
-          e.preventDefault()
+    cards.forEach((card, index) => {
+      const theta =
+        (index - currentIndex) * angle +
+        (currentTranslate / window.innerWidth) * angle
+      const x = radius * Math.sin(theta)
+      const z = radius * (Math.cos(theta) - 1) // 調整z軸位移，減少前後落差
+      const scale = 0.8 + 0.2 * Math.cos(theta) // 使縮放比例更平滑
 
-          handler = callback(e)
+      card.style.transform = `translateX(${x}px) translateZ(${z}px) scale(${scale})`
+      card.style.zIndex = Math.round(scale * 10)
+      card.style.opacity = scale
+      card.style.transition = isDragging ? 'none' : 'transform 0.5s ease-in-out'
+    })
 
-          window.addEventListener('mousemove', handler)
-          document.addEventListener('mouseleave', clearDraggingEvent)
-          window.addEventListener('mouseup', clearDraggingEvent)
-
-          function clearDraggingEvent() {
-            window.removeEventListener('mousemove', handler)
-            window.removeEventListener('mouseup', clearDraggingEvent)
-            document.removeEventListener('mouseleave', clearDraggingEvent)
-
-            handler(null)
-          }
-        })
-
-        this.target.addEventListener('touchstart', (e) => {
-          handler = callback(e)
-
-          window.addEventListener('touchmove', handler)
-          window.addEventListener('touchend', clearDraggingEvent)
-          document.body.addEventListener('mouseleave', clearDraggingEvent)
-
-          function clearDraggingEvent() {
-            window.removeEventListener('touchmove', handler)
-            window.removeEventListener('touchend', clearDraggingEvent)
-
-            handler(null)
-          }
-        })
-      }
-
-      getDistance(callback) {
-        const distanceInit = (e1) => {
-          let startingX, startingY
-
-          if ('touches' in e1) {
-            startingX = e1.touches[0].clientX
-            startingY = e1.touches[0].clientY
-          } else {
-            startingX = e1.clientX
-            startingY = e1.clientY
-          }
-
-          return (e2) => {
-            if (e2 === null) {
-              return callback(null)
-            } else {
-              if ('touches' in e2) {
-                return callback({
-                  x: e2.touches[0].clientX - startingX,
-                  y: e2.touches[0].clientY - startingY,
-                })
-              } else {
-                return callback({
-                  x: e2.clientX - startingX,
-                  y: e2.clientY - startingY,
-                })
-              }
-            }
-          }
-        }
-
-        this.event(distanceInit)
+    const handleMouseUpWindow = () => {
+      if (isDragging) {
+        handleMouseUp()
       }
     }
 
-    class CardCarousel extends DraggingEvent {
-      constructor(container) {
-        super(container)
-
-        this.container = container
-        this.cards = Array.from(container.querySelectorAll('.ImgCard'))
-
-        this.centerIndex = (this.cards.length - 1) / 2
-        this.cardWidth =
-          (this.cards[0].offsetWidth / this.container.offsetWidth) * 100
-        this.xScale = {}
-
-        window.addEventListener('resize', this.updateCardWidth.bind(this))
-
-        this.build()
-        super.getDistance(this.moveCards.bind(this))
-      }
-
-      updateCardWidth() {
-        this.cardWidth =
-          (this.cards[0].offsetWidth / this.container.offsetWidth) * 100
-        this.build()
-      }
-
-      build(fix = 0) {
-        this.cards.forEach((card, i) => {
-          const x = i - this.centerIndex
-          const scale = this.calcScale(x)
-          const scale2 = this.calcScale2(x)
-          const zIndex = -Math.abs(i - this.centerIndex)
-
-          const leftPos = this.calcPos(x, scale2)
-
-          this.xScale[x] = card
-
-          this.updateCards(card, {
-            x: x,
-            scale: scale,
-            leftPos: leftPos,
-            zIndex: zIndex,
-          })
-        })
-      }
-
-      calcPos(x, scale) {
-        let formula
-
-        if (x < 0) {
-          formula = (scale * 100 - this.cardWidth) / 2
-          return formula
-        } else if (x > 0) {
-          formula = 100 - (scale * 100 + this.cardWidth) / 2
-          return formula
-        } else {
-          formula = 100 - (scale * 100 + this.cardWidth) / 2
-          return formula
-        }
-      }
-
-      updateCards(card, data) {
-        if (data.x !== undefined) {
-          card.setAttribute('data-x', data.x)
-        }
-
-        if (data.scale !== undefined) {
-          card.style.transform = `scale(${data.scale})`
-
-          if (data.scale === 0) {
-            card.style.opacity = data.scale
-          } else {
-            card.style.opacity = 1
-          }
-        }
-
-        if (data.leftPos !== undefined) {
-          card.style.left = `${data.leftPos}%`
-        }
-
-        if (data.zIndex !== undefined) {
-          if (data.zIndex === 0) {
-            card.classList.add('highlight')
-          } else {
-            card.classList.remove('highlight')
-          }
-
-          card.style.zIndex = data.zIndex
-        }
-      }
-
-      calcScale2(x) {
-        let formula
-
-        if (x <= 0) {
-          formula = 1 - (-1 / 5) * x
-          return formula
-        } else if (x > 0) {
-          formula = 1 - (1 / 5) * x
-          return formula
-        }
-      }
-
-      calcScale(x) {
-        const formula = 1 - (1 / 5) * Math.pow(x, 2)
-
-        if (formula <= 0) {
-          return 0
-        } else {
-          return formula
-        }
-      }
-
-      checkOrdering(card, x, xDist) {
-        const original = parseInt(card.dataset.x)
-        const rounded = Math.round(xDist)
-        let newX = x
-
-        if (x !== x + rounded) {
-          if (x + rounded > original) {
-            if (x + rounded > this.centerIndex) {
-              newX =
-                x + rounded - 1 - this.centerIndex - rounded + -this.centerIndex
-            }
-          } else if (x + rounded < original) {
-            if (x + rounded < -this.centerIndex) {
-              newX =
-                x + rounded + 1 + this.centerIndex - rounded + this.centerIndex
-            }
-          }
-
-          this.xScale[newX + rounded] = card
-        }
-
-        const temp = -Math.abs(newX + rounded)
-
-        this.updateCards(card, { zIndex: temp })
-
-        return newX
-      }
-
-      moveCards(data) {
-        let xDist
-
-        if (data !== null) {
-          this.container.classList.remove('smooth-return')
-          xDist = data.x / 250
-        } else {
-          this.container.classList.add('smooth-return')
-          xDist = 0
-
-          for (let x in this.xScale) {
-            this.updateCards(this.xScale[x], {
-              x: x,
-              zIndex: Math.abs(Math.abs(x) - this.centerIndex),
-            })
-          }
-        }
-
-        this.cards.forEach((card, i) => {
-          const x = this.checkOrdering(card, parseInt(card.dataset.x), xDist)
-          const scale = this.calcScale(x + xDist)
-          const scale2 = this.calcScale2(x + xDist)
-          const leftPos = this.calcPos(x + xDist, scale2)
-
-          this.updateCards(card, {
-            scale: scale,
-            leftPos: leftPos,
-          })
-        })
-      }
-    }
-
-    const carousel = new CardCarousel(cardsContainer)
+    window.addEventListener('mouseup', handleMouseUpWindow)
+    window.addEventListener('mousemove', handleMouseMove)
 
     return () => {
-      // Clean-up
+      window.removeEventListener('mouseup', handleMouseUpWindow)
+      window.removeEventListener('mousemove', handleMouseMove)
     }
-  }, [])
+  }, [currentIndex, currentTranslate, isDragging])
 
   return (
     <section
@@ -297,6 +101,10 @@ export default function FrontPageCarousel() {
             <div
               ref={cardsContainerRef}
               className="cardCarousel d-flex justify-content-center position-relative"
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseUp}
             >
               <FontAwesomeIcon
                 icon={faChevronLeft}
@@ -310,9 +118,14 @@ export default function FrontPageCarousel() {
                   className={`ImgCard ${
                     index === currentIndex ? 'highlight' : ''
                   }`}
-                  id={index + 1}
                 >
-                  <div className="imageContainer"></div>
+                  <div className="imageContainer">
+                    <img
+                      src={`/images/carousel/${index + 1}.jpg`}
+                      alt={`Slide ${index + 1}`}
+                      className="carouselImage"
+                    />
+                  </div>
                   <button className="carouselBtn">查看菜單</button>
                 </div>
               ))}

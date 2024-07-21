@@ -91,7 +91,7 @@ export default function LoginForm() {
   return (
     <>
       <main
-        className={`form-member m-auto text-center d-flex justify-content-center`}
+        className={` my-5 m-auto text-center d-flex justify-content-center`}
       >
         <div className="memberLogin">
           <h2 className="text-center mb-5">會員登入</h2>

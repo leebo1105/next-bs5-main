@@ -14,6 +14,7 @@
 
 .messageBoard:hover {
   background-color: #465652;
+  color: #fff;
 }
 
 /* messageboard.module.scss */
@@ -54,14 +55,12 @@ input:checked ~ label .faStar {
 }
 
 .commentContent {
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 20px;
   /* 每條評論之間的間距 */
   background-color: white;
   color: black;
   border-radius: 10px;
-  height: 50px;
-  padding: 10px;
+  padding-left: 5px;
 }
 
 .commentStar {
@@ -73,17 +72,28 @@ input:checked ~ label .faStar {
 }
 
 .comments {
-  text-align: left;
-  /* 讓文字靠左對齊 */
-  margin-bottom: 20px;
-  /* 每條評論之間的間距 */
-  background-color: #465652;
-  border-radius: 20px;
-  color: black;
-  padding: 20px;
-  box-shadow: 10px 10px 20px black;
-  width: 300px;
-  font-family: 'LXGW WenKai Mono TC', monospace;
+  position: absolute;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.highlight {
+  transform: scale(1.2);
+  background-color: rgba(255, 0, 0, 0.7);
+  animation: highlightAnimation 1s ease-in-out;
+}
+
+@keyframes highlightAnimation {
+  from {
+    transform: scale(1.5);
+    background-color: rgba(255, 0, 0, 0.9);
+  }
+  to {
+    transform: scale(1.2);
+    background-color: rgba(255, 0, 0, 0.7);
+  }
 }
 
 .commentContent > .content {

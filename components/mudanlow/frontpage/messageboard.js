@@ -9,8 +9,8 @@ export default function MessageBoard() {
   const [formData, setFormData] = useState({ value: '', content: '' })
   const [comments, setComments] = useState([])
   const maxZIndex = 1
-  const maxHeight = 400 // 限制生成位置的最大高度
-  const minHeight = 100 // 限
+  const maxHeight = 400
+  const minHeight = 100
 
   const handleRatingChange = (e) => {
     setRating(Number(e.target.value))
@@ -37,7 +37,26 @@ export default function MessageBoard() {
         console.log(data)
         if (data.success) {
           alert('成功送出！')
+          const newComment = {
+            ...data.comment,
+            position: generateRandomPosition(),
+            zIndex: comments.length + 1,
+            highlight: true,
+          }
+          setComments([newComment, ...comments])
+          setFormData({ value: '', content: '' })
+          setRating(0)
           getComments()
+          // Remove highlight after animation
+          setTimeout(() => {
+            setComments((prevComments) =>
+              prevComments.map((comment) =>
+                comment.c_id === newComment.c_id
+                  ? { ...comment, highlight: false }
+                  : comment
+              )
+            )
+          }, 1000) // 動畫時間設為1秒
         } else {
           console.log('資料新增失敗')
         }
@@ -56,8 +75,7 @@ export default function MessageBoard() {
           const commentsWithPosition = data.comments.map((comment, index) => ({
             ...comment,
             position: generateRandomPosition(),
-            zIndex: Math.min(maxZIndex, data.comments.length - index), // 設定 z-index 並限制最大值
-            animationDuration: `${Math.random() * 30 + 30}s`, // 隨機動畫時間
+            zIndex: Math.min(maxZIndex, data.comments.length - index),
           }))
           setComments(commentsWithPosition)
         } else {
@@ -71,8 +89,8 @@ export default function MessageBoard() {
   }
 
   const generateRandomPosition = () => {
-    const top = Math.random() * (maxHeight - minHeight) + minHeight // 設定 top 的隨機範圍
-    const left = Math.random() * (window.innerWidth - 200) // 減去每個留言的寬度以防止超出視窗
+    const top = Math.random() * (maxHeight - minHeight) + minHeight
+    const left = Math.random() * (window.innerWidth - 200)
     return { top, left }
   }
 
@@ -83,8 +101,8 @@ export default function MessageBoard() {
   const handleDrop = (e) => {
     const index = e.dataTransfer.getData('text/plain')
     const newComments = [...comments]
-    const top = e.clientY - 50 // Adjust for element height
-    const left = e.clientX - 100 // Adjust for element width
+    const top = e.clientY - 50
+    const left = e.clientX - 100
     newComments[index].position = { top, left }
     setComments(newComments)
   }
@@ -166,18 +184,21 @@ export default function MessageBoard() {
         </div>
         {comments.map((comment, index) => (
           <div
-            className={`${styles.comments}`}
+            className={`${styles.comments} ${
+              comment.highlight ? styles.highlight : ''
+            }`}
             key={comment.c_id}
             draggable
             onDragStart={(e) => handleDragStart(e, index)}
             style={{
               top: comment.position.top,
               left: comment.position.left,
-              zIndex: comment.zIndex, // 設置 z-index
-              animationDuration: comment.animationDuration, // 設置隨機動畫時間
+              zIndex: comment.zIndex,
             }}
           >
-            <div className="text-light">編號: {comment.c_id}</div>
+            <div className="text-light text-center fs-5">
+              很棒!您是第{comment.c_id}號留言的人!
+            </div>
             <label className="text-light">評分:</label>
             <div className={`${styles.commentStar} text-center`}>
               {[1, 2, 3, 4, 5].map((i) => (

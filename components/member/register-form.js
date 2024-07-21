@@ -61,7 +61,7 @@ export default function RegisterForm() {
   return (
     <>
       <main
-        className={`w-100 m-auto text-center form-member d-flex justify-content-center`}
+        className={`my-5 m-auto text-center form-member d-flex justify-content-center`}
       >
         <div className="memberLogin">
           <h2 className="text-center mb-3">加入會員</h2>

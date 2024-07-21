@@ -252,107 +252,84 @@ section {
   background-size: cover;
 }
 
-/* 菜色介紹輪播圖 */
 .cardCarousel {
-  --card-width: 100%;
-  --card-max-width: 600px;
+  --card-width: 600px;
   --card-height: 400px;
-  --carousel-min-width: 300px;
   z-index: 0;
   position: relative;
   margin: 0 auto;
   width: 100%;
   height: var(--card-height);
-  min-width: var(--carousel-min-width);
+  perspective: 1000px;
   transition: filter 0.3s ease;
-}
-
-@media screen and (max-width: 640px) {
-  .cardCarousel {
-    margin-left: calc((100vw - var(--carousel-min-width) - 40px) / 2);
-  }
+  user-select: none; // 禁止選中文字
+  cursor: grab; // 提示用戶可以拖動
 }
 
 .cardCarousel.smoothReturn {
   transition: all 0.2s ease;
 }
 
-/* 輪播圖卡片 */
 .cardCarousel .ImgCard {
-  background: whitesmoke;
+  backdrop-filter: blur(10px);
   width: var(--card-width);
-  max-width: var(--card-max-width);
-  text-align: center;
-  padding: 2em;
-  min-width: 250px;
   height: var(--card-height);
+  text-align: center;
+  padding: 1em;
   position: absolute;
-  margin: 0 auto;
   color: rgba(0, 0, 0, 0.5);
-  transition: inherit;
-  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
   box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
   border-radius: 1em;
-  filter: brightness(0.9);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.ImgCard.highlight {
-  filter: brightness(1);
-}
-
-/* 輪播圖照片 */
-.ImgCard:nth-of-type(1) {
-  background-image: url('/images/mudanlow-小圖檔/DSC00596.jpg');
-  background-size: cover;
-  background-position: center;
-}
-
-.ImgCard:nth-of-type(2) {
-  background-image: url('/images/mudanlow-小圖檔/DSC00598.jpg');
-  background-size: cover;
-  background-position: center;
-}
-
-.ImgCard:nth-of-type(3) {
-  background-image: url('/images/mudanlow-小圖檔/DSC00578.jpg');
-  background-size: cover;
-  background-position: center;
-}
-
-.ImgCard:nth-of-type(4) {
-  background-image: url('/images/mudanlow-小圖檔/DSC00719.jpg');
-  background-size: cover;
-  background-position: center;
-}
-
-.ImgCard:nth-of-type(5) {
-  background-image: url('/images/mudanlow-小圖檔/DSC00626.jpg');
-  background-size: cover;
-  background-position: center;
+  transform-style: preserve-3d;
 }
 
 .imageContainer {
   width: 100%;
   height: 100%;
-  position: relative;
   background-size: cover;
   border-radius: 1em;
-  padding: 1em;
 }
 
-/* 輪播圖按鈕 */
-.carouselBtn {
-  padding: 1px 8px;
-  border-radius: 0.5em;
+.carouselImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cardCarousel:active {
+  cursor: grabbing; // 拖動時的鼠標樣式
+}
+
+.preBtn,
+.nextBtn {
   position: absolute;
-  bottom: 50px;
-  left: auto;
-  font-size: 18px;
+  top: 50%;
+  cursor: pointer;
+  z-index: 20;
+}
+
+.preBtn {
+  left: 0;
+}
+
+.nextBtn {
+  right: 0;
+}
+
+.carouselBtn {
+  position: absolute;
+  bottom: 30px;
+  background-color: #465952;
+  color: #ffffff;
+  font-size: 24px;
+  border-radius: 10px;
+  padding: 2px 4px;
+  cursor: pointer;
 }
 
 @keyframes moveLeftRight {
