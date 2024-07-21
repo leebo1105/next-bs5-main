@@ -98,7 +98,7 @@ export default function Profile() {
     <>
       <div className="container my-5">
         <MemberNavbar />
-        <Container fluid className="member-profile-container">
+        <Container fluid className="memberProfileContainer">
           <h2 className="text-center mb-4 mt-1">購物訂單</h2>
           {/* 顯示當前訂單 */}
           {purchaseOrders

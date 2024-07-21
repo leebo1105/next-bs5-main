@@ -175,109 +175,118 @@ export default function ReserveGet() {
       {loading && <Loader center content="我在努力中 > <" size="lg" backdrop />}
       {!loading && selectedReservationId === null && (
         <>
-          <Heading level={3} style={{ marginBlock: '15px' }}>
-            尚未完成的預約
-          </Heading>
-          <Table
-            height={400}
-            data={reservations}
-            rowKey="id"
-            expandedRowKeys={expandedRowKeys}
-            onRowClick={(rowData) => handleExpand(rowData)}
-            renderRowExpanded={renderRowExpanded}
-          >
-            <Column width={60} align="center" fixed>
-              <HeaderCell>
-                <ArrowDownLineIcon />
-              </HeaderCell>
-              <ExpandCell
-                dataKey="id"
-                expandedRowKeys={expandedRowKeys}
-                onChange={handleExpand}
-              />
-            </Column>
-            <Column width={80}>
-              <HeaderCell>會員ID</HeaderCell>
-              <Cell dataKey="member_id" />
-            </Column>
-            <Column width={80}>
-              <HeaderCell>姓名</HeaderCell>
-              <Cell dataKey="member_name" />
-            </Column>
-            <Column width={120}>
-              <HeaderCell>手機</HeaderCell>
-              <Cell dataKey="mobile" />
-            </Column>
-            <Column width={80}>
-              <HeaderCell>人數</HeaderCell>
-              <Cell dataKey="numberOfPeople" />
-            </Column>
-            <Column width={150}>
-              <HeaderCell>用餐方式</HeaderCell>
-              <Cell dataKey="menuSelect" />
-            </Column>
-            <Column width={150}>
-              <HeaderCell>日期</HeaderCell>
-              <Cell dataKey="selectedDate" />
-            </Column>
-            <Column width={100}>
-              <HeaderCell>時間</HeaderCell>
-              <Cell dataKey="selectedTime" />
-            </Column>
-            <Column width={150}>
-              <HeaderCell>桌型</HeaderCell>
-              <Cell dataKey="selectedTableType" />
-            </Column>
-            <Column width={200}>
-              <HeaderCell>您的備註</HeaderCell>
-              <Cell dataKey="textAreaInput" />
-            </Column>
-            <Column width={120} fixed="right">
-              <HeaderCell>修改</HeaderCell>
-              <Cell>
-                {(rowData) => (
-                  <FontAwesomeIcon
-                    icon={faPenToSquare}
-                    height={20}
-                    className={styles.faPenToSquare}
-                    onClick={() => handleEditClick(rowData.id)}
-                  />
-                )}
-              </Cell>
-            </Column>
-            <Column width={120} fixed="right">
-              <HeaderCell>刪除</HeaderCell>
-              <Cell>
-                {(rowData) => (
-                  <FontAwesomeIcon
-                    icon={faTrash}
-                    height={20}
-                    className={styles.faTrash}
-                    onClick={() => deleteReservation(rowData.id)}
-                  />
-                )}
-              </Cell>
-            </Column>
-            <Column width={120} fixed="right">
-              <HeaderCell>目前狀態</HeaderCell>
-              <Cell style={{ padding: '0px' }}>
-                {(rowData) => (
-                  <Button
-                    className={`${styles.PayButton}`}
-                    color={rowData.currentStep === 3 ? 'red' : 'green'}
-                    appearance="primary"
-                    size="sm"
-                    onClick={() =>
-                      rowData.currentStep !== 3 && handlePayClick(rowData)
-                    }
-                    disabled={rowData.currentStep === 2}
-                  >
-                    {rowData.currentStep === 3 ? '已結帳' : '前往結帳'}
-                  </Button>
-                )}
-              </Cell>
-            </Column>
-          </Table>
+          <div className="reservationPage">
+            <Heading level={3} style={{ marginBlock: '15px' }}>
+              尚未完成的預約
+            </Heading>
+            <Table
+              height={400}
+              data={reservations}
+              rowKey="id"
+              expandedRowKeys={expandedRowKeys}
+              onRowClick={(rowData) => handleExpand(rowData)}
+              renderRowExpanded={renderRowExpanded}
+            >
+              <Column width={60} align="center" fixed>
+                <HeaderCell>
+                  <ArrowDownLineIcon />
+                </HeaderCell>
+                <ExpandCell
+                  dataKey="id"
+                  expandedRowKeys={expandedRowKeys}
+                  onChange={handleExpand}
+                />
+              </Column>
+              <Column width={80}>
+                <HeaderCell>會員ID</HeaderCell>
+                <Cell dataKey="member_id" />
+              </Column>
+              <Column width={80}>
+                <HeaderCell>姓名</HeaderCell>
+                <Cell dataKey="member_name" />
+              </Column>
+              <Column width={120}>
+                <HeaderCell>手機</HeaderCell>
+                <Cell dataKey="mobile" />
+              </Column>
+              <Column width={80}>
+                <HeaderCell>人數</HeaderCell>
+                <Cell dataKey="numberOfPeople" />
+              </Column>
+              <Column width={150}>
+                <HeaderCell>用餐方式</HeaderCell>
+                <Cell dataKey="menuSelect" />
+              </Column>
+              <Column width={150}>
+                <HeaderCell>日期</HeaderCell>
+                <Cell dataKey="selectedDate" />
+              </Column>
+              <Column width={100}>
+                <HeaderCell>時間</HeaderCell>
+                <Cell dataKey="selectedTime" />
+              </Column>
+              <Column width={150}>
+                <HeaderCell>桌型</HeaderCell>
+                <Cell dataKey="selectedTableType" />
+              </Column>
+              <Column width={200}>
+                <HeaderCell>您的備註</HeaderCell>
+                <Cell dataKey="textAreaInput" />
+              </Column>
+              <Column width={120} fixed="right">
+                <HeaderCell>修改</HeaderCell>
+                <Cell>
+                  {(rowData) => (
+                    <FontAwesomeIcon
+                      icon={faPenToSquare}
+                      height={20}
+                      className={styles.faPenToSquare}
+                      onClick={() => handleEditClick(rowData.id)}
+                    />
+                  )}
+                </Cell>
+              </Column>
+              <Column width={120} fixed="right">
+                <HeaderCell>刪除</HeaderCell>
+                <Cell>
+                  {(rowData) => (
+                    <FontAwesomeIcon
+                      icon={faTrash}
+                      height={20}
+                      className={styles.faTrash}
+                      onClick={() => deleteReservation(rowData.id)}
+                    />
+                  )}
+                </Cell>
+              </Column>
+              <Column width={120} fixed="right">
+                <HeaderCell>目前狀態</HeaderCell>
+                <Cell style={{ padding: '0px' }}>
+                  {(rowData) => (
+                    <Button
+                      className={`${styles.PayButton}`}
+                      color={rowData.currentStep === 3 ? 'red' : 'green'}
+                      appearance="primary"
+                      size="sm"
+                      onClick={() =>
+                        rowData.currentStep !== 3 && handlePayClick(rowData)
+                      }
+                      disabled={rowData.currentStep === 2}
+                    >
+                      {rowData.currentStep === 3 ? '已結帳' : '前往結帳'}
+                    </Button>
+                  )}
+                </Cell>
+              </Column>
+            </Table>
+          </div>
+          <style jsx>{`
+            .reservationPage {
+              margin: 0 auto;
+              min-height: 60.2vh;
+              width: 80%;
+            }
+          `}</style>
         </>
       )}
       {selectedReservationId !== null && (

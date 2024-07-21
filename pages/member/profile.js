@@ -20,9 +20,6 @@ import MemberNavbar from '@/components/layout/default-layout/my-navbar/member-na
 import Card from 'react-bootstrap/Card'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import Navbar from '@/components/layout/mudanlow-layout/navbar'
-import Footer from '@/components/layout/mudanlow-layout/footer'
-import MudanlowLayout from '@/components/layout/mudanlow-layout'
 
 // 定義要在此頁呈現/編輯的會員資料初始物件
 const initUserProfile = {
@@ -171,7 +168,7 @@ export default function Profile() {
           className="container d-flex justify-content-center"
           style={{ margin: '0px', border: '0px' }}
         >
-          <Card className="shadow" style={{ width: '31rem' }}>
+          <Card className="shadow">
             <Card.Body>
               <h2 className="text-center mb-4">會員資料</h2>
 

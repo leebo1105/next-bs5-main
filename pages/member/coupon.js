@@ -119,7 +119,7 @@ export default function Coupon() {
     <>
       <div className="container cPage my-5">
         <MemberNavbar />
-        <Container fluid className="member-profile-container overflow-scroll">
+        <Container fluid className="couponProfileContainer">
           <h2 className="text-center mb-4 ">折價卷查詢</h2>
           <div className="row ">
             {coupons.length > 0 ? (
@@ -279,18 +279,21 @@ export default function Coupon() {
             margin-top: 8px;
           }
 
-          .member-profile-container {
-          height:50vh;
-            max-width: 31rem; 
-            margin: 0 auto; 
-            border:1px solid #ccc;
-            border-radius: 3px;
-              box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
-          }
+          
         }
 `}</style>
       <style jsx>
         {`
+          .couponProfileContainer {
+            max-width: 33.9rem;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            background-color: #fff;
+            overflow: hidden;
+          }
           .cPage {
             height: 100vh;
           }

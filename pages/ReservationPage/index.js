@@ -369,356 +369,367 @@ export default function ReservationPage() {
 
   return (
     <>
-      <div className="container">
-        {loading && (
-          <Loader center content="我在努力中 > <" size="lg" backdrop />
-        )}
-        {!loading && (
-          <>
-            <div style={{ display: 'flex', marginBlock: '20px' }}>
-              <div
-                style={{
-                  position: 'sticky',
-                  top: '50%',
-                  transform: 'translateY(35%)',
-                }}
-              >
-                <Steps current={currentStep} vertical size="large">
-                  <Steps.Item title="0%" description="五項未填寫" />
-                  <Steps.Item title="20%" description="四項未填寫" />
-                  <Steps.Item title="40%" description="三項未填寫" />
-                  <Steps.Item title="60%" description="二項未填寫" />
-                  <Steps.Item title="80%" description="一項未填寫" />
-                  <Steps.Item title="100%" description="可以送出囉" />
-                </Steps>
-              </div>
-              <main style={{ marginLeft: '5%' }}>
-                <section className="mb-4">
-                  <div className={`${styles.reservationPhoto}`}>
-                    <img
-                      src="/images/reserve/2.png"
-                      className="img-fluid"
-                      alt="..."
-                    />
-                  </div>
-                </section>
-                <div className={`${styles.numberouter}`}>
-                  <div>
-                    <i className="bi bi-person-fill">預約人數: </i>
-                    <span id="peoplecount">{numberOfPeople}</span>
-                  </div>
+      <div className="reservationPage">
+        <div className="container">
+          {loading && (
+            <Loader center content="我在努力中 > <" size="lg" backdrop />
+          )}
+          {!loading && (
+            <>
+              <div style={{ display: 'flex', marginBlock: '20px' }}>
+                <div
+                  style={{
+                    position: 'sticky',
+                    top: '50%',
+                    transform: 'translateY(35%)',
+                  }}
+                >
+                  <Steps current={currentStep} vertical size="large">
+                    <Steps.Item title="0%" description="五項未填寫" />
+                    <Steps.Item title="20%" description="四項未填寫" />
+                    <Steps.Item title="40%" description="三項未填寫" />
+                    <Steps.Item title="60%" description="二項未填寫" />
+                    <Steps.Item title="80%" description="一項未填寫" />
+                    <Steps.Item title="100%" description="可以送出囉" />
+                  </Steps>
                 </div>
-                <div className={`${styles.numberdiv}`}>
-                  {/* 更改為圓形 取消預設樣式 flex */}
-                  {/* 透過map更新1~12的圈圈，點擊事件後更改狀態為avtive，再將number更新狀態後一併顯示在peoplecount欄位 */}
-                  <ul className={`${styles.number}`}>
-                    {numbers.map((number) => (
-                      <li
-                        key={number.id}
-                        className={
-                          numberOfPeopleId === number.id ? styles.active : ''
-                        }
-                        onClick={() => handleNumberClick(number)}
-                        numberid={number.id}
-                      >
-                        {number.type}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                {/* 加入上下border flex between */}
-                <div className="d-flex justify-content-around border-bottom border-top mb-3">
-                  <div className="p-2" id="selectedDate">
-                    選擇的日期:{selectedDate}
-                  </div>
-                  <div className="p-2" id="selectedMethod">
-                    選擇的用餐方式:{menuSelect}
-                  </div>
-                  <div className="p-2" id="selectedDate">
-                    選擇的時間: {selectedTime}
-                  </div>
-                </div>
-                <div className={`${styles.central}`}>
-                  <div
-                    className={`d-flex flex-column mb-3 ${styles.leftButton}`}
-                  >
-                    <button
-                      type="button"
-                      className={`btn btn-light p-3 mb-3 ${
-                        selectedDate &&
-                        moment(selectedDate).isSame(moment(), 'day')
-                          ? styles.active
-                          : ''
-                      }`}
-                      onClick={handleTodayClick}
-                    >
-                      今天
-                    </button>
-                    <button
-                      type="button"
-                      className={`btn btn-light p-3 mb-3 ${
-                        selectedDate &&
-                        moment(selectedDate).isSame(
-                          moment().add(1, 'days'),
-                          'day'
-                        )
-                          ? styles.active
-                          : ''
-                      }`}
-                      onClick={handleTomorrowClick}
-                    >
-                      明天
-                    </button>
-                    <label htmlFor="reservationDateTime">選擇預約日期:</label>
-                    <button
-                      type="button"
-                      className={`btn btn-light p-3 mb-3 DateTimebutton ${
-                        isOpen ? styles.active : ''
-                      }`}
-                      onClick={handleButtonClick}
-                    >
-                      選擇預約日期：<i className="bi bi-calendar-date-fill"></i>
-                    </button>
-                    <form action="" onSubmit={handleSubmit(onSubmit)}>
-                      <label htmlFor="reservationDateTime" />
-                      {isOpen && (
-                        <DatePicker
-                          selected={selectedDate}
-                          onChange={handleDateChange}
-                          dateFormat="yyyy-MM-dd"
-                          inline
-                        />
-                      )}
-                    </form>
-                  </div>
-                  <div
-                    className={`d-flex flex-column mb-3 mt-3 ${styles.rightSelect}`}
-                  >
+                <main style={{ marginLeft: '5%' }}>
+                  <section className="mb-4">
+                    <div className={`${styles.reservationPhoto}`}>
+                      <img
+                        src="/images/reserve/2.png"
+                        className="img-fluid"
+                        alt="..."
+                      />
+                    </div>
+                  </section>
+                  <div className={`${styles.numberouter}`}>
                     <div>
-                      <form
-                        method="post"
-                        action=""
-                        onSubmit={handleSubmit(onSubmit)}
-                      >
-                        <select
-                          id="menuSelect"
-                          name="menuSelect"
-                          className={`form-select mt-4 mb-3 `}
-                          aria-label="Default select example"
-                          value={menuSelect}
-                          onChange={handleMenuChange}
-                          required
+                      <i className="bi bi-person-fill">預約人數: </i>
+                      <span id="peoplecount">{numberOfPeople}</span>
+                    </div>
+                  </div>
+                  <div className={`${styles.numberdiv}`}>
+                    {/* 更改為圓形 取消預設樣式 flex */}
+                    {/* 透過map更新1~12的圈圈，點擊事件後更改狀態為avtive，再將number更新狀態後一併顯示在peoplecount欄位 */}
+                    <ul className={`${styles.number}`}>
+                      {numbers.map((number) => (
+                        <li
+                          key={number.id}
+                          className={
+                            numberOfPeopleId === number.id ? styles.active : ''
+                          }
+                          onClick={() => handleNumberClick(number)}
+                          numberid={number.id}
                         >
-                          <option selected disabled>
-                            請選擇用餐方式(必選)
-                          </option>
-                          <option value="現場單點">現場單點</option>
-                          <option value="合菜料理">合菜料理</option>
-                          <option value="無菜單料理">無菜單料理</option>
-                        </select>
-                        {errors.menuSelect && (
-                          <p className="text-danger">請選擇用餐方式(必選)</p>
+                          {number.type}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  {/* 加入上下border flex between */}
+                  <div className="d-flex justify-content-around border-bottom border-top mb-3">
+                    <div className="p-2" id="selectedDate">
+                      選擇的日期:{selectedDate}
+                    </div>
+                    <div className="p-2" id="selectedMethod">
+                      選擇的用餐方式:{menuSelect}
+                    </div>
+                    <div className="p-2" id="selectedDate">
+                      選擇的時間: {selectedTime}
+                    </div>
+                  </div>
+                  <div className={`${styles.central}`}>
+                    <div
+                      className={`d-flex flex-column mb-3 ${styles.leftButton}`}
+                    >
+                      <button
+                        type="button"
+                        className={`btn btn-light p-3 mb-3 ${
+                          selectedDate &&
+                          moment(selectedDate).isSame(moment(), 'day')
+                            ? styles.active
+                            : ''
+                        }`}
+                        onClick={handleTodayClick}
+                      >
+                        今天
+                      </button>
+                      <button
+                        type="button"
+                        className={`btn btn-light p-3 mb-3 ${
+                          selectedDate &&
+                          moment(selectedDate).isSame(
+                            moment().add(1, 'days'),
+                            'day'
+                          )
+                            ? styles.active
+                            : ''
+                        }`}
+                        onClick={handleTomorrowClick}
+                      >
+                        明天
+                      </button>
+                      <label htmlFor="reservationDateTime">選擇預約日期:</label>
+                      <button
+                        type="button"
+                        className={`btn btn-light p-3 mb-3 DateTimebutton ${
+                          isOpen ? styles.active : ''
+                        }`}
+                        onClick={handleButtonClick}
+                      >
+                        選擇預約日期：
+                        <i className="bi bi-calendar-date-fill"></i>
+                      </button>
+                      <form action="" onSubmit={handleSubmit(onSubmit)}>
+                        <label htmlFor="reservationDateTime" />
+                        {isOpen && (
+                          <DatePicker
+                            selected={selectedDate}
+                            onChange={handleDateChange}
+                            dateFormat="yyyy-MM-dd"
+                            inline
+                          />
                         )}
                       </form>
                     </div>
-                    {/* 上下箭頭排列為上跟下 */}
-                    {/* <i className="bi bi-chevron-up"></i>
-              <i className="bi bi-chevron-down"></i> */}
-                    <div>
-                      <form
-                        method="post"
-                        action="連線傳送資料.php"
-                        onSubmit={handleSubmit(onSubmit)}
-                      >
-                        <select
-                          id="timeSelect"
-                          name="timeSelect"
-                          className={`form-select mb-3 mt-3`}
-                          aria-label="Large select example"
-                          //這裡偷偷使用可控表單 value綁定狀態+onChange事件
-                          value={selectedTime}
-                          onChange={handleTimeChange}
-                          required
+                    <div
+                      className={`d-flex flex-column mb-3 mt-3 ${styles.rightSelect}`}
+                    >
+                      <div>
+                        <form
+                          method="post"
+                          action=""
+                          onSubmit={handleSubmit(onSubmit)}
                         >
-                          <option selected disabled>
-                            請選擇時間(必選)
-                          </option>
-                          {/* 使用 .map() 方法生成選項 */}
-                          {times.map((time, index) => (
-                            <option key={index} value={time.value}>
-                              {time.label}
+                          <select
+                            id="menuSelect"
+                            name="menuSelect"
+                            className={`form-select mt-4 mb-3 `}
+                            aria-label="Default select example"
+                            value={menuSelect}
+                            onChange={handleMenuChange}
+                            required
+                          >
+                            <option selected disabled>
+                              請選擇用餐方式(必選)
                             </option>
-                          ))}
-                        </select>
-                        {errors.menuSelect && (
-                          <p className="text-danger">請選擇時間(必選)</p>
-                        )}
-                      </form>
+                            <option value="現場單點">現場單點</option>
+                            <option value="合菜料理">合菜料理</option>
+                            <option value="無菜單料理">無菜單料理</option>
+                          </select>
+                          {errors.menuSelect && (
+                            <p className="text-danger">請選擇用餐方式(必選)</p>
+                          )}
+                        </form>
+                      </div>
+                      {/* 上下箭頭排列為上跟下 */}
+                      {/* <i className="bi bi-chevron-up"></i>
+              <i className="bi bi-chevron-down"></i> */}
+                      <div>
+                        <form
+                          method="post"
+                          action="連線傳送資料.php"
+                          onSubmit={handleSubmit(onSubmit)}
+                        >
+                          <select
+                            id="timeSelect"
+                            name="timeSelect"
+                            className={`form-select mb-3 mt-3`}
+                            aria-label="Large select example"
+                            //這裡偷偷使用可控表單 value綁定狀態+onChange事件
+                            value={selectedTime}
+                            onChange={handleTimeChange}
+                            required
+                          >
+                            <option selected disabled>
+                              請選擇時間(必選)
+                            </option>
+                            {/* 使用 .map() 方法生成選項 */}
+                            {times.map((time, index) => (
+                              <option key={index} value={time.value}>
+                                {time.label}
+                              </option>
+                            ))}
+                          </select>
+                          {errors.menuSelect && (
+                            <p className="text-danger">請選擇時間(必選)</p>
+                          )}
+                        </form>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className={`${styles.tablesouter}`}>
-                  <div>
-                    <i className="bi bi-house-door">桌型: </i>
-                    <span id="numbercount">{selectedTableType}</span>
+                  <div className={`${styles.tablesouter}`}>
+                    <div>
+                      <i className="bi bi-house-door">桌型: </i>
+                      <span id="numbercount">{selectedTableType}</span>
+                    </div>
                   </div>
-                </div>
-                <div className={`${styles.tablesdiv}`}>
-                  {/* 更改為圓形 取消預設樣式 flex */}
-                  <ul className={styles.tablesChairs}>
-                    {tables.map((table) => (
-                      <li
-                        key={table.id}
-                        className={
-                          tableSelect === table.id ? styles.active : ''
-                        }
-                        onClick={() => handleTableClick(table.id, table.type)}
-                        tableid={table.id}
+                  <div className={`${styles.tablesdiv}`}>
+                    {/* 更改為圓形 取消預設樣式 flex */}
+                    <ul className={styles.tablesChairs}>
+                      {tables.map((table) => (
+                        <li
+                          key={table.id}
+                          className={
+                            tableSelect === table.id ? styles.active : ''
+                          }
+                          onClick={() => handleTableClick(table.id, table.type)}
+                          tableid={table.id}
+                        >
+                          {table.type}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className={`${styles.reservetextarea}`}>
+                    <span>
+                      <i className="bi bi-pencil-square">備註:</i>
+                    </span>
+                    <div className="form-floating py-2 ">
+                      <textarea
+                        className="form-control"
+                        placeholder="Leave a comment here"
+                        id="floatingTextarea2"
+                        style={{ height: '100px' }}
+                        onChange={handleTextAreaInput}
+                      ></textarea>
+                      <label htmlFor="floatingTextarea2">
+                        留下任何你想說的~
+                      </label>
+                    </div>
+                    {/* 加入按鈕外框線 */}
+                    <div className={`${styles.confirmButtondiv}`}>
+                      <button
+                        type="submit"
+                        id="confirmButton"
+                        className="btn btn-warning shadow mb-3 mt-3 px-5"
+                        onClick={handleConfirmButtonClick}
+                        disabled={isButtonDisabled} // 根據狀態控制按鈕禁用
+                        //以isButtonDisabled為基礎使用三元判斷式自動切換顏色
+                        style={{
+                          background: isButtonDisabled
+                            ? 'linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(231, 175, 47, 1))'
+                            : 'yellow',
+                          color: 'black',
+                        }}
                       >
-                        {table.type}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className={`${styles.reservetextarea}`}>
-                  <span>
-                    <i className="bi bi-pencil-square">備註:</i>
-                  </span>
-                  <div className="form-floating py-2 ">
-                    <textarea
-                      className="form-control"
-                      placeholder="Leave a comment here"
-                      id="floatingTextarea2"
-                      style={{ height: '100px' }}
-                      onChange={handleTextAreaInput}
-                    ></textarea>
-                    <label htmlFor="floatingTextarea2">留下任何你想說的~</label>
-                  </div>
-                  {/* 加入按鈕外框線 */}
-                  <div className={`${styles.confirmButtondiv}`}>
-                    <button
-                      type="submit"
-                      id="confirmButton"
-                      className="btn btn-warning shadow mb-3 mt-3 px-5"
-                      onClick={handleConfirmButtonClick}
-                      disabled={isButtonDisabled} // 根據狀態控制按鈕禁用
-                      //以isButtonDisabled為基礎使用三元判斷式自動切換顏色
-                      style={{
-                        background: isButtonDisabled
-                          ? 'linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(231, 175, 47, 1))'
-                          : 'yellow',
-                        color: 'black',
-                      }}
-                    >
-                      {/* 以isButtonDisabled為基礎使用三元判斷式自動切換文字內容 */}
-                      {isButtonDisabled ? '尚未填寫完成' : '送出'}
-                    </button>
-                  </div>
-                </div>
-              </main>
-              {/* 毛玻璃背景 */}
-              {overLayVisible && (
-                <div id="overlay" className={`${styles.overlay}`}></div>
-              )}
-              {/* 使用邏輯運算符號與whiteSquareVisible狀態來決定是否開啟確認方塊 */}
-              {whiteSquareVisible && (
-                <div id="whiteSquare" className={`${styles.square3}`}>
-                  <h4 className="text-center mt-3">確認您的預約資訊</h4>
-                  <div className="d-flex justify-content-between">
-                    <div className="lh-lg mx-3">
-                      桌型:
-                      <br />
-                      人數:
-                      <br />
-                      日期:
-                      <br />
-                      時間:
-                      <br />
-                      用餐方式:
-                      <br />
-                      備註:
-                    </div>
-                    <div className="lh-lg mx-3">
-                      <span id="text1">{selectedTableType}</span>
-                      <br />
-                      <span id="text2">{numberOfPeople}</span>
-                      <br />
-                      <span id="text3">{selectedDate}</span>
-                      <br />
-                      <span id="text4">{selectedTime}</span>
-                      <br />
-                      <span id="text5">{menuSelect}</span>
-                      <br />
-                      <span id="text6">{textAreaInput}</span>
+                        {/* 以isButtonDisabled為基礎使用三元判斷式自動切換文字內容 */}
+                        {isButtonDisabled ? '尚未填寫完成' : '送出'}
+                      </button>
                     </div>
                   </div>
-                  <div className="d-flex flex-column mb-3">
-                    <button
-                      type="submit"
-                      id="submitButton"
-                      className="btn btn-warning w-50 mx-auto my-2"
-                      onClick={handleSubmitButtonClick}
-                    >
-                      確認送出
-                    </button>
-                    <button
-                      type="button"
-                      id="returnButton"
-                      className="btn btn-light w-50 mx-auto  returnButton"
-                      onClick={handleReturnButtonClick}
-                    >
-                      上一頁
-                    </button>
-                  </div>
-                </div>
-              )}
-              {/* 白色正方形區塊2 */}
-              {whiteSquareVisible2 && (
-                <div id="whiteSquare2" className={`${styles.square3}`}>
-                  <h4 className="text-center mt-3">預約成功</h4>
-                  <div className="d-flex justify-content-between">
-                    <div className="lh-lg mx-3">
-                      桌型:
-                      <br />
-                      人數:
-                      <br />
-                      日期:
-                      <br />
-                      時間:
-                      <br />
-                      用餐方式:
-                      <br />
-                      備註:
+                </main>
+                {/* 毛玻璃背景 */}
+                {overLayVisible && (
+                  <div id="overlay" className={`${styles.overlay}`}></div>
+                )}
+                {/* 使用邏輯運算符號與whiteSquareVisible狀態來決定是否開啟確認方塊 */}
+                {whiteSquareVisible && (
+                  <div id="whiteSquare" className={`${styles.square3}`}>
+                    <h4 className="text-center mt-3">確認您的預約資訊</h4>
+                    <div className="d-flex justify-content-between">
+                      <div className="lh-lg mx-3">
+                        桌型:
+                        <br />
+                        人數:
+                        <br />
+                        日期:
+                        <br />
+                        時間:
+                        <br />
+                        用餐方式:
+                        <br />
+                        備註:
+                      </div>
+                      <div className="lh-lg mx-3">
+                        <span id="text1">{selectedTableType}</span>
+                        <br />
+                        <span id="text2">{numberOfPeople}</span>
+                        <br />
+                        <span id="text3">{selectedDate}</span>
+                        <br />
+                        <span id="text4">{selectedTime}</span>
+                        <br />
+                        <span id="text5">{menuSelect}</span>
+                        <br />
+                        <span id="text6">{textAreaInput}</span>
+                      </div>
                     </div>
-                    <div className="lh-lg mx-3">
-                      <span id="text7">{selectedTableType}</span>
-                      <br />
-                      <span id="text8">{numberOfPeople}</span>
-                      <br />
-                      <span id="text9">{selectedDate}</span>
-                      <br />
-                      <span id="text10">{selectedTime}</span>
-                      <br />
-                      <span id="text11">{menuSelect}</span>
-                      <br />
-                      <span id="text12">{textAreaInput}</span>
+                    <div className="d-flex flex-column mb-3">
+                      <button
+                        type="submit"
+                        id="submitButton"
+                        className="btn btn-warning w-50 mx-auto my-2"
+                        onClick={handleSubmitButtonClick}
+                      >
+                        確認送出
+                      </button>
+                      <button
+                        type="button"
+                        id="returnButton"
+                        className="btn btn-light w-50 mx-auto  returnButton"
+                        onClick={handleReturnButtonClick}
+                      >
+                        上一頁
+                      </button>
                     </div>
                   </div>
-                  <div className="d-flex flex-column mb-3">
-                    <button
-                      type="button"
-                      id="returnHomeButton"
-                      className={`btn btn-warning w-50 mx-auto mt-3 ${styles.returnHomeButton}`}
-                    >
-                      <Link href="/ReservationRules">返回首頁</Link>
-                    </button>
+                )}
+                {/* 白色正方形區塊2 */}
+                {whiteSquareVisible2 && (
+                  <div id="whiteSquare2" className={`${styles.square3}`}>
+                    <h4 className="text-center mt-3">預約成功</h4>
+                    <div className="d-flex justify-content-between">
+                      <div className="lh-lg mx-3">
+                        桌型:
+                        <br />
+                        人數:
+                        <br />
+                        日期:
+                        <br />
+                        時間:
+                        <br />
+                        用餐方式:
+                        <br />
+                        備註:
+                      </div>
+                      <div className="lh-lg mx-3">
+                        <span id="text7">{selectedTableType}</span>
+                        <br />
+                        <span id="text8">{numberOfPeople}</span>
+                        <br />
+                        <span id="text9">{selectedDate}</span>
+                        <br />
+                        <span id="text10">{selectedTime}</span>
+                        <br />
+                        <span id="text11">{menuSelect}</span>
+                        <br />
+                        <span id="text12">{textAreaInput}</span>
+                      </div>
+                    </div>
+                    <div className="d-flex flex-column mb-3">
+                      <button
+                        type="button"
+                        id="returnHomeButton"
+                        className={`btn btn-warning w-50 mx-auto mt-3 ${styles.returnHomeButton}`}
+                      >
+                        <Link href="/ReservationRules">返回首頁</Link>
+                      </button>
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-          </>
-        )}
+                )}
+              </div>
+            </>
+          )}
+        </div>
       </div>
+      <style jsx>{`
+        .reservationPage {
+          margin: 0 auto;
+          min-height: 100vh;
+        }
+      `}</style>
     </>
   )
 }

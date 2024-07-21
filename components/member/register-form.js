@@ -60,96 +60,99 @@ export default function RegisterForm() {
 
   return (
     <>
-      <main className={`w-100 m-auto text-center form-member`}>
-        <h2 className="text-center mb-3">加入會員</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="row mb-3">
-            <div className="col-sm-6">
-              <input
-                type="text"
-                name="name"
-                className={`form-control `}
-                placeholder="姓名"
-                value={user.name}
-                onChange={handleFieldChange}
-              />
-            </div>
-          </div>
-          <div className="row mb-3">
-            <div className="col-sm-12">
-              <input
-                type="text"
-                name="username"
-                className={`form-control w-100 ${styles['form-control']} `}
-                placeholder="帳號"
-                value={user.username}
-                onChange={handleFieldChange}
-              />
-            </div>
-          </div>
-          <div className="row mb-3">
-            <div className="col-sm-12">
-              <input
-                type="password"
-                name="password"
-                className={`form-control w-100  `}
-                value={user.password}
-                onChange={handleFieldChange}
-                placeholder="密碼"
-              />
-            </div>
-          </div>
-          <div className="row mb-3">
-            <div className="col-sm-12">
-              <input
-                type="text"
-                name="phone"
-                className={`form-control w-100  `}
-                value={user.phone}
-                onChange={handleFieldChange}
-                maxLength={10}
-                placeholder="手機號碼"
-              />
-            </div>
-          </div>
-
-          <div className="row mb-3">
-            <div className="col-sm-12">
-              <input
-                type="text"
-                name="email"
-                className={`form-control w-100 `}
-                placeholder="電子郵件地址"
-                value={user.email}
-                onChange={handleFieldChange}
-              />
-            </div>
-          </div>
-
-          <div className="row mb-3">
-            <div className="col-sm-12">
-              <div className="input-group position-relative d-inline-flex align-items-center">
-                <InputDatePicker
-                  showDatepicker={showDatepicker}
-                  setFormat="yyyy-mm-dd"
-                  showFormat="yyyy/mm/dd"
-                  setDate={handleDateSelection}
-                  className={`form-control w-100 ${styles['form-control']} `}
-                  style={{
-                    borderRadius: 2.8,
-                  }}
-                  placeholder="出生年月日"
+      <main
+        className={`w-100 m-auto text-center form-member d-flex justify-content-center`}
+      >
+        <div className="memberLogin">
+          <h2 className="text-center mb-3">加入會員</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="row mb-3">
+              <div className="col-sm-6">
+                <input
+                  type="text"
+                  name="name"
+                  className={`form-control `}
+                  placeholder="姓名"
+                  value={user.name}
+                  onChange={handleFieldChange}
                 />
-                <i
-                  className="bi bi-calendar4 position-absolute"
-                  role="presentation"
-                  style={{ right: 10, cursor: 'pointer', zIndex: 100 }}
-                  onClick={() => setShowDatepicker(!showDatepicker)}
-                ></i>
               </div>
             </div>
-          </div>
-          {/* <div className="row mb-3">
+            <div className="row mb-3">
+              <div className="col-sm-12">
+                <input
+                  type="text"
+                  name="username"
+                  className={`form-control w-100 ${styles['form-control']} `}
+                  placeholder="帳號"
+                  value={user.username}
+                  onChange={handleFieldChange}
+                />
+              </div>
+            </div>
+            <div className="row mb-3">
+              <div className="col-sm-12">
+                <input
+                  type="password"
+                  name="password"
+                  className={`form-control w-100  `}
+                  value={user.password}
+                  onChange={handleFieldChange}
+                  placeholder="密碼"
+                />
+              </div>
+            </div>
+            <div className="row mb-3">
+              <div className="col-sm-12">
+                <input
+                  type="text"
+                  name="phone"
+                  className={`form-control w-100  `}
+                  value={user.phone}
+                  onChange={handleFieldChange}
+                  maxLength={10}
+                  placeholder="手機號碼"
+                />
+              </div>
+            </div>
+
+            <div className="row mb-3">
+              <div className="col-sm-12">
+                <input
+                  type="text"
+                  name="email"
+                  className={`form-control w-100 `}
+                  placeholder="電子郵件地址"
+                  value={user.email}
+                  onChange={handleFieldChange}
+                />
+              </div>
+            </div>
+
+            <div className="row mb-3">
+              <div className="col-sm-12">
+                <div className="input-group position-relative d-inline-flex align-items-center">
+                  <InputDatePicker
+                    showDatepicker={showDatepicker}
+                    setFormat="yyyy-mm-dd"
+                    showFormat="yyyy/mm/dd"
+                    setDate={handleDateSelection}
+                    className={`form-control w-100 ${styles['form-control']} `}
+                    style={{
+                      borderRadius: 2.8,
+                    }}
+                    placeholder="出生年月日"
+                  />
+                  <i
+                    className="bi bi-calendar4 position-absolute"
+                    role="presentation"
+                    style={{ right: 10, cursor: 'pointer', zIndex: 100 }}
+                    onClick={() => setShowDatepicker(!showDatepicker)}
+                  ></i>
+                </div>
+              </div>
+            </div>
+            {/* <div className="row mb-3">
             <div className={`col-sm-12" ${styles['label-left']}`}>
               <label htmlFor="country" className="form-label">
                 國家/地區
@@ -162,69 +165,87 @@ export default function RegisterForm() {
               </select>
             </div>
           </div> */}
-          <div className="row mb-3">
-            <div className="btn-group">
-              <input
-                type="radio"
-                className="btn-check"
-                name="sex"
-                id="option1"
-                autoComplete="off"
-                value="男"
-                checked={user.sex === '男'}
-                onChange={handleFieldChange}
-              />
-              <label className="btn btn-outline-primary" htmlFor="option1">
-                男
-              </label>
-              <input
-                type="radio"
-                className="btn-check"
-                name="sex"
-                id="option2"
-                autoComplete="off"
-                value="女"
-                checked={user.sex === '女'}
-                onChange={handleFieldChange}
-              />
-              <label className="btn btn-outline-primary" htmlFor="option2">
-                女
-              </label>
+            <div className="row mb-3">
+              <div className="btn-group">
+                <input
+                  type="radio"
+                  className="btn-check"
+                  name="sex"
+                  id="option1"
+                  autoComplete="off"
+                  value="男"
+                  checked={user.sex === '男'}
+                  onChange={handleFieldChange}
+                />
+                <label className="btn btn-outline-primary" htmlFor="option1">
+                  男
+                </label>
+                <input
+                  type="radio"
+                  className="btn-check"
+                  name="sex"
+                  id="option2"
+                  autoComplete="off"
+                  value="女"
+                  checked={user.sex === '女'}
+                  onChange={handleFieldChange}
+                />
+                <label className="btn btn-outline-primary" htmlFor="option2">
+                  女
+                </label>
+              </div>
             </div>
-          </div>
 
-          <div className="row mb-2"></div>
-          <button type="submit" className="btn btn-primary w-100">
-            加入
-          </button>
-          <br />
-          <button
-            className="btn btn-primary w-100 mt-2"
-            type="button"
-            onClick={() => {
-              // 測試帳號 herry/11111
-              setUser({
-                name: 'apple',
-                email: 'ron@test.com',
-                username: 'asd123456',
-                password: '11111',
-                sex: '男',
-                birth_date: '1999-01-11',
-                phone: '0962033555',
-              })
-            }}
-          >
-            一鍵輸入範例
-          </button>
-          <div className="row mt-2">
-            <p className={`${styles['notice']}`}>
-              已經是會員了嗎？ <Link href="/member/login">登入</Link>。
-            </p>
-          </div>
-        </form>
+            <div className="row mb-2"></div>
+            <button type="submit" className="btn btn-primary w-100">
+              加入
+            </button>
+            <br />
+            <button
+              className="btn btn-primary w-100 mt-2"
+              type="button"
+              onClick={() => {
+                // 測試帳號 herry/11111
+                setUser({
+                  name: 'apple',
+                  email: 'ron@test.com',
+                  username: 'asd123456',
+                  password: '11111',
+                  sex: '男',
+                  birth_date: '1999-01-11',
+                  phone: '0962033555',
+                })
+              }}
+            >
+              一鍵輸入範例
+            </button>
+            <div className="row mt-2">
+              <p className={`${styles['notice']}`}>
+                已經是會員了嗎？ <Link href="/member/login">登入</Link>。
+              </p>
+            </div>
+          </form>
+        </div>
         {/* 土司訊息視窗用 */}
         <Toaster />
       </main>
+      <style jsx>{`
+        .memberLogin {
+          backdrop-filter: blur(100px);
+          padding: 20px 20px;
+          color: #000;
+          box-shadow: 5px 5px 10px rgb(0, 0, 0);
+          z-index: 2;
+          transition: 1s;
+          font-family: 'LXGW WenKai Mono TC', monospace;
+          font-weight: 900;
+          border-radius: 10px;
+          width: 400px;
+        }
+        .memberLogin:hover {
+          background-color: white;
+        }
+      `}</style>
     </>
   )
 }

@@ -39,7 +39,9 @@ const ProductDetail = ({ initialProduct }) => {
   }
 
   // 獲取產品圖片
-  const images = product.photos ? product.photos.split(',').map(img => img.trim()) : []
+  const images = product.photos
+    ? product.photos.split(',').map((img) => img.trim())
+    : []
 
   // 控制模態框的顯示和隱藏
   const handleClose = () => setShow(false)
@@ -251,11 +253,11 @@ const ProductDetail = ({ initialProduct }) => {
         backdrop="static"
         keyboard={false}
       >
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className={styles.productModal}>
           <Modal.Title>加入購物車訊息</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{productName}</Modal.Body>
-        <Modal.Footer>
+        <Modal.Body className={styles.productModal}>{productName}</Modal.Body>
+        <Modal.Footer className={styles.productModal}>
           <Button variant="secondary" onClick={handleClose}>
             繼續購物
           </Button>

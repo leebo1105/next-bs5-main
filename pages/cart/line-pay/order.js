@@ -316,7 +316,6 @@ export default function Order() {
 
   return (
     <>
-      {auth.isAuth ? <NavbarLogin /> : <Navbar />}
       <div className={styles.orderContainer}>
         {result.returnCode ? (
           <div className={styles.confirmOrderContainer}>
@@ -327,7 +326,6 @@ export default function Order() {
         )}
         <Toaster />
       </div>
-      <Footer />
     </>
   )
 }

@@ -58,7 +58,7 @@ export default function ForgetPassword() {
         <MemberNavbar />
         <Container>
           <div className="d-flex justify-content-center">
-            <Card className="shadow p-4" style={{ width: '31rem' }}>
+            <Card className="shadow p-4" style={{ width: '33.9rem' }}>
               <h2 className="text-center mb-4">修改密碼</h2>
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formOriginPassword">

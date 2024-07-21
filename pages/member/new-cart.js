@@ -95,7 +95,7 @@ export default function Profile() {
     <>
       <div className="container my-5">
         <MemberNavbar />
-        <Container fluid className="member-profile-container">
+        <Container fluid className="memberProfileContainer">
           <h2 className="text-center mb-4 mt-1">購物訂單</h2>
           {/* 顯示當前訂單 */}
           {purchaseOrders
@@ -203,7 +203,7 @@ export default function Profile() {
       <style>{`
       {/*  動畫  */}
       .member-profile-container {
-  max-width: 31rem;
+  max-width: 33.9rem;
   margin: 0 auto;
   border: 1px solid #ccc;
   border-radius: 3px;

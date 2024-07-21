@@ -21,7 +21,6 @@ export default function ReservationList() {
   }, [])
   return (
     <>
-      <Navbar />
       <div className="container">
         <h2>預約列表</h2>
         {reservationList && reservationList.length === 0 ? (
@@ -131,7 +130,6 @@ export default function ReservationList() {
           ))
         )}
       </div>
-      <Footer />
     </>
   )
 }

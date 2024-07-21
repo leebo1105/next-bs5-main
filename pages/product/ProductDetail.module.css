@@ -4,6 +4,8 @@
   background-position: center;
   background-attachment: fixed;
   padding: 20px;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .productInfo {
@@ -73,4 +75,8 @@
 .video-container {
   margin-top: 20px;
   text-align: center;
+}
+
+.productModal {
+  background-color: #fff;
 }

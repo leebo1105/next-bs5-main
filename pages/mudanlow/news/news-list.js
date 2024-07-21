@@ -55,6 +55,18 @@ export default function NewsList() {
     setSelectedKeywords(updatedKeywords)
   }
 
+  const checkKeyword = (e, id) => {
+    e.stopPropagation()
+    const isSelected = selectedKeywords.includes(id.toString())
+    if (isSelected) {
+      setSelectedKeywords(
+        selectedKeywords.filter((keywordId) => keywordId !== id.toString())
+      )
+    } else {
+      setSelectedKeywords([...selectedKeywords, id.toString()])
+    }
+  }
+
   // 處理排序順序選擇變化
   const handleSortOrderChange = (event) => {
     setSortOrder(event.target.value)
@@ -134,17 +146,27 @@ export default function NewsList() {
     currentPage * articlesPerPage
   )
 
+  const goBack = () => {
+    window.history.back()
+  }
+
+  const handleKeyPress = (e, id) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      checkKeyword(e, id)
+    }
+  }
+
   return (
     <>
-      <div className="newsListPage">
-        <div className="container-fluid">
-          <div className="position-relative">
-            <button className="btn btn-success back-btn">
-              <Link href="/">回上頁</Link>
-            </button>
-            <div className="row justify-content-center text-center keyword-title">
-              <div className="col-4">
-                <h1>所有文章</h1>
+      <div className="newsListPage position-relative">
+        <div className="container-fluid d-flex justify-content-center">
+          <button className="btn btn-success back-btn" onClick={goBack}>
+            回上頁
+          </button>
+          <div className="text-center keyword-title">
+            <div className="col-4 newsTitlePic d-flex justify-content-center align-items-center">
+              <div className="newsNavbarPicOverlay d-flex justify-content-center align-items-center">
+                <h1 className="text-light display-4">所有文章</h1>
               </div>
             </div>
           </div>
@@ -158,14 +180,25 @@ export default function NewsList() {
               重置
             </button>
             {keywords.map((keyword) => (
-              <div key={keyword.id} className=" fs-4 keyword">
+              <div
+                key={keyword.id}
+                className=" fs-4 keyword d-flex justify-content-center align-items-center "
+                onClick={(e) => checkKeyword(e, keyword.id)}
+                onKeyPress={(e) => handleKeyPress(e, keyword.id)}
+              >
                 <input
                   type="checkbox"
                   value={keyword.id}
                   onChange={handleKeywordChange}
                   checked={selectedKeywords.includes(keyword.id.toString())}
+                  className="custom-checkbox"
                 />
-                {`${keyword.name}`}
+                <label
+                  htmlFor={`checkbox-${keyword.id}`}
+                  className="custom-label"
+                >
+                  {keyword.name}
+                </label>
               </div>
             ))}
             <div className="d-flex justify-content-center align-items-center lxgw-wenkai-mono-tc-regular">
@@ -258,21 +291,23 @@ export default function NewsList() {
         }
 
         .back-btn {
+          background-color: #465952;
+          color: white;
           top: 100px;
           left: 100px;
-          position: relative;
+          position: absolute;
         }
 
         .hashtag {
-          width: 730px;
-          background-color: #e4e3e3;
+          width: 1000px;
+          background-color: #fff;
           padding: 5px 20px;
           border-radius: 10px;
           box-shadow: 3px 3px 7px gray;
         }
 
         .content {
-          width: 700px;
+          width: 100%;
           height: 150px;
           border-bottom: 2px solid black;
           margin-bottom: 20px;
@@ -413,18 +448,61 @@ export default function NewsList() {
 
         @media (min-width: 961px) and (max-width: 1140px) {
           .content {
-            width: 700px;
+            width: 100%;
             font-size: 18px;
           }
         }
 
         /*最新消息new-list(非首頁)列表顏色設置*/
         .newsMaintain {
-          background-color: #e4e3e3;
+          background-color: #fff;
           border-radius: 10px;
           box-shadow: 3px 3px 7px gray;
           padding-left: 15px;
           padding-right: 15px;
+          width: 1000px;
+        }
+        .custom-checkbox {
+          display: none;
+        }
+
+        .custom-checkbox + label {
+          position: relative;
+          padding-left: 25px;
+          cursor: pointer;
+          font-size: 1.25em;
+        }
+
+        .custom-checkbox + label:before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 18px;
+          width: 25px;
+          height: 25px;
+          border: 2px solid #ccc;
+          border-radius: 3px;
+          background: white;
+        }
+
+        .custom-checkbox:checked + label:before {
+          background: #465952;
+          border-color: #007bff;
+        }
+
+        .newsTitlePic {
+          width: 1000px;
+          height: 200px;
+          background-image: url(/images/mudanlow-小圖檔/DSC00594.jpg);
+          background-position: 90% 35%;
+          background-repeat: no-repeat;
+          margin-bottom: 20px;
+        }
+        .newsNavbarPicOverlay {
+          width: 100%;
+          height: 100%;
+          background: #31313186;
+          z-index: 2;
         }
       `}</style>
     </>

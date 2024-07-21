@@ -8,11 +8,9 @@ export default function Hire() {
       <div className="container-fluid ">
         <div className="picture d-flex justify-content-center align-items-center">
           <div className="row justify-content-center align-items-center g-2 card">
-            <div className="col">
-              <h2 className="boxsize text-center m-auto mt-5 mb-5 text-light  p-3">
-                人 &nbsp;才 &nbsp; 招 &nbsp; 募
-              </h2>
-            </div>
+            <h2 className="boxsize text-center m-auto mt-5 mb-5 text-light  p-3">
+              人&nbsp;才&nbsp;招&nbsp;募
+            </h2>
             <div className="boxsize2 fs-5 text-center text-light ">
               牡丹亭招募對於餐飲業有熱情的夥伴們
               <br />
@@ -35,6 +33,7 @@ export default function Hire() {
       <style jsx>
         {`
           .container-fluid {
+            height: 100%;
             margin: 0;
             padding: 0;
             position: relative;
@@ -67,6 +66,8 @@ export default function Hire() {
           }
 
           .card {
+            margin-top: 50px;
+            margin-bottom: 50px;
             background-color: #336e56;
             border-radius: 10px;
             width: 400px;

@@ -66,6 +66,9 @@ export default function MemberNavbar() {
       </div>
       <style jsx>
         {`
+          a {
+            text-decoration: none;
+          }
           li {
             margin-right: 2px; /* 預設間距 */
           }
@@ -80,12 +83,12 @@ export default function MemberNavbar() {
             color: pink;
           }
           .nav-link {
-            background-color: orange;
+            background-color: lightgray;
             border-radius: 10px 10px 0px 0px;
             color: black;
           }
           .nav-link.active {
-            background-color: red;
+            background-color: #465952;
             color: white;
           }
         `}

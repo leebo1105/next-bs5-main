@@ -90,90 +90,94 @@ export default function LoginForm() {
 
   return (
     <>
-      <main className={`form-member w-100 m-auto text-center`}>
-        <h2 className="text-center mb-5">會員登入</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="row mb-3">
-            <div className="col-sm-12">
-              <input
-                type="text"
-                name="username"
-                value={user.username}
-                className={`form-control w-100 ${styles['form-control']}`}
-                placeholder="帳號"
-                onChange={handleFieldChange}
-              />
-              <div className="error">{errors.username}</div>
-            </div>
-          </div>
-          <div className="row mb-3">
-            <div className="col-sm-12">
-              <input
-                type={showPassword ? 'text' : 'password'}
-                name="password"
-                value={user.password}
-                className={`form-control w-100 ${styles['form-control']}`}
-                placeholder="密碼"
-                onChange={handleFieldChange}
-              />
-              <div className="error">{errors.password}</div>
-              <input
-                type="checkbox"
-                checked={showPassword}
-                onChange={() => setShowPassword(!showPassword)}
-              />
-              <span className="ms-1">顯示密碼</span>
-            </div>
-          </div>
-          <div className="row mb-3">
-            <div className="col-sm-6 text-start">
-              <div className="form-check">
+      <main
+        className={`form-member w-100 m-auto text-center d-flex justify-content-center`}
+      >
+        <div className="memberLogin">
+          <h2 className="text-center mb-5">會員登入</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="row mb-3">
+              <div className="col-sm-12">
                 <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id="gridCheck1"
+                  type="text"
+                  name="username"
+                  value={user.username}
+                  className={`form-control w-100 ${styles['form-control']}`}
+                  placeholder="帳號"
+                  onChange={handleFieldChange}
                 />
-                <label
-                  className={`form-check-label  ${styles['notice']}`}
-                  htmlFor="gridCheck1"
-                >
-                  保持登入狀態
-                </label>
+                <div className="error">{errors.username}</div>
               </div>
             </div>
-            <div className="col-sm-4 offset-sm-2 text-end">
-              <Link
-                href="/member/forget-password"
-                className={`${styles['notice']}`}
-              >
-                忘記密碼？
-              </Link>
+            <div className="row mb-3">
+              <div className="col-sm-12">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  value={user.password}
+                  className={`form-control w-100 ${styles['form-control']}`}
+                  placeholder="密碼"
+                  onChange={handleFieldChange}
+                />
+                <div className="error">{errors.password}</div>
+                <input
+                  type="checkbox"
+                  checked={showPassword}
+                  onChange={() => setShowPassword(!showPassword)}
+                />
+                <span className="ms-1">顯示密碼</span>
+              </div>
             </div>
-          </div>
-          <button type="submit" className="btn btn-primary w-100">
-            登入
-          </button>
-          <button
-            className="mt-2 btn btn-primary w-100"
-            onClick={() => setUser({ username: 'herry', password: '11111' })}
-          >
-            一鍵輸入
-          </button>
-          <div className="row mt-2">
-            <p className={`${styles['notice']}`}>
-              還不是會員？
-              <Link href="/member/register">加入我們</Link>。
-            </p>
-          </div>
+            <div className="row mb-3  ">
+              <div className="col-sm-6 text-start ">
+                <div className="form-check d-flex justify-content-center">
+                  <input
+                    className="form-check-input me-1"
+                    type="checkbox"
+                    id="gridCheck1"
+                  />
+                  <label
+                    className={`form-check-label  ${styles['notice']}`}
+                    htmlFor="gridCheck1"
+                  >
+                    保持登入狀態
+                  </label>
+                </div>
+              </div>
+              <div className="col-sm-4 offset-sm-2 text-end">
+                <Link
+                  href="/member/forget-password"
+                  className={`${styles['notice']}`}
+                >
+                  忘記密碼？
+                </Link>
+              </div>
+            </div>
+            <button type="submit" className="btn btn-primary w-100">
+              登入
+            </button>
+            <button
+              className="mt-2 btn btn-primary w-100"
+              onClick={() => setUser({ username: 'herry', password: '11111' })}
+            >
+              一鍵輸入
+            </button>
+            <div className="row mt-2">
+              <p className={`${styles['notice']}`}>
+                還不是會員？
+                <Link href="/member/register">加入我們</Link>。
+              </p>
+            </div>
 
-          <div className={`mb-3 ${styles['hr-sect']}`}>快速登入</div>
-        </form>
-        <div className="row mb-2">
-          <div className="col-sm-12 text-center">
-            <div className="d-flex justify-content-center">
-              <LineLogin />
-              <GoogleLoginPopup />
-              {/* <FacebookLogo className="mx-3" /> */}
+            <div className={`mb-3 ${styles['hr-sect']}`}>快速登入</div>
+          </form>
+          <div className="row mb-2">
+            <div className="col-sm-12 text-center">
+              <div className="d-flex justify-content-center">
+                <LineLogin />
+                <GoogleLoginPopup />
+                {/* <FacebookLogo className="mx-3" /> */}
+              </div>
             </div>
           </div>
         </div>
@@ -184,6 +188,21 @@ export default function LoginForm() {
               color: red;
               font-size: 12px;
               height: 16px;
+            }
+            .memberLogin {
+              backdrop-filter: blur(100px);
+              padding: 20px 20px;
+              color: #000;
+              box-shadow: 5px 5px 10px rgb(0, 0, 0);
+              z-index: 2;
+              transition: 1s;
+              font-family: 'LXGW WenKai Mono TC', monospace;
+              font-weight: 900;
+              border-radius: 10px;
+              width: 120%;
+            }
+            .memberLogin:hover {
+              background-color: white;
             }
           `}
         </style>
