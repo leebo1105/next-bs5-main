@@ -1,19 +1,70 @@
 import Footer from '@/components/layout/mudanlow-layout/footer'
 import Navbar from '@/components/layout/mudanlow-layout/navbar'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 
 export default function Introduce() {
+  const imgRef1 = useRef(null)
+  const imgRef2 = useRef(null)
+  const imgRef3 = useRef(null)
+  const imgRef4 = useRef(null)
+  const textRef1 = useRef(null)
+  const textRef2 = useRef(null)
+  const textRef3 = useRef(null)
+  const textRef4 = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible')
+        }
+      })
+    })
+
+    const imgElement1 = imgRef1.current
+    const imgElement2 = imgRef2.current
+    const imgElement3 = imgRef3.current
+    const imgElement4 = imgRef4.current
+    const textElement1 = textRef1.current
+    const textElement2 = textRef2.current
+    const textElement3 = textRef3.current
+    const textElement4 = textRef4.current
+
+    if (imgElement1) observer.observe(imgElement1)
+    if (imgElement2) observer.observe(imgElement2)
+    if (imgElement3) observer.observe(imgElement3)
+    if (imgElement4) observer.observe(imgElement4)
+    if (textElement1) observer.observe(textElement1)
+    if (textElement2) observer.observe(textElement2)
+    if (textElement3) observer.observe(textElement3)
+    if (textElement4) observer.observe(textElement4)
+
+    return () => {
+      if (imgElement1) observer.unobserve(imgElement1)
+      if (imgElement2) observer.unobserve(imgElement2)
+      if (imgElement3) observer.unobserve(imgElement3)
+      if (imgElement4) observer.unobserve(imgElement4)
+      if (textElement1) observer.unobserve(textElement1)
+      if (textElement2) observer.unobserve(textElement2)
+      if (textElement3) observer.unobserve(textElement3)
+      if (textElement4) observer.unobserve(textElement4)
+    }
+  }, [])
+
   return (
     <>
       <div className="container mt-5 pt-4">
         <div className="row align-items-center text-center g-2 mt-5">
-          <div className="col-6 col-sm-12 col-lg-6">
+          <div className="col-6 col-sm-12 col-lg-6 fade-in-image" ref={imgRef1}>
             <img
               className="content-img"
               src="/images/mudanlow-小圖檔/DSC00572.jpg"
             />
           </div>
-          <div className="col-6 col-sm-12 col-lg-6  content">
+          <div
+            className="col-6 col-sm-12 col-lg-6 content fade-in-section"
+            ref={textRef1}
+          >
             <p className="display-6 mt-4">
               適合家庭、公司、親友聚餐。
               <br />
@@ -28,14 +79,20 @@ export default function Introduce() {
         </div>
         <h3 className="text-center my-4 border title">空間區域</h3>
         <div className="row align-items-center text-center g-2 mt-5">
-          <div className="col-6 col-sm-12 col-lg-6   content">
+          <div
+            className="col-6 col-sm-12 col-lg-6 content fade-in-section"
+            ref={textRef2}
+          >
             <p className="text-center display-6 mt-4">半開放式包廂</p>
             <p className="text-center fs-5">可容納人數：12人</p>
             <p className="text-center fs-5">
               適合小型文定、親友小聚、家庭聚會等，多功能聚餐使用。
             </p>
           </div>
-          <div className="col-6 col-sm-12 col-lg-6">
+          <div
+            className="col-6 col-sm-12 col-lg-6 fade-in-image-left"
+            ref={imgRef2}
+          >
             <img
               className="content-img"
               src="/images/mudanlow-小圖檔/DSC00584.jpg"
@@ -43,13 +100,16 @@ export default function Introduce() {
           </div>
         </div>
         <div className="row align-items-center text-center g-2 mt-5">
-          <div className="col-6 col-sm-12 col-lg-6">
+          <div className="col-6 col-sm-12 col-lg-6 fade-in-image" ref={imgRef3}>
             <img
               className="content-img"
               src="/images/mudanlow-小圖檔/DSC00583.jpg"
             />
           </div>
-          <div className="col-6 col-sm-12 col-lg-6   content">
+          <div
+            className="col-6 col-sm-12 col-lg-6 content fade-in-section"
+            ref={textRef3}
+          >
             <p className="text-center display-6 mt-4">前場</p>
             <p className="text-center fs-5">數量：2桌</p>
             <p className="text-center fs-5">可容納人數：8-12人</p>
@@ -59,7 +119,10 @@ export default function Introduce() {
           </div>
         </div>
         <div className="row align-items-center text-center g-2 mt-5">
-          <div className="col-6 col-sm-12 col-lg-6 content">
+          <div
+            className="col-6 col-sm-12 col-lg-6 content fade-in-section"
+            ref={textRef4}
+          >
             <p className="text-center display-6 mt-4">後場</p>
             <p className="text-center fs-5">數量：1-6桌</p>
             <p className="text-center fs-5">可容納人數：至多24人</p>
@@ -67,7 +130,10 @@ export default function Introduce() {
               適合多人公司聚餐、三五好友小聚，多功能聚餐使用。
             </p>
           </div>
-          <div className="col-6 col-sm-12 col-lg-6">
+          <div
+            className="col-6 col-sm-12 col-lg-6 fade-in-image-left"
+            ref={imgRef4}
+          >
             <img
               className="content-img"
               src="/images/mudanlow-小圖檔/DSC00671.jpg"
@@ -87,7 +153,7 @@ export default function Introduce() {
           />
         </div>
         <h3 className="text-center my-4 border title">地圖</h3>
-        <div className="text-center ">
+        <div className="text-center">
           <img src="https://fakeimg.pl/1000x500/" />
         </div>
         <h3 className="text-center my-4 border title">鄰近景點介紹</h3>
@@ -218,6 +284,33 @@ export default function Introduce() {
         .card {
           position: relative;
           height: 480px;
+        }
+        .fade-in-section {
+          opacity: 0;
+          transform: translateY(50px);
+          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-section.visible {
+          opacity: 1;
+          transform: none;
+        }
+        .fade-in-image {
+          opacity: 0;
+          transform: translateX(-50px);
+          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-image.visible {
+          opacity: 1;
+          transform: none;
+        }
+        .fade-in-image-left {
+          opacity: 0;
+          transform: translateX(50px);
+          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-image-left.visible {
+          opacity: 1;
+          transform: none;
         }
       `}</style>
     </>

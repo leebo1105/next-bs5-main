@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import MotionButton from './my-motion/motion-button'
+import { useAuth } from '@/hooks/use-auth'
 
 export default function NavbarMotion() {
+  const { auth } = useAuth()
   const [dragConstraints, setDragConstraints] = useState({
     top: 50, // 拖曳按鈕的初始頂部邊距
     left: 50, // 拖曳按鈕的初始左邊距
@@ -16,6 +18,7 @@ export default function NavbarMotion() {
   useEffect(() => {
     // 更新拖曳限制的函數
     function updateDragConstraints() {
+      if (!buttonRef.current) return
       const buttonWidth = buttonRef.current.offsetWidth // 獲取按鈕的寬度
       const windowWidth = window.innerWidth // 窗口寬度
       const windowHeight = window.innerHeight // 窗口高度
@@ -50,6 +53,7 @@ export default function NavbarMotion() {
     event.preventDefault() // 阻止預設的滑鼠事件
 
     const button = buttonRef.current // 獲取拖曳按鈕的DOM元素
+    if (!button) return
     const buttonRect = button.getBoundingClientRect() // 獲取按鈕的位置信息
 
     let clientX, clientY
@@ -90,6 +94,7 @@ export default function NavbarMotion() {
       const left = clientX - offsetX // 計算應用偏移後的左邊距
       const top = clientY - offsetY // 計算應用偏移後的頂部邊距
 
+      if (!button) return
       // 應用拖曳限制
       button.style.left = `${Math.max(
         dragConstraints.left,
@@ -161,6 +166,7 @@ export default function NavbarMotion() {
   // function scrollToTop() {
   //   window.scrollTo({ top: 0, behavior: 'smooth' })
   // }
+  if (!auth.isAuth) return null
 
   return (
     <>
