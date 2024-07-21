@@ -91,7 +91,7 @@ export default function LoginForm() {
   return (
     <>
       <main
-        className={`form-member w-100 m-auto text-center d-flex justify-content-center`}
+        className={`form-member m-auto text-center d-flex justify-content-center`}
       >
         <div className="memberLogin">
           <h2 className="text-center mb-5">會員登入</h2>
@@ -190,16 +190,16 @@ export default function LoginForm() {
               height: 16px;
             }
             .memberLogin {
-              backdrop-filter: blur(100px);
+              background-color: #fff;
               padding: 20px 20px;
               color: #000;
-              box-shadow: 5px 5px 10px rgb(0, 0, 0);
+              box-shadow: 5px 5px 5px gray;
               z-index: 2;
               transition: 1s;
               font-family: 'LXGW WenKai Mono TC', monospace;
               font-weight: 900;
               border-radius: 10px;
-              width: 120%;
+              width: 400px;
             }
             .memberLogin:hover {
               background-color: white;

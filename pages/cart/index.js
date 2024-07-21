@@ -115,7 +115,7 @@ export default function CartIndex() {
 
   return (
     <>
-      <div className="bodycart ">
+      <div className="bodycart lxgw-wenkai-mono-tc-regular ">
         <div className="col-lg-10 ">
           <div className="row">
             <div className=" justify-content-center">
@@ -135,7 +135,7 @@ export default function CartIndex() {
                       )
                       setSelectedCoupon(selectedOption)
                     }}
-                    className="form-select form-select-sm mb-3"
+                    className="form-select form-select-sm mb-3 lxgw-wenkai-mono-tc-regular"
                     aria-label="Large select example w-50"
                   >
                     <option value="">請選擇要使用的折價卷</option>
@@ -149,7 +149,7 @@ export default function CartIndex() {
                       )}
                   </select>
                   {message && <p>{message}</p>}
-                  <div className="d-flex justify-flex-start ">
+                  <div className="d-flex justify-flex-start lxgw-wenkai-mono-tc-regular">
                     <button
                       type="button"
                       onClick={handleApplyCoupon}
@@ -167,14 +167,16 @@ export default function CartIndex() {
                   </div>
                 </form>
                 <hr />
-                <div className="d-flex justify-content-between mt-3">
+                <div className="d-flex justify-content-between mt-3 lxgw-wenkai-mono-tc-regular">
                   <span>數量： {cart.totalItems}</span>
                   <span>總計：{cart.totalPrice}</span>
                 </div>
               </div>
               <div className="card-footer mb-3">
                 <Link href="./cart/line-pay/order">
-                  <button className="btn btn-primary w-100">下一步</button>
+                  <button className="btn btn-primary w-100 lxgw-wenkai-mono-tc-regular">
+                    下一步
+                  </button>
                 </Link>
               </div>
             </div>

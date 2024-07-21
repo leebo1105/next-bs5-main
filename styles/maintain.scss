@@ -448,6 +448,12 @@ section {
   bottom: 0;
   left: 0;
 }
+
+.pic3 {
+  z-index: 1;
+  bottom: -250px;
+  left: 0;
+}
 /*背景物件*/
 .backgroundItem {
   position: absolute;
@@ -516,4 +522,37 @@ section {
 .mapBackground {
   background-image: url('/pics/background3.png');
   height: 100%;
+}
+
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in-section.visible {
+  opacity: 1;
+  transform: none;
+}
+
+.fade-in-image {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in-image.visible {
+  opacity: 1;
+  transform: none;
+}
+
+.fade-in-image-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in-image-right.visible {
+  opacity: 1;
+  transform: none;
 }

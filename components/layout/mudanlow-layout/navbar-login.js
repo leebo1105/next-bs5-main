@@ -7,12 +7,14 @@ import Link from 'next/link'
 import { logout } from '@/services/user'
 import toast, { Toaster } from 'react-hot-toast'
 import { initUserData, useAuth } from '@/hooks/use-auth'
+import { useRouter } from 'next/router'
 
 export default function NavbarLogin() {
   const [isCanvasActive, setIsCanvasActive] = useState(false)
   const [isDropdownActive, setIsDropdownActive] = useState(false)
 
   const { setAuth } = useAuth()
+  const router = useRouter()
 
   const toggleCanvas = () => {
     setIsCanvasActive(!isCanvasActive)
@@ -30,23 +32,18 @@ export default function NavbarLogin() {
   }
 
   // 處理登出
-  const handleLogout = async (e) => {
-    e.preventDefault()
+  const handleLogout = async () => {
     const res = await logout()
-    console.log('Logout Response:', res.data)
 
-    console.log(res.data)
-
-    // 成功登出個回復初始會員狀態
     if (res.data.status === 'success') {
       toast.success('已成功登出')
-
       setAuth({
         isAuth: false,
-        userData: initUserData,
+        userData: null,
       })
+      router.push('/')
     } else {
-      toast.error(`登出失敗`)
+      toast.error('登出失败')
     }
   }
 
@@ -119,7 +116,7 @@ export default function NavbarLogin() {
           <Link
             onClick={handleLogout}
             href="/"
-            data-nav-section="login"
+            data-nav-section="logout"
             className={styles.navLink}
           >
             登出
@@ -218,15 +215,15 @@ export default function NavbarLogin() {
             </Link>
           </li>
           <li>
-            <a href="#" className={styles.canvasLink}>
+            <Link href="/member/profile" className={styles.canvasLink}>
               會員專區
-            </a>
+            </Link>
           </li>
           <li>
             <Link
               onClick={handleLogout}
-              href="/"
-              data-nav-section="login"
+              href="/member/login"
+              data-nav-section="logout"
               className={styles.canvasLink}
             >
               登出

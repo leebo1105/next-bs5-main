@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
@@ -16,6 +16,74 @@ import Marquee from 'react-fast-marquee'
 
 export default function MudanlowIndex() {
   const { auth } = useAuth()
+
+  const textRef = useRef(null)
+  const imageRef = useRef(null)
+  const aboutText1Ref = useRef(null)
+  const aboutImage1Ref = useRef(null)
+  const aboutText2Ref = useRef(null)
+  const aboutImage2Ref = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible')
+        }
+      })
+    })
+
+    const textElement = textRef.current
+    const imageElement = imageRef.current
+    const aboutTextElement1 = aboutText1Ref.current
+    const aboutImageElement1 = aboutImage1Ref.current
+    const aboutTextElement2 = aboutText2Ref.current
+    const aboutImageElement2 = aboutImage2Ref.current
+
+    if (textElement) {
+      observer.observe(textElement)
+    }
+
+    if (imageElement) {
+      observer.observe(imageElement)
+    }
+
+    if (aboutTextElement1) {
+      observer.observe(aboutTextElement1)
+    }
+
+    if (aboutImageElement1) {
+      observer.observe(aboutImageElement1)
+    }
+    if (aboutTextElement2) {
+      observer.observe(aboutTextElement2)
+    }
+
+    if (aboutImageElement2) {
+      observer.observe(aboutImageElement2)
+    }
+
+    return () => {
+      if (textElement) {
+        observer.unobserve(textElement)
+      }
+      if (imageElement) {
+        observer.unobserve(imageElement)
+      }
+      if (aboutTextElement1) {
+        observer.unobserve(aboutTextElement1)
+      }
+      if (aboutImageElement1) {
+        observer.unobserve(aboutImageElement1)
+      }
+      if (aboutTextElement2) {
+        observer.unobserve(aboutTextElement2)
+      }
+      if (aboutImageElement2) {
+        observer.unobserve(aboutImageElement2)
+      }
+    }
+  }, [])
   return (
     <>
       <FirstPicture />
@@ -26,7 +94,7 @@ export default function MudanlowIndex() {
       >
         <div className="container-fluid p-5">
           <div className="row align-items-center justify-content-center g-5">
-            <div className="col-lg-5">
+            <div className="col-lg-5 fade-in-image" ref={imageRef}>
               <div className="image-holder mb-4">
                 <Image
                   src="images/mudanlow-小圖檔/DSC00576.jpg"
@@ -38,7 +106,7 @@ export default function MudanlowIndex() {
                 />
               </div>
             </div>
-            <div className="col-lg-5">
+            <div className="col-lg-5 fade-in-section" ref={textRef}>
               <div className="detail p-5">
                 <div className="display-header">
                   <h2 className="display-4 text-dark pb-2 lxgw-wenkai-mono-tc-bold">
@@ -75,13 +143,6 @@ export default function MudanlowIndex() {
         <Image
           src="pics/background-pic1 (1).png"
           className="pic1 position-absolute"
-          width={500}
-          height={500}
-          alt=""
-        />
-        <Image
-          src="pics/background-pic2.png"
-          className="pic2 position-absolute"
           width={500}
           height={500}
           alt=""
@@ -140,15 +201,15 @@ export default function MudanlowIndex() {
         </div>
       </div>
       {/* <!-- 關於我們&徵才資訊 --> */}
-      <section className=" section-secondary-color background2">
+      <section className=" section-secondary-color background2 position-relative">
         <h2 className="display-4 lxgw-wenkai-mono-tc-bold frontTitle">
           關於我們
         </h2>
         <div className="container mt-5">
           <div className="row d-flex justify-content-evenly align-items-center">
-            <div className="col-4">
+            <div className="col-4 fade-in-image" ref={aboutImage1Ref}>
               <div className="aboutHire">
-                <div class="hoverContainer">
+                <div className="hoverContainer">
                   <div className="hireOverlay"></div>
                   <Image
                     className="aboutHireImage"
@@ -165,7 +226,7 @@ export default function MudanlowIndex() {
                 </div>
               </div>
             </div>
-            <div className="col-4">
+            <div className="col-4 fade-in-section" ref={aboutText1Ref}>
               <h2>場地介紹</h2>
               <p className="text-center lxgw-wenkai-mono-tc-regular fs-5">
                 我們的餐廳環境溫馨雅緻，裝潢別緻，擁有舒適的座椅和柔和的燈光。寬敞的用餐區和私密的包廂滿足不同需求，適合家庭聚餐、商務宴請和浪漫約會。
@@ -175,15 +236,15 @@ export default function MudanlowIndex() {
         </div>
         <div className="container mt-5">
           <div className="row d-flex justify-content-evenly align-items-center">
-            <div className="col-4 text-end">
+            <div className="col-4 text-end fade-in-section" ref={aboutText2Ref}>
               <h2>人才招募</h2>
               <p className="text-center lxgw-wenkai-mono-tc-regular fs-5">
                 我們的餐廳正在招募熱情、有責任心的員工。無論您是廚師、服務員還是管理人員，我們都歡迎您的加入。提供良好的工作環境和培訓機會，讓您在這裡成長和發展。
               </p>
             </div>
-            <div className="col-4">
+            <div className="col-4 fade-in-image-right" ref={aboutImage2Ref}>
               <div className="aboutHire">
-                <div class="hoverContainer">
+                <div className="hoverContainer">
                   <div className="hireOverlay"></div>
                   <Image
                     className="aboutHireImage"
@@ -202,6 +263,13 @@ export default function MudanlowIndex() {
             </div>
           </div>
         </div>
+        <Image
+          src="pics/frontItem2.png"
+          className="pic3 position-absolute"
+          width={500}
+          height={500}
+          alt=""
+        />
       </section>
       {/* <!-- 地圖 --> */}
       <section id="collections" className="position-relative background1">

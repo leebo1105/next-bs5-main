@@ -231,10 +231,10 @@ export default function RegisterForm() {
       </main>
       <style jsx>{`
         .memberLogin {
-          backdrop-filter: blur(100px);
+          background-color: #fff;
           padding: 20px 20px;
           color: #000;
-          box-shadow: 5px 5px 10px rgb(0, 0, 0);
+          box-shadow: 5px 5px 10px gray;
           z-index: 2;
           transition: 1s;
           font-family: 'LXGW WenKai Mono TC', monospace;
@@ -243,7 +243,7 @@ export default function RegisterForm() {
           width: 400px;
         }
         .memberLogin:hover {
-          background-color: white;
+          background-color: #fff;
         }
       `}</style>
     </>

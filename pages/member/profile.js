@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import {
   updateProfile,
   getUserById,
@@ -46,6 +47,7 @@ const initUserProfile = {
 }
 
 export default function Profile() {
+  const router = useRouter()
   const { auth } = useAuth()
   const [userProfile, setUserProfile] = useState(initUserProfile)
   const [hasProfile, setHasProfile] = useState(false)
@@ -100,7 +102,9 @@ export default function Profile() {
 
   // auth載入完成後向資料庫要會員資料
   useEffect(() => {
-    if (auth.isAuth) {
+    if (!auth.isAuth) {
+      router.push('/member/login')
+    } else {
       getUserData(auth.userData.id)
     }
     // eslint-disable-next-line

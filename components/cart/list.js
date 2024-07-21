@@ -14,7 +14,7 @@ export default function CartList() {
   }
 
   return (
-    <div className="container">
+    <div className="container lxgw-wenkai-mono-tc-regular">
       <div className="cart-list">
         <table className="table">
           <thead>

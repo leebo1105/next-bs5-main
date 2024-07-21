@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function NewsList() {
   const [articles, setArticles] = useState([]) // 存儲所有文章數據的狀態
@@ -263,6 +264,13 @@ export default function NewsList() {
             ))}
           </ul>
         </div>
+        <Image
+          src="../../pics/background-pic1 (1).png"
+          className="pic1 position-absolute"
+          width={500}
+          height={500}
+          alt=""
+        />
         <div>
           <button id="scrollToTopBtn" onClick={scrollToTop}>
             回到頂部
@@ -461,6 +469,7 @@ export default function NewsList() {
           padding-left: 15px;
           padding-right: 15px;
           width: 1000px;
+          z-index: 2;
         }
         .custom-checkbox {
           display: none;

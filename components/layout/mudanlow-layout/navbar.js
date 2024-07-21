@@ -4,10 +4,14 @@ import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
+import { useAuth } from '@/hooks/use-auth'
+import { useRouter } from 'next/router'
 
 export default function Navbar() {
   const [isCanvasActive, setIsCanvasActive] = useState(false)
   const [isDropdownActive, setIsDropdownActive] = useState(false)
+  const { auth } = useAuth()
+  const router = useRouter()
 
   const toggleCanvas = () => {
     setIsCanvasActive(!isCanvasActive)
@@ -23,6 +27,16 @@ export default function Navbar() {
       action()
     }
   }
+
+  const handleMemberClick = (e) => {
+    e.preventDefault()
+    if (!auth.isAuth) {
+      router.push('/member/login')
+    } else {
+      router.push('/member/profile')
+    }
+  }
+
   return (
     <>
       <div className={styles.stickyNavbar}>
@@ -75,13 +89,16 @@ export default function Navbar() {
           >
             立即預約
           </Link>
-          <Link
-            href="/member/profile"
+          <a
+            href="#"
             data-nav-section="order"
             className={styles.navLink}
+            onClick={handleMemberClick}
+            onKeyPress={(e) => handleKeyPress(e, handleMemberClick)}
+            tabIndex={0}
           >
             會員專區
-          </Link>
+          </a>
           <Link
             href="/member/register"
             data-nav-section="sign"
@@ -185,9 +202,15 @@ export default function Navbar() {
             </Link>
           </li>
           <li>
-            <Link href="/member/profile" className={styles.canvasLink}>
+            <a
+              href="#"
+              className={styles.canvasLink}
+              onClick={handleMemberClick}
+              onKeyPress={(e) => handleKeyPress(e, handleMemberClick)}
+              tabIndex={0}
+            >
               會員專區
-            </Link>
+            </a>
           </li>
           <li>
             <Link href="/member/register" className={styles.canvasLink}>
