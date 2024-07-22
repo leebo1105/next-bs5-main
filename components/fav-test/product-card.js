@@ -41,7 +41,7 @@ const ProductCard = ({ id, name, price, photos, info }) => {
           height={200}
           placeholder="blur"
           blurDataURL={`/images/product/thumb/${photos.split(',')[0]}`}
-          style={{ width: '100%', height: '200px' }}
+          style={{ width: '100%', height: '200px', objectFit: 'cover' }}
         />
       </a>
       <div className="card-body">
@@ -95,6 +95,12 @@ const ProductCard = ({ id, name, price, photos, info }) => {
 
         .card-text.text-danger {
           margin-bottom: 0;
+        }
+
+        .card-img-top {
+          width: 100%;
+          height: 200px;
+          object-fit: cover;
         }
       `}</style>
     </div>

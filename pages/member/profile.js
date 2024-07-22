@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import {
   updateProfile,
   getUserById,
@@ -47,7 +46,6 @@ const initUserProfile = {
 }
 
 export default function Profile() {
-  const router = useRouter()
   const { auth } = useAuth()
   const [userProfile, setUserProfile] = useState(initUserProfile)
   const [hasProfile, setHasProfile] = useState(false)
@@ -102,9 +100,7 @@ export default function Profile() {
 
   // auth載入完成後向資料庫要會員資料
   useEffect(() => {
-    if (!auth.isAuth) {
-      router.push('/member/login')
-    } else {
+    if (auth.isAuth) {
       getUserData(auth.userData.id)
     }
     // eslint-disable-next-line
@@ -172,7 +168,7 @@ export default function Profile() {
           className="container d-flex justify-content-center"
           style={{ margin: '0px', border: '0px' }}
         >
-          <Card className="shadow">
+          <Card className="shadow" style={{ width: '34rem' }}>
             <Card.Body>
               <h2 className="text-center mb-4">會員資料</h2>
 
@@ -375,19 +371,15 @@ export default function Profile() {
         </div>
         {/* 用於顯示訊息的土司組件 */}
         <Toaster />
+        <style jsx>
+          {`
+            .button-content {
+              display: flex;
+              justify-content: center;
+            }
+          `}
+        </style>
       </div>
-      <style jsx>
-        {`
-          .button-content {
-            display: flex;
-            justify-content: center;
-          }
-
-          .profile {
-            height: 100%;
-          }
-        `}
-      </style>
     </>
   )
 }
