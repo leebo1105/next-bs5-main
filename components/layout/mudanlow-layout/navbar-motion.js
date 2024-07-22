@@ -167,8 +167,6 @@ export default function NavbarMotion() {
   //   window.scrollTo({ top: 0, behavior: 'smooth' })
   // }
 
-  if (!auth.isAuth) return
-
   return (
     <>
       <div

@@ -58,7 +58,7 @@ export default function Introduce() {
           <div className="col-6 col-sm-12 col-lg-6 fade-in-image" ref={imgRef1}>
             <img
               className="content-img"
-              src="/images/mudanlow-小圖檔/DSC00572.jpg"
+              src="/images/mudanlow-小圖檔/DSC00567.jpg"
             />
           </div>
           <div
@@ -95,7 +95,7 @@ export default function Introduce() {
           >
             <img
               className="content-img"
-              src="/images/mudanlow-小圖檔/DSC00584.jpg"
+              src="/images/mudanlow-小圖檔/room.jpg"
             />
           </div>
         </div>
@@ -103,7 +103,7 @@ export default function Introduce() {
           <div className="col-6 col-sm-12 col-lg-6 fade-in-image" ref={imgRef3}>
             <img
               className="content-img"
-              src="/images/mudanlow-小圖檔/DSC00583.jpg"
+              src="/images/mudanlow-小圖檔/front.jpg"
             />
           </div>
           <div
@@ -136,7 +136,7 @@ export default function Introduce() {
           >
             <img
               className="content-img"
-              src="/images/mudanlow-小圖檔/DSC00671.jpg"
+              src="/images/mudanlow-小圖檔/backside.jpg"
             />
           </div>
         </div>
