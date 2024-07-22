@@ -119,6 +119,80 @@ export default function FirstPicture() {
           opacity: 0.5;
           position: absolute;
         }
+
+        @media (min-width: 1660px) {
+          .frontpage-logo > img {
+            height: 200px;
+          }
+          .frontpage-logo {
+            position: fixed;
+            z-index: 8;
+            top: 30%;
+            left: 30%;
+          }
+        }
+        @media (max-width: 1100px) {
+          .frontpage-logo > img {
+            height: 80%;
+          }
+          .frontpage-logo {
+            position: fixed;
+            z-index: 8;
+            top: 30%;
+            left: 30%;
+          }
+        }
+
+        @media (max-width: 1024px) {
+          .frontpage-logo > img {
+            height: 60%;
+          }
+          .frontpage-logo {
+            position: fixed;
+            z-index: 8;
+            top: 30%;
+            left: 30%;
+          }
+        }
+
+        /* desktops */
+        @media (max-width: 992px) {
+          .frontpage-logo > img {
+            height: 100px;
+          }
+          .frontpage-logo {
+            position: fixed;
+            z-index: 8;
+            top: 30%;
+            left: 30%;
+          }
+        }
+
+        /* tablets */
+        @media (max-width: 768px) {
+          .frontpage-logo > img {
+            height: 100px;
+          }
+          .frontpage-logo {
+            position: fixed;
+            z-index: 8;
+            top: 30%;
+            left: 30%;
+          }
+        }
+
+        /* phones */
+        @media (max-width: 576px) {
+          .frontpage-logo > img {
+            height: 50px;
+          }
+          .frontpage-logo {
+            position: fixed;
+            z-index: 8;
+            top: 30%;
+            left: 30%;
+          }
+        }
       `}</style>
     </>
   )

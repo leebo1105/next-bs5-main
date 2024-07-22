@@ -41,7 +41,7 @@ export default function Hire() {
 
           .picture {
             height: 40rem;
-            background-image: url(/images/mudanlow-小圖檔/DSC00567.jpg);
+            background-image: url(/images/mudanlowWebp/DSC00567.webp);
             background-position: 0px -380px;
             z-index: 1;
           }

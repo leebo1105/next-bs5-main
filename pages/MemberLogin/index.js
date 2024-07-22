@@ -35,7 +35,6 @@ const MemberLogin = () => {
 
   return (
     <>
-      <Navbar />
       <div className={`${styles.form}`}>
         <form onSubmit={handleSubmit}>
           <input
@@ -57,7 +56,6 @@ const MemberLogin = () => {
           </button>
         </form>
       </div>
-      <Footer />
     </>
   )
 }

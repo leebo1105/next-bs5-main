@@ -53,7 +53,7 @@ export default function News() {
             {/* <!--put your content inside--> */}
           </div>
           <div className="container-fluid d-flex justify-content-center my-3 newsSection">
-            <div className="news p-4 bg-light m-3">
+            <div className="news p-4 bg-light ">
               <div className="border-bottom border-dark mt-3"></div>
               <div className="bg-light">
                 <ul className="list-unstyled">

@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import MotionButton from './my-motion/motion-button'
 import { useAuth } from '@/hooks/use-auth'
+import TopButton from './top-button'
+import ChatbotButton from '@/pages/chatbotButton'
 
 export default function NavbarMotion() {
   const { auth } = useAuth()
@@ -11,6 +13,10 @@ export default function NavbarMotion() {
     bottom: undefined, // 拖曳按鈕的底部限制，根據窗口大小動態計算
   })
 
+  // 是否顯示TopButton
+  const [showTopButton, setShowTopButton] = useState(false)
+  // 存儲延遲顯示的計時
+  const hoverTimeoutRef = useRef(null)
   const [isDragging, setIsDragging] = useState(false) // 是否正在拖曳的狀態
   const buttonRef = useRef(null) // 用於引用拖曳按鈕的 useRef
   const overlayRef = useRef(null) // 用於引用遮罩層的 useRef
@@ -51,6 +57,9 @@ export default function NavbarMotion() {
   // 開始拖曳按鈕的事件處理函數
   function startDrag(event) {
     event.preventDefault() // 阻止預設的滑鼠事件
+
+    // 清除懸停計時器 確保點擊後不顯示
+    clearTimeout(hoverTimeoutRef.current)
 
     const button = buttonRef.current // 獲取拖曳按鈕的DOM元素
     if (!button) return
@@ -162,10 +171,16 @@ export default function NavbarMotion() {
     setIsDragging(true) // 開始拖曳時設置拖曳狀態為true
   }
 
-  // 滾動到頁面頂部的函數，平滑滾動
-  // function scrollToTop() {
-  //   window.scrollTo({ top: 0, behavior: 'smooth' })
-  // }
+  function handleMouseEnter() {
+    hoverTimeoutRef.current = setTimeout(() => {
+      setShowTopButton(true)
+    }, 1000)
+  }
+
+  function handleMouseLeave() {
+    clearTimeout(hoverTimeoutRef.current)
+    setShowTopButton(false)
+  }
 
   return (
     <>
@@ -186,10 +201,25 @@ export default function NavbarMotion() {
         }}
         onMouseDown={startDrag} // 滑鼠按下時開始拖曳
         onTouchStart={startDrag} // 觸控開始時開始拖曳
-        // onClick={scrollToTop} // 點擊按鈕滾動到頂部
+        onMouseEnter={handleMouseEnter} //滑鼠懸停開始顯示
+        onMouseLeave={handleMouseLeave} // 滑鼠離開消失
         ref={buttonRef} // 引用拖曳按鈕的 ref
       >
-        <MotionButton /> {/* 顯示動態按鈕 */}
+        {/* topButton */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '-50px',
+            left: '0px',
+            transform: 'translateX(-50%)',
+            transition: 'opacity 0.3s ease',
+          }}
+        >
+          {showTopButton && <TopButton />}
+        </div>
+
+        {/* 動態按鈕 */}
+        <MotionButton />
       </div>
     </>
   )

@@ -15,7 +15,7 @@ export default function Footer() {
             <li>公休日:每週一</li>
             <li>地址:臺南市中西區永福路二段160號</li>
           </ul>
-          <div className="icon d-flex flex-row-reverse text-light">
+          <div className="icon d-flex flex-row-reverse text-dark ">
             <a href="https://www.facebook.com/peonygardenchinesecuisine/photos_by">
               <i className="bi bi-facebook primary m-1 text-light"></i>
             </a>

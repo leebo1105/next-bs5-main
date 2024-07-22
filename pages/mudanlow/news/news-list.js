@@ -161,7 +161,7 @@ export default function NewsList() {
     <>
       <div className="newsListPage position-relative">
         <div className="container-fluid d-flex justify-content-center">
-          <button className="btn btn-success back-btn" onClick={goBack}>
+          <button className="btn back-btn" onClick={goBack}>
             回上頁
           </button>
           <div className="text-center keyword-title">
@@ -301,8 +301,8 @@ export default function NewsList() {
         .back-btn {
           background-color: #465952;
           color: white;
-          top: 100px;
-          left: 100px;
+          top: 80px;
+          left: 80px;
           position: absolute;
         }
 

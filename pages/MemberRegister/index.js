@@ -41,7 +41,6 @@ const MemberRegister = () => {
 
   return (
     <>
-      <Navbar />
       <div className={`${styles.form}`}>
         <form onSubmit={handleSubmit}>
           <input
@@ -91,7 +90,6 @@ const MemberRegister = () => {
           </button>
         </form>
       </div>
-      <Footer />
     </>
   )
 }

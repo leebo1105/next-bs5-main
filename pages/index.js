@@ -95,13 +95,14 @@ export default function MudanlowIndex() {
         <div className="container-fluid p-5">
           <div className="row align-items-center justify-content-center g-5">
             <div className="col-lg-5 fade-in-image" ref={imageRef}>
-              <div className="image-holder mb-4">
+              <div className="image-holder mb-4 firstPic">
                 <Image
                   src="images/mudanlowWebp/DSC00576.webp"
                   alt="single"
-                  className="Image-fluid"
+                  className="Image-fluid "
                   width={720}
                   height={540}
+                  layout="responsive"
                   priority
                 />
               </div>
@@ -127,10 +128,20 @@ export default function MudanlowIndex() {
           </div>
         </div>
         <div className="backgroundItem">
-          <Image src="/pics/frontItem.png" width={600} height={600} />
+          <Image
+            src="/pics/frontItem.png"
+            width={600}
+            height={600}
+            layout="responsive"
+          />
         </div>
         <div className="backgroundItem2">
-          <Image src="/pics/frontItem.png" width={300} height={300} />
+          <Image
+            src="/pics/frontItem.png"
+            width={300}
+            height={300}
+            layout="responsive"
+          />
         </div>
       </section>
       <FrontPageCarousel />
@@ -145,6 +156,7 @@ export default function MudanlowIndex() {
           className="pic1 position-absolute"
           width={500}
           height={500}
+          layout="responsive"
           alt=""
         />
       </section>
@@ -158,6 +170,7 @@ export default function MudanlowIndex() {
               alt=""
               width={478}
               height={310}
+              layout="responsive"
             />
           </div>
           <div className="col-lg-3 col-md-6 p-0">
@@ -167,6 +180,7 @@ export default function MudanlowIndex() {
               alt=""
               width={478}
               height={310}
+              layout="responsive"
             />
           </div>
           <div className="col-lg-3 col-md-6 p-0">
@@ -176,6 +190,7 @@ export default function MudanlowIndex() {
               alt=""
               width={478}
               height={310}
+              layout="responsive"
             />
           </div>
           <div className="col-lg-3 col-md-6 p-0">
@@ -185,6 +200,7 @@ export default function MudanlowIndex() {
               alt=""
               width={478}
               height={310}
+              layout="responsive"
             />
           </div>
         </div>
@@ -201,13 +217,13 @@ export default function MudanlowIndex() {
         </div>
       </div>
       {/* <!-- 關於我們&徵才資訊 --> */}
-      <section className=" section-secondary-color background2 position-relative">
+      <section className="section-secondary-color background2 position-relative">
         <h2 className="display-4 lxgw-wenkai-mono-tc-bold frontTitle">
           關於我們
         </h2>
         <div className="container mt-5">
-          <div className="row d-flex justify-content-evenly align-items-center">
-            <div className="col-4 fade-in-image" ref={aboutImage1Ref}>
+          <div className="row d-flex justify-content-evenly align-items-center flex-column flex-lg-row">
+            <div className="col-lg-4 fade-in-image" ref={aboutImage1Ref}>
               <div className="aboutHire">
                 <div className="hoverContainer">
                   <div className="hireOverlay"></div>
@@ -217,6 +233,7 @@ export default function MudanlowIndex() {
                     alt=""
                     width={480}
                     height={360}
+                    layout="responsive"
                   />
                   <Link href="/mudanlow/about-us/introduce" passHref>
                     <button className="hireBtn mt-5 lxgw-wenkai-mono-tc-light">
@@ -226,7 +243,7 @@ export default function MudanlowIndex() {
                 </div>
               </div>
             </div>
-            <div className="col-4 fade-in-section" ref={aboutText1Ref}>
+            <div className="col-lg-4 fade-in-section" ref={aboutText1Ref}>
               <h2>場地介紹</h2>
               <p className="text-center lxgw-wenkai-mono-tc-regular fs-5">
                 我們的餐廳環境溫馨雅緻，裝潢別緻，擁有舒適的座椅和柔和的燈光。寬敞的用餐區和私密的包廂滿足不同需求，適合家庭聚餐、商務宴請和浪漫約會。
@@ -235,14 +252,17 @@ export default function MudanlowIndex() {
           </div>
         </div>
         <div className="container mt-5">
-          <div className="row d-flex justify-content-evenly align-items-center">
-            <div className="col-4 text-end fade-in-section" ref={aboutText2Ref}>
+          <div className="row d-flex justify-content-evenly align-items-center flex-column-reverse flex-lg-row">
+            <div
+              className="col-lg-4 text-end fade-in-section"
+              ref={aboutText2Ref}
+            >
               <h2>人才招募</h2>
               <p className="text-center lxgw-wenkai-mono-tc-regular fs-5">
                 我們的餐廳正在招募熱情、有責任心的員工。無論您是廚師、服務員還是管理人員，我們都歡迎您的加入。提供良好的工作環境和培訓機會，讓您在這裡成長和發展。
               </p>
             </div>
-            <div className="col-4 fade-in-image-right" ref={aboutImage2Ref}>
+            <div className="col-lg-4 fade-in-image-right" ref={aboutImage2Ref}>
               <div className="aboutHire">
                 <div className="hoverContainer">
                   <div className="hireOverlay"></div>
@@ -252,6 +272,7 @@ export default function MudanlowIndex() {
                     alt=""
                     width={480}
                     height={360}
+                    layout="responsive"
                   />
                   <Link href="/mudanlow/about-us/hire" passHref>
                     <button className="mt-5 lxgw-wenkai-mono-tc-light hireBtn">
@@ -265,12 +286,14 @@ export default function MudanlowIndex() {
         </div>
         <Image
           src="pics/frontItem2.png"
-          className="pic3 position-absolute"
+          className="pic2 position-absolute"
           width={500}
           height={500}
+          layout="responsive"
           alt=""
         />
       </section>
+
       {/* <!-- 地圖 --> */}
       <section id="collections" className="position-relative background1">
         <h2 className="display-4 lxgw-wenkai-mono-tc-bold frontTitle2">地圖</h2>
@@ -286,6 +309,7 @@ export default function MudanlowIndex() {
                   alt="Front Image"
                   width={800}
                   height={480}
+                  layout="responsive"
                 />
               </div>
               <div className="flip-card-back">

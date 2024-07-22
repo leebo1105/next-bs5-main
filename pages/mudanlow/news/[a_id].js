@@ -140,7 +140,7 @@ export default function NewsContent() {
                 </div>
               </div>
               <div className="d-flex justify-content-between align-items-center other">
-                <div className="share">分享至:</div>
+                <div className="share"></div>
                 <div className="nextPage">
                   <button className="nextPageBtn" onClick={NextArticle}>
                     下一頁
@@ -231,11 +231,11 @@ export default function NewsContent() {
           width: 50%;
           border-bottom: 5px solid gray;
           position: absolute;
-          bottom: 6%;
+          bottom: 7%;
           right: 0;
         }
         .date {
-          bottom: 4%;
+          bottom: 3%;
           left: 0px;
           position: absolute;
           color: rgb(177, 176, 176);
@@ -258,7 +258,15 @@ export default function NewsContent() {
         }
 
         .nextPageBtn {
-          background-color: #31313186;
+          color: #fff;
+          background-color: #465952;
+          padding: 5px 15px;
+          border-radius: 5px;
+        }
+
+        .nextPageBtn:hover {
+          color: black;
+          background-color: gray;
           padding: 5px 15px;
           border-radius: 5px;
         }

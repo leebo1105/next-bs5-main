@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import styles from './messageboard.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 
 export default function MessageBoard() {
   const [rating, setRating] = useState(0)
   const [hoverRating, setHoverRating] = useState(0)
   const [formData, setFormData] = useState({ value: '', content: '' })
   const [comments, setComments] = useState([])
+  const [expandedComment, setExpandedComment] = useState(null)
   const maxZIndex = 1
   const maxHeight = 400
   const minHeight = 100
@@ -111,6 +112,14 @@ export default function MessageBoard() {
     e.preventDefault()
   }
 
+  const handleExpandComment = (comment) => {
+    setExpandedComment(comment)
+  }
+
+  const handleCloseComment = () => {
+    setExpandedComment(null)
+  }
+
   useEffect(() => {
     getComments()
   }, [])
@@ -195,6 +204,7 @@ export default function MessageBoard() {
               left: comment.position.left,
               zIndex: comment.zIndex,
             }}
+            onClick={() => handleExpandComment(comment)}
           >
             <div className="text-light text-center fs-5">
               很棒!您是第{comment.c_id}個留言的人!
@@ -215,6 +225,37 @@ export default function MessageBoard() {
             <div className="text-light">留言時間: {comment.created_at}</div>
           </div>
         ))}
+
+        {expandedComment && (
+          <div className={styles.expandedComment}>
+            <button className={styles.closeButton} onClick={handleCloseComment}>
+              <FontAwesomeIcon icon={faCircleXmark} height={30} />
+            </button>
+            <div className="text-light text-center fs-5 mt-2">
+              很棒!您是第{expandedComment.c_id}個留言的人!
+            </div>
+            <label className="text-light">評分:</label>
+            <div className={`${styles.commentStar} text-center`}>
+              {[1, 2, 3, 4, 5].map((i) => (
+                <FontAwesomeIcon
+                  icon={faStar}
+                  key={i}
+                  style={{
+                    color: i <= expandedComment.value ? '#FFD43B' : '#dcdcdc',
+                  }}
+                  height={30}
+                />
+              ))}
+            </div>
+            <label className="text-light">內容:</label>
+            <div className={styles.commentContent}>
+              {expandedComment.content}
+            </div>
+            <div className="text-light">
+              留言時間: {expandedComment.created_at}
+            </div>
+          </div>
+        )}
       </section>
     </>
   )

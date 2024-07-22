@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import Lottie from 'lottie-react'
-import animationData from '@/assets/loader-motion.json' // 假設這是動畫檔案的路徑
+import animationData from '@/assets/loader-motion.json'
 import Link from 'next/link'
 import { Button, Modal } from 'react-bootstrap'
 import MotionButtonOne from './motion-button-one'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FaInstagram } from 'react-icons/fa'
+import ChatbotButton from '@/pages/chatbotButton'
 function MotionButton(props) {
   const [currentButton, setCurrentButton] = useState(1)
 
@@ -93,7 +95,12 @@ function MotionButton(props) {
             animation: currentButton === 2 ? 'pulse 1s alternate' : '',
           }}
         >
-          2
+          <Link
+            style={{ color: 'white', textDecoration: 'none' }}
+            href="/ReservationRules"
+          >
+            立即預約
+          </Link>
         </Button>
         <Button
           style={{
@@ -107,7 +114,12 @@ function MotionButton(props) {
             animation: currentButton === 3 ? 'pulse 1s alternate' : '',
           }}
         >
-          3
+          <Link
+            style={{ color: 'white', textDecoration: 'none' }}
+            href="/ReservationGet"
+          >
+            我的訂單
+          </Link>
         </Button>
         <Button
           style={{
@@ -121,7 +133,12 @@ function MotionButton(props) {
             animation: currentButton === 4 ? 'pulse 1s alternate' : '',
           }}
         >
-          4
+          <Link
+            style={{ color: 'white', textDecoration: 'none' }}
+            href="/product/list"
+          >
+            購物專區
+          </Link>
         </Button>
         <Button
           style={{
@@ -151,7 +168,12 @@ function MotionButton(props) {
             animation: currentButton === 6 ? 'pulse 1s alternate' : '',
           }}
         >
-          6
+          <Link
+            style={{ color: 'white', textDecoration: 'none' }}
+            href="https://www.facebook.com/peonygardenchinesecuisine/photos_by"
+          >
+            FB
+          </Link>
         </Button>
         <Button
           style={{
@@ -165,7 +187,7 @@ function MotionButton(props) {
             animation: currentButton === 7 ? 'pulse 1s alternate' : '',
           }}
         >
-          7
+          想不到
         </Button>
         <Button
           style={{
@@ -179,7 +201,12 @@ function MotionButton(props) {
             animation: currentButton === 8 ? 'pulse 1s alternate' : '',
           }}
         >
-          8
+          <Link
+            style={{ color: 'white', textDecoration: 'none' }}
+            href="https://www.instagram.com/p/CzEAO5XRq-P/?img_index=1"
+          >
+            IG
+          </Link>
         </Button>
       </Modal.Body>
     </Modal>

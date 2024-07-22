@@ -117,7 +117,7 @@
 @media screen and (max-width: 992px) {
   .hamburger {
     cursor: pointer;
-    z-index: 3; /* 確保漢堡圖標在最上層 */
+    z-index: 4; /* 確保漢堡圖標在最上層 */
     transition: left 0.5s; /* 使漢堡圖標與canvas同步移動 */
     position: absolute;
     right: 30px;
@@ -128,7 +128,7 @@
   .stickyNavbar {
     display: flex;
     align-items: center;
-    z-index: 3;
+    z-index: 4;
   }
   .navbarLogo {
     height: 100%;
@@ -142,7 +142,7 @@
     overflow-y: hidden;
     transition: top 0.5s;
     padding-top: 60px;
-    z-index: 1; /* 確保canvas在漢堡圖標下面 */
+    z-index: 3; /* 確保canvas在漢堡圖標下面 */
     color: white; /* 將文字設為白色以在深色背景上顯示 */
   }
   .offcanvasContent.active {

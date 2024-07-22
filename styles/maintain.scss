@@ -135,18 +135,38 @@ section {
 
 /* Extra large devices */
 @media (min-width: 1200px) {
+  .frontpage {
+    height: 100vh;
+    position: relative;
+    z-index: 2;
+  }
 }
 
 /* desktops */
 @media (max-width: 992px) {
+  .frontpage {
+    height: 80vh;
+    position: relative;
+    z-index: 2;
+  }
 }
 
 /* tablets */
 @media (max-width: 768px) {
+  .frontpage {
+    height: 60vh;
+    position: relative;
+    z-index: 2;
+  }
 }
 
 /* phones */
 @media (max-width: 576px) {
+  .frontpage {
+    height: 30vh;
+    position: relative;
+    z-index: 2;
+  }
 }
 
 /* ********首頁元件****** */
@@ -468,6 +488,231 @@ section {
   z-index: 1;
 }
 
+@media (min-width: 1200px) {
+  .backgroundItem {
+    position: absolute;
+    right: -250px;
+    top: -250px;
+    z-index: 1;
+    max-width: 600px;
+    width: 100%;
+  }
+  .backgroundItem2 {
+    position: absolute;
+    left: -150px;
+    bottom: -150px;
+    z-index: 1;
+    max-width: 300px;
+    width: 100%;
+  }
+  /*背景圖片*/
+  .pic1 {
+    z-index: 1;
+    bottom: 0;
+    right: 0;
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .pic2 {
+    z-index: 1;
+    bottom: -250px;
+    left: 0;
+    max-width: 500px;
+    width: 100%;
+  }
+}
+/* Extra large devices */
+@media (max-width: 1200px) {
+  .backgroundItem {
+    position: absolute;
+    right: -250px;
+    top: -250px;
+    z-index: 1;
+    max-width: 600px;
+    width: 100%;
+  }
+  .backgroundItem2 {
+    position: absolute;
+    left: -150px;
+    bottom: -150px;
+    z-index: 1;
+    max-width: 300px;
+    width: 100%;
+  }
+  /*背景圖片*/
+  .pic1 {
+    z-index: 1;
+    bottom: 0;
+    right: 0;
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .pic2 {
+    z-index: 1;
+    bottom: -250px;
+    left: 0;
+    max-width: 500px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .backgroundItem {
+    position: absolute;
+    right: -250px;
+    top: -250px;
+    z-index: 1;
+    max-width: 600px;
+    width: 80%;
+  }
+  .backgroundItem2 {
+    position: absolute;
+    left: -150px;
+    bottom: -150px;
+    z-index: 1;
+    max-width: 300px;
+    width: 80%;
+  }
+  /*背景圖片*/
+  .pic1 {
+    z-index: 1;
+    bottom: 0;
+    right: 0;
+    max-width: 500px;
+    width: 80%;
+  }
+
+  .pic2 {
+    z-index: 1;
+    bottom: -250px;
+    left: 0;
+    max-width: 500px;
+    width: 80%;
+  }
+}
+
+/* desktops */
+@media (max-width: 992px) {
+  .backgroundItem {
+    position: absolute;
+    right: -250px;
+    top: -250px;
+    z-index: 1;
+    max-width: 600px;
+    width: 80%;
+  }
+  .backgroundItem2 {
+    position: absolute;
+    left: -150px;
+    bottom: -150px;
+    z-index: 1;
+    max-width: 300px;
+    width: 80%;
+  }
+  /*背景圖片*/
+  .pic1 {
+    z-index: 1;
+    bottom: 0;
+    right: 0;
+    max-width: 500px;
+    width: 60%;
+  }
+
+  .pic2 {
+    z-index: 1;
+    bottom: -250px;
+    left: 0;
+    max-width: 500px;
+    width: 50%;
+    display: none;
+  }
+}
+
+/* tablets */
+@media (max-width: 768px) {
+  .backgroundItem {
+    position: absolute;
+    right: -250px;
+    top: -250px;
+    z-index: 1;
+    max-width: 600px;
+    width: 70%;
+  }
+  .backgroundItem2 {
+    position: absolute;
+    left: -150px;
+    bottom: -150px;
+    z-index: 1;
+    max-width: 300px;
+    width: 70%;
+  }
+  /*背景圖片*/
+  .pic1 {
+    z-index: 1;
+    bottom: 0;
+    right: 0;
+    max-width: 500px;
+    width: 40%;
+  }
+
+  .pic2 {
+    z-index: 1;
+    bottom: -250px;
+    left: 0;
+    max-width: 500px;
+    width: 40%;
+    display: none;
+  }
+}
+
+/* phones */
+@media (max-width: 576px) {
+  .backgroundItem {
+    position: absolute;
+    right: -250px;
+    top: -250px;
+    z-index: 1;
+    max-width: 600px;
+    width: 60%;
+  }
+  .backgroundItem2 {
+    position: absolute;
+    left: -150px;
+    bottom: -150px;
+    z-index: 1;
+    max-width: 300px;
+    width: 60%;
+  }
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    max-width: 800px;
+    width: 100%;
+    backface-visibility: hidden;
+  }
+  /*背景圖片*/
+  .pic1 {
+    z-index: 1;
+    bottom: 0;
+    right: 0;
+    max-width: 500px;
+    width: 20%;
+  }
+
+  .pic2 {
+    z-index: 1;
+    bottom: -250px;
+    left: 0;
+    max-width: 500px;
+    width: 20%;
+    display: none;
+  }
+}
+
 /*照片切割線遮罩*/
 .picOverlay {
   position: absolute;
@@ -482,6 +727,7 @@ section {
   font-family: 'Chocolate Classical Sans', sans-serif;
   font-size: 60px;
   font-style: italic;
+  overflow: hidden;
 }
 /*起源宗旨設置*/
 .aboutUsSection {
@@ -518,11 +764,6 @@ section {
   transform: rotateY(180deg);
 }
 
-.mapBackground {
-  background-image: url('/pics/background3.png');
-  height: 100%;
-}
-
 .fade-in-section {
   opacity: 0;
   transform: translateY(50px);
@@ -554,4 +795,8 @@ section {
 .fade-in-image-right.visible {
   opacity: 1;
   transform: none;
+}
+
+.firstPic {
+  z-index: 5;
 }
