@@ -75,45 +75,31 @@ const MemberLevel = () => {
 
   const checkAndSendCoupon = async (accumulatedAmount, userId) => {
     console.log('Sending coupon request:', accumulatedAmount, userId)
-    try {
-      const response = await fetch(
-        `http://localhost:3005/api/coupons/add/${userId}`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            accumulatedAmount, // 此資料不會被插入資料庫，只在後端邏輯中使用
-          }),
-        }
-      )
-
-      if (!response.ok) {
-        console.error('Fetch error:', response.status, response.statusText)
-        throw new Error('Network response was not ok')
-      }
-
-      const data = await response.json()
-      console.log('Coupon response:', data)
-
-      if (data.success) {
-        const couponValue = data.result.coupons_sample_price
-        Swal.fire({
-          title: '恭喜！',
-          text: `您已獲得一張價值 ${couponValue} 元的折價券！`,
-          icon: 'success',
-          confirmButtonText: '前往會員資料查看',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.href = '/profile'
+    if (accumulatedAmount >= 5000 && accumulatedAmount <= 18000) {
+      try {
+        const response = await fetch(
+          `http://localhost:3005/api/coupons/add/${userId}`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              accumulatedAmount, // 此資料不會被插入資料庫，只在後端邏輯中使用
+            }),
           }
-        })
-      } else {
-        console.error('Backend error:', data)
+        )
+
+        if (!response.ok) {
+          console.error('Fetch error:', response.status, response.statusText)
+          throw new Error('Network response was not ok')
+        }
+
+        const data = await response.json()
+        console.log('Coupon response:', data)
+      } catch (error) {
+        console.error('', error)
       }
-    } catch (error) {
-      console.error('Error sending coupon:', error)
     }
   }
 
