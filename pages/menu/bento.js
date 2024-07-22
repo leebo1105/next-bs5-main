@@ -49,82 +49,84 @@ export default function Bento() {
 
   return (
     <>
-      <div className="topPhoto">
-        <div className="size"></div>
-      </div>
-      <MenuNav />
-      <BentoTitle />
       <div className="container">
-        <div className="row d-flex justify-content-center" ref={galleryRef}>
-          <ScrollMotionContainer
-            element="div"
-            className="row"
-            variants={{
-              show: {
-                transition: {
-                  staggerChildren: 0.5, // 每個子元素動畫之間的間隔時間
-                },
-              },
-              hide: {},
-            }}
-            initial="hide"
-            animate="show"
-          >
-            {bento.rows.map((v) => {
-              const imageName = v.image.replace(/^"(.*)"$/, '$1')
-              return (
-                <ScrollMotionItem
-                  element="div"
-                  key={v.id}
-                  className="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center"
-                  type="right"
-                  viewport={{ once: false, amount: 0.5 }}
-                  variants={{
-                    show: {
-                      opacity: 1,
-                      x: 0,
-                      transition: { duration: 1.5, ease: 'easeOut' },
-                    },
-                  }}
-                >
-                  <div className="card-size">
-                    <div className="card-img">
-                      <a
-                        href={`/menu/bento/${imageName}`}
-                        data-lg-size="315-200"
-                      >
-                        <Image
-                          src={`/menu/bento/${imageName}`}
-                          alt="精緻便當"
-                          width="315"
-                          height="200"
-                          className="card-top"
-                        />
-                      </a>
-                    </div>
-                    <div className="layout">
-                      <div className="black-line-2" />
-                      <div className="icon">
-                        <ImSpoonKnife />
-                      </div>
-                      <div className="black-line-2" />
-                    </div>
-                    <div className="pname">{v.name}</div>
-                    <div className="black-line-2" />
-                    <div className="position">
-                      <div className="price">NT-{v.price}</div>
-                      {v.popularity ? (
-                        <span className="butter price">{v.popularity}</span>
-                      ) : null}
-                    </div>
-                  </div>
-                </ScrollMotionItem>
-              )
-            })}
-          </ScrollMotionContainer>
+        <div className="topPhoto">
+          <div className="size"></div>
         </div>
-        <TopButton />
-        <Cooker />
+        <MenuNav />
+        <BentoTitle />
+        <div className="container">
+          <div className="row d-flex justify-content-center" ref={galleryRef}>
+            <ScrollMotionContainer
+              element="div"
+              className="row"
+              variants={{
+                show: {
+                  transition: {
+                    staggerChildren: 0.5, // 每個子元素動畫之間的間隔時間
+                  },
+                },
+                hide: {},
+              }}
+              initial="hide"
+              animate="show"
+            >
+              {bento.rows.map((v) => {
+                const imageName = v.image.replace(/^"(.*)"$/, '$1')
+                return (
+                  <ScrollMotionItem
+                    element="div"
+                    key={v.id}
+                    className="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center"
+                    type="right"
+                    viewport={{ once: false, amount: 0.5 }}
+                    variants={{
+                      show: {
+                        opacity: 1,
+                        x: 0,
+                        transition: { duration: 1.5, ease: 'easeOut' },
+                      },
+                    }}
+                  >
+                    <div className="card-size">
+                      <div className="card-img">
+                        <a
+                          href={`/menu/bento/${imageName}`}
+                          data-lg-size="315-200"
+                        >
+                          <Image
+                            src={`/menu/bento/${imageName}`}
+                            alt="精緻便當"
+                            width="315"
+                            height="200"
+                            className="card-top"
+                          />
+                        </a>
+                      </div>
+                      <div className="layout">
+                        <div className="black-line-2" />
+                        <div className="icon">
+                          <ImSpoonKnife />
+                        </div>
+                        <div className="black-line-2" />
+                      </div>
+                      <div className="pname">{v.name}</div>
+                      <div className="black-line-2" />
+                      <div className="position">
+                        <div className="price">NT-{v.price}</div>
+                        {v.popularity ? (
+                          <span className="butter price">{v.popularity}</span>
+                        ) : null}
+                      </div>
+                    </div>
+                  </ScrollMotionItem>
+                )
+              })}
+            </ScrollMotionContainer>
+          </div>
+          <TopButton />
+          <Cooker />
+        </div>
       </div>
       <style jsx>
         {`

@@ -192,7 +192,7 @@ export default function Kcal() {
           </div>
         </div>
 
-        <div className="mt-5 position">
+        <div className="mt-2 position">
           <button
             className="button"
             data-text="一鍵清桌"
@@ -216,7 +216,10 @@ export default function Kcal() {
         </div>
 
         <div className="calorie-info position">
-          <ul className="list-group list-group-flush" id="calorieDisplay">
+          <ul
+            className="list-group list-group-flush text-center"
+            id="calorieDisplay"
+          >
             <li className="list-group-item" id="putcal">
               卡路里計算
             </li>
@@ -388,6 +391,9 @@ export default function Kcal() {
         background-position: center;
         background-repeat: no-repeat;
       }
+     .list-group{
+        width:660px;
+     }
     `}</style>
       </div>
     </>

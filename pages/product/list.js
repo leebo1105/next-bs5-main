@@ -390,80 +390,82 @@ export default function List() {
 
   return (
     <>
-      <Cart />
-      <div className="row mt-3 mb-3">
-        <h5 className="card-text d-flex justify-content-between align-items-center">
-          <span className="custom-title">真空包產品</span>
-          <div className="d-flex p-2 justify-content-end align-items-center">
-            <div className="toolbar">
-              <button
-                className="btn"
-                id="sidebarToggle"
-                onClick={toggleSidebar}
+      <div className="container">
+        <Cart />
+        <div className="row mt-3 mb-3">
+          <h5 className="card-text d-flex justify-content-between align-items-center">
+            <span className="custom-title">真空包產品</span>
+            <div className="d-flex p-2 justify-content-end align-items-center">
+              <div className="toolbar">
+                <button
+                  className="btn"
+                  id="sidebarToggle"
+                  onClick={toggleSidebar}
+                >
+                  隱藏篩選條件{' '}
+                  <i
+                    className={`bi ${
+                      sidebarCollapsed ? 'bi-chevron-right' : 'bi-chevron-left'
+                    }`}
+                  ></i>
+                </button>
+              </div>
+              <div className="dropdown">
+                <button
+                  className="btn dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  排序依據
+                </button>
+                <ul className="dropdown-menu">
+                  <li>
+                    <a
+                      className="dropdown-item"
+                      href="#"
+                      onClick={() => handleSort('desc')}
+                    >
+                      價格：由高至低
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="dropdown-item"
+                      href="#"
+                      onClick={() => handleSort('asc')}
+                    >
+                      價格：由低至高
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </h5>
+        </div>
+        <div className="row mt-3 mb-3">
+          <div className="col-sm-12">
+            <div className="d-flex" id="wrapper">
+              <div
+                className={`me-3 sidebar-wrapper ${
+                  sidebarCollapsed ? 'collapsed' : ''
+                }`}
+                id="sidebar-wrapper"
               >
-                隱藏篩選條件{' '}
-                <i
-                  className={`bi ${
-                    sidebarCollapsed ? 'bi-chevron-right' : 'bi-chevron-left'
-                  }`}
-                ></i>
-              </button>
-            </div>
-            <div className="dropdown">
-              <button
-                className="btn dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                排序依據
-              </button>
-              <ul className="dropdown-menu">
-                <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() => handleSort('desc')}
-                  >
-                    價格：由高至低
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() => handleSort('asc')}
-                  >
-                    價格：由低至高
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </h5>
-      </div>
-      <div className="row mt-3 mb-3">
-        <div className="col-sm-12">
-          <div className="d-flex" id="wrapper">
-            <div
-              className={`me-3 sidebar-wrapper ${
-                sidebarCollapsed ? 'collapsed' : ''
-              }`}
-              id="sidebar-wrapper"
-            >
-              <div className="scroll">{filterBar}</div>
-            </div>
-            <div id="page-content-wrapper">
-              <div className="container-fluid">{display}</div>
+                <div className="scroll">{filterBar}</div>
+              </div>
+              <div id="page-content-wrapper">
+                <div className="container-fluid">{display}</div>
+              </div>
             </div>
           </div>
         </div>
+        {messageModal}
+        <Toaster />
       </div>
-      {messageModal}
-      <Toaster />
       <style jsx>{`
         .row {
-          width: 80%;
+          width: 100%;
           margin: 0 auto;
           padding: 20px;
           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

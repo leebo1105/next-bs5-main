@@ -54,29 +54,27 @@ export default function News() {
           </div>
           <div className="container-fluid d-flex justify-content-center my-3 newsSection">
             <div className="news p-4 bg-light m-3">
-              <div className="border-bottom border-dark">
-                <h1 className="lxgw-wenkai-mono-tc-regular">最新消息</h1>
-              </div>
+              <div className="border-bottom border-dark mt-3"></div>
               <div className="bg-light">
                 <ul className="list-unstyled">
                   {articles.length > 0 ? (
                     articles.slice(0, 5).map((article) => (
-                      <li className="newsList" key={article.a_id}>
-                        <div className="border-bottom border-dark row align-items-center py-3 list">
-                          <div className="col-4 ">
-                            <div className="text-secondary ">
-                              {article.date}
+                      <Link
+                        href={`/mudanlow/news/${article.a_id}`}
+                        title="查看文章"
+                      >
+                        <li className="newsList" key={article.a_id}>
+                          <div className="border-bottom border-dark row align-items-center py-3 list">
+                            <div className="col-4 ">
+                              <div className="text-secondary ">
+                                {article.date}
+                              </div>
+                              <div className="fw-bolder ">{article.title}</div>
                             </div>
-                            <div className="fw-bolder ">{article.title}</div>
-                          </div>
-                          <div className="col-7 ">
-                            {truncateContent(article.content)}
-                          </div>
-                          <div className="col-1 ">
-                            <Link
-                              href={`/mudanlow/news/${article.a_id}`}
-                              title="查看文章"
-                            >
+                            <div className="col-7 ">
+                              {truncateContent(article.content)}
+                            </div>
+                            <div className="col-1 ">
                               <div className="news-arrow">
                                 <FontAwesomeIcon
                                   icon={faChevronRight}
@@ -84,17 +82,17 @@ export default function News() {
                                   height={30}
                                 />
                               </div>
-                            </Link>
+                            </div>
                           </div>
-                        </div>
-                      </li>
+                        </li>
+                      </Link>
                     ))
                   ) : (
                     <li>無文章可顯示</li>
                   )}
                 </ul>
               </div>
-              <div className="position-relative p-2">
+              <div className="position-relative mt-4">
                 <nav className="buttons position-absolute bottom-0 end-0">
                   <Link
                     className="more-btn"

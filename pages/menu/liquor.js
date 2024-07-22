@@ -48,81 +48,83 @@ export default function Liquor() {
 
   return (
     <>
-      <div className="topPhoto"></div>
-      <MenuNav />
-      <LiquorTitle />
       <div className="container">
-        <div className="row d-flex justify-content-center" ref={galleryRef}>
-          <ScrollMotionContainer
-            element="div"
-            className="row"
-            variants={{
-              show: {
-                transition: {
-                  staggerChildren: 0.5, // 每個子元素動畫之間的間隔時間
+        <div className="topPhoto"></div>
+        <MenuNav />
+        <LiquorTitle />
+        <div className="container">
+          <div className="row d-flex justify-content-center" ref={galleryRef}>
+            <ScrollMotionContainer
+              element="div"
+              className="row"
+              variants={{
+                show: {
+                  transition: {
+                    staggerChildren: 0.5, // 每個子元素動畫之間的間隔時間
+                  },
                 },
-              },
-              hide: {},
-            }}
-            initial="hide"
-            animate="show"
-          >
-            {liquor.rows.map((v) => {
-              const imageName = v.image.replace(/^"(.*)"$/, '$1')
-              return (
-                <ScrollMotionItem
-                  element="div"
-                  key={v.id}
-                  className="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center"
-                  type="right"
-                  viewport={{ once: false, amount: 0.5 }}
-                  variants={{
-                    show: {
-                      opacity: 1,
-                      x: 0,
-                      transition: { duration: 1.5, ease: 'easeOut' },
-                    },
-                  }}
-                >
-                  <div className="card-size">
-                    <div className="card-img">
-                      <a
-                        href={`/menu/liquor/${imageName}`}
-                        data-lg-size="250-320"
-                      >
-                        <Image
-                          src={`/menu/liquor/${imageName}`}
-                          alt="酒精飲品"
-                          width="250"
-                          height="320"
-                          className="card-top"
-                        />
-                      </a>
-                    </div>
-                    <div className="layout">
-                      <div className="black-line-2" />
-                      <div className="icon">
-                        <ImSpoonKnife />
+                hide: {},
+              }}
+              initial="hide"
+              animate="show"
+            >
+              {liquor.rows.map((v) => {
+                const imageName = v.image.replace(/^"(.*)"$/, '$1')
+                return (
+                  <ScrollMotionItem
+                    element="div"
+                    key={v.id}
+                    className="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center"
+                    type="right"
+                    viewport={{ once: false, amount: 0.5 }}
+                    variants={{
+                      show: {
+                        opacity: 1,
+                        x: 0,
+                        transition: { duration: 1.5, ease: 'easeOut' },
+                      },
+                    }}
+                  >
+                    <div className="card-size">
+                      <div className="card-img">
+                        <a
+                          href={`/menu/liquor/${imageName}`}
+                          data-lg-size="250-320"
+                        >
+                          <Image
+                            src={`/menu/liquor/${imageName}`}
+                            alt="酒精飲品"
+                            width="250"
+                            height="320"
+                            className="card-top"
+                          />
+                        </a>
                       </div>
+                      <div className="layout">
+                        <div className="black-line-2" />
+                        <div className="icon">
+                          <ImSpoonKnife />
+                        </div>
+                        <div className="black-line-2" />
+                      </div>
+                      <div className="pname">{v.name}</div>
                       <div className="black-line-2" />
+                      <div className="position">
+                        <div className="price">NT-{v.price}</div>
+                        {v.popularity ? (
+                          <span className="butter price">{v.popularity}</span>
+                        ) : null}
+                      </div>
                     </div>
-                    <div className="pname">{v.name}</div>
-                    <div className="black-line-2" />
-                    <div className="position">
-                      <div className="price">NT-{v.price}</div>
-                      {v.popularity ? (
-                        <span className="butter price">{v.popularity}</span>
-                      ) : null}
-                    </div>
-                  </div>
-                </ScrollMotionItem>
-              )
-            })}
-          </ScrollMotionContainer>
+                  </ScrollMotionItem>
+                )
+              })}
+            </ScrollMotionContainer>
+          </div>
         </div>
+        <TopButton />
+        <Cooker />
       </div>
-      <TopButton />
-      <Cooker />
       <style jsx>
         {`
           .topPhoto {

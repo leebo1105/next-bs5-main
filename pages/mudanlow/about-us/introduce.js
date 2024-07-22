@@ -261,13 +261,13 @@ export default function Introduce() {
         .content {
           color: black;
           border-radius: 10px;
-          transition: 0.5s;
         }
         .content:hover {
           color: black;
           border-radius: 10px;
           backdrop-filter: blur(50px);
           box-shadow: 0 0 10px black;
+          transition: 0.5s;
         }
         .content-img {
           width: 480px;

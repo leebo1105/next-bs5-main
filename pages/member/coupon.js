@@ -306,7 +306,8 @@ export default function Coupon() {
             text-align: center;
           }
           .couponsBg:hover {
-            width: 310px;
+            width: 320px;
+            transition: 0.5s;
           }
           .logo {
             margin-bottom: 0.5rem;
