@@ -331,7 +331,8 @@ export default function Coupon() {
           .limit {
             text-align: left;
             margin-top: 5px;
-            font-size: 10px;
+            font-size: 12px;
+            font-weight: 900;
           }
           .hidden {
             display: none;
