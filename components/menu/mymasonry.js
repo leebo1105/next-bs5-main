@@ -2,16 +2,16 @@ import { useEffect, useState } from 'react'
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'
 
 const images = [
-  '/test/DSC00574.jpg',
-  '/test/DSC00576.jpg',
-  '/test/DSC00596.jpg',
-  '/test/DSC00644.jpg',
-  '/test/DSC00593.jpg',
-  '/test/DSC00691.jpg',
-  '/test/DSC00610.jpg',
-  '/test/DSC00701.jpg',
-  '/test/DSC00567.jpg',
-  '/test/DSC00585.jpg',
+  '/images/mudanlowWebp/DSC00574.webp',
+  '/images/mudanlowWebp/DSC00576.webp',
+  '/images/mudanlowWebp/DSC00596.webp',
+  '/images/mudanlowWebp/DSC00644.webp',
+  '/images/mudanlowWebp/DSC00593.webp',
+  '/images/mudanlowWebp/DSC00691.webp',
+  '/images/mudanlowWebp/DSC00610.webp',
+  '/images/mudanlowWebp/DSC00701.webp',
+  '/images/mudanlowWebp/DSC00567.webp',
+  '/images/mudanlowWebp/DSC00585.webp',
 
   // 更多圖片路徑
 ]

@@ -502,7 +502,7 @@ export default function NewsList() {
         .newsTitlePic {
           width: 1000px;
           height: 200px;
-          background-image: url(/images/mudanlow-小圖檔/DSC00594.jpg);
+          background-image: url(/images/mudanlowWebp/DSC00594.webp);
           background-position: 90% 35%;
           background-repeat: no-repeat;
           margin-bottom: 20px;

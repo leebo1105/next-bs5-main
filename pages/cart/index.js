@@ -93,9 +93,9 @@ export default function CartIndex() {
               icon: 'success',
               confirmButtonText: '確認',
             }).then(() => {
-              setTimeout(() => {
-                window.location.href = '/'
-              }, 3000)
+              // setTimeout(() => {
+              //   window.location.href = '/'
+              // }, 3000)
             })
           } else {
             setError('折價卷使用失敗')

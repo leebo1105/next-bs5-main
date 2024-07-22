@@ -177,7 +177,7 @@ export default function NewsContent() {
           width: 100%;
           height: 380px;
           margin: 50px auto;
-          background-image: url(/images/mudanlow-小圖檔/DSC00594.jpg);
+          background-image: url(/images/mudanlowWebp/DSC00594.webp);
           background-position: 90% 35%;
           background-repeat: no-repeat;
           z-index: 1;

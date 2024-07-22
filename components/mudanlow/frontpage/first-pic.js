@@ -68,7 +68,7 @@ export default function FirstPicture() {
         <div className="overlay"></div>
         <img
           className="frontpage-img"
-          src="images/mudanlow-小圖檔/DSC00618.jpg"
+          src="/images/mudanlowWebp/DSC00618.webp"
           alt="Frontpage"
         />
       </div>

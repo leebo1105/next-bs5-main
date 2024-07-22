@@ -97,7 +97,7 @@ export default function MudanlowIndex() {
             <div className="col-lg-5 fade-in-image" ref={imageRef}>
               <div className="image-holder mb-4">
                 <Image
-                  src="images/mudanlow-小圖檔/DSC00576.jpg"
+                  src="images/mudanlowWebp/DSC00576.webp"
                   alt="single"
                   className="Image-fluid"
                   width={720}
@@ -154,7 +154,7 @@ export default function MudanlowIndex() {
           <div className="col-lg-3 col-md-6 p-0">
             <Image
               className="frontpageImage"
-              src="images/mudanlow-小圖檔/DSC00587.jpg"
+              src="images/mudanlowWebp/DSC00587.webp"
               alt=""
               width={478}
               height={310}
@@ -163,7 +163,7 @@ export default function MudanlowIndex() {
           <div className="col-lg-3 col-md-6 p-0">
             <Image
               className="frontpageImage"
-              src="images/mudanlow-小圖檔/DSC00694.jpg"
+              src="images/mudanlowWebp/DSC00694.webp"
               alt=""
               width={478}
               height={310}
@@ -172,7 +172,7 @@ export default function MudanlowIndex() {
           <div className="col-lg-3 col-md-6 p-0">
             <Image
               className="frontpageImage"
-              src="images/mudanlow-小圖檔/DSC00583.jpg"
+              src="images/mudanlowWebp/DSC00583.webp"
               alt=""
               width={478}
               height={310}
@@ -181,7 +181,7 @@ export default function MudanlowIndex() {
           <div className="col-lg-3 col-md-6 p-0">
             <Image
               className="frontpageImage"
-              src="images/mudanlow-小圖檔/DSC00699.jpg"
+              src="images/mudanlowWebp/DSC00699.webp"
               alt=""
               width={478}
               height={310}
@@ -213,7 +213,7 @@ export default function MudanlowIndex() {
                   <div className="hireOverlay"></div>
                   <Image
                     className="aboutHireImage"
-                    src="images/mudanlow-小圖檔/DSC00567.jpg"
+                    src="images/mudanlowWebp/DSC00567.webp"
                     alt=""
                     width={480}
                     height={360}
@@ -248,7 +248,7 @@ export default function MudanlowIndex() {
                   <div className="hireOverlay"></div>
                   <Image
                     className="aboutHireImage"
-                    src="images/mudanlow-小圖檔/DSC00691.jpg"
+                    src="images/mudanlowWebp/DSC00691.webp"
                     alt=""
                     width={480}
                     height={360}
