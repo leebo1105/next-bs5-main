@@ -122,7 +122,7 @@ export default function MessageBoard() {
         onDragOver={handleDragOver}
         onDrop={handleDrop}
       >
-        <h2 className="display-4 title2">留言板</h2>
+        <h2 className="display-4 frontTitle2 mt-5">留言板</h2>
         <div
           className={`row gx-4 gx-lg-5 m-3 justify-content-center ${styles.messageBoard} flex-column align-items-center`}
         >
@@ -197,7 +197,7 @@ export default function MessageBoard() {
             }}
           >
             <div className="text-light text-center fs-5">
-              很棒!您是第{comment.c_id}號留言的人!
+              很棒!您是第{comment.c_id}個留言的人!
             </div>
             <label className="text-light">評分:</label>
             <div className={`${styles.commentStar} text-center`}>

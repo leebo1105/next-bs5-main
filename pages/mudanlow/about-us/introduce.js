@@ -153,8 +153,8 @@ export default function Introduce() {
           />
         </div>
         <h3 className="text-center my-4 border title">地圖</h3>
-        <div className="text-center">
-          <img src="https://fakeimg.pl/1000x500/" />
+        <div className="text-center ">
+          <img src="/pics/map.png" className="map" />
         </div>
         <h3 className="text-center my-4 border title">鄰近景點介紹</h3>
         <div className="d-flex justify-content-center align-items-center mb-4">
@@ -311,6 +311,9 @@ export default function Introduce() {
         .fade-in-image-left.visible {
           opacity: 1;
           transform: none;
+        }
+        .map {
+          height: 600px;
         }
       `}</style>
     </>
