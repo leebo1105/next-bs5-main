@@ -123,7 +123,6 @@ export default function One() {
               })}
             </ScrollMotionContainer>
           </div>
-          <TopButton />
           <Cooker />
         </div>
       </div>

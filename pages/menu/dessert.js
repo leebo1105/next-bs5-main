@@ -132,7 +132,6 @@ export default function Dessert() {
               })}
             </ScrollMotionContainer>
           </div>
-          <TopButton />
           <Cooker />
         </div>
       </div>

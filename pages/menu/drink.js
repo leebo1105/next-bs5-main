@@ -122,7 +122,6 @@ export default function Drink() {
               })}
             </ScrollMotionContainer>
           </div>
-          <TopButton />
           <Cooker />
         </div>
       </div>

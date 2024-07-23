@@ -6,12 +6,25 @@ import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 import { useAuth } from '@/hooks/use-auth'
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 export default function Navbar() {
   const [isCanvasActive, setIsCanvasActive] = useState(false)
   const [isDropdownActive, setIsDropdownActive] = useState(false)
   const { auth } = useAuth()
   const router = useRouter()
+
+  useEffect(() => {
+    const navLinks = document.querySelectorAll(`.${styles.navLink}`)
+
+    navLinks.forEach(function (link) {
+      if (router.asPath === link.getAttribute('href')) {
+        link.classList.add(styles.active)
+      } else {
+        link.classList.remove(styles.active)
+      }
+    })
+  }, [router.asPath])
 
   const toggleCanvas = () => {
     setIsCanvasActive(!isCanvasActive)
@@ -49,9 +62,9 @@ export default function Navbar() {
             主頁
           </Link>
           <div className={styles.navItem}>
-            <a href="#" data-nav-section="about" className={styles.navLink}>
+            <div className={`${styles.navLink} ${styles.navbarBtn}`}>
               關於我們
-            </a>
+            </div>
             <div className={styles.dropdownContent}>
               <Link href="/mudanlow/about-us/introduce">區域介紹</Link>
               <Link href="/mudanlow/news/news-list">最新消息</Link>
@@ -144,7 +157,7 @@ export default function Navbar() {
           </li>
           <li>
             <Link
-              href="#"
+              href=""
               className={`${styles.canvasLink} ${
                 isDropdownActive ? styles.open : ''
               }`}
@@ -224,6 +237,11 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
+      <style jsx>{`
+        .navLink.active {
+          color: #f8b62b;
+        }
+      `}</style>
     </>
   )
 }

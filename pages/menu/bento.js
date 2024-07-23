@@ -124,7 +124,6 @@ export default function Bento() {
               })}
             </ScrollMotionContainer>
           </div>
-          <TopButton />
           <Cooker />
         </div>
       </div>

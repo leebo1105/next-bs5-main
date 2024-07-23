@@ -91,7 +91,7 @@ export default function MessageBoard() {
 
   const generateRandomPosition = () => {
     const top = Math.random() * (maxHeight - minHeight) + minHeight
-    const left = Math.random() * (window.innerWidth - 200)
+    const left = Math.random() * (window.innerWidth - 50)
     return { top, left }
   }
 

@@ -174,7 +174,7 @@ export default function NavbarMotion() {
   function handleMouseEnter() {
     hoverTimeoutRef.current = setTimeout(() => {
       setShowTopButton(true)
-    }, 1000)
+    }, 300)
   }
 
   function handleMouseLeave() {

@@ -122,7 +122,6 @@ export default function Liquor() {
             </ScrollMotionContainer>
           </div>
         </div>
-        <TopButton />
         <Cooker />
       </div>
       <style jsx>

@@ -59,9 +59,13 @@ export default function NavbarLogin() {
             主頁
           </Link>
           <div className={styles.navItem}>
-            <a href="#" data-nav-section="about" className={styles.navLink}>
+            <button
+              href=""
+              data-nav-section="about"
+              className={`${styles.navLink} ${styles.navbarBtn}`}
+            >
               關於我們
-            </a>
+            </button>
             <div className={styles.dropdownContent}>
               <Link href="/mudanlow/about-us/introduce">區域介紹</Link>
               <Link href="/mudanlow/news/news-list">最新消息</Link>
@@ -104,7 +108,7 @@ export default function NavbarLogin() {
             data-nav-section="order"
             className={styles.navLink}
           >
-            我的訂單
+            我的預約
           </Link>
           <Link
             href="/member/profile"
@@ -152,7 +156,7 @@ export default function NavbarLogin() {
           </li>
           <li>
             <a
-              href="#"
+              href=""
               className={`${styles.canvasLink} ${
                 isDropdownActive ? styles.open : ''
               }`}
@@ -211,7 +215,7 @@ export default function NavbarLogin() {
           </li>
           <li>
             <Link href="/ReservationGet" className={styles.canvasLink}>
-              我的訂單
+              我的預約
             </Link>
           </li>
           <li>

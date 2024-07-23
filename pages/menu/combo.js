@@ -122,7 +122,7 @@ export default function Combo() {
             </ScrollMotionContainer>
           </div>
         </div>
-        <TopButton />
+
         <Cooker />
       </div>
       <style jsx>

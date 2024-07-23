@@ -228,7 +228,6 @@ export default function Kcal() {
             </li>
           </ul>
         </div>
-        <TopButton />
         <Cooker />
         <style>{`
       .world {

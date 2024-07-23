@@ -99,6 +99,10 @@
   text-decoration: none;
 }
 
+.navLink.active {
+  color: #f8b62b;
+}
+
 @media screen and (min-width: 992px) {
   .hamburger {
     display: none;
@@ -280,4 +284,8 @@
 
 .space {
   height: 100vh;
+}
+
+.navbarBtn {
+  background-color: transparent;
 }

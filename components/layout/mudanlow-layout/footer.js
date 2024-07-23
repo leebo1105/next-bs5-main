@@ -25,7 +25,6 @@ export default function Footer() {
             <a href="https://boylondon.tw/2016-10-10-19/">
               <i className="bi bi-share m-1 text-light"></i>
             </a>
-            <ChatbotButton />
           </div>
           <div className="small text-center text-muted">
             Copyright &copy; 2024/4 - 你說俊杰G排怎麼了...?

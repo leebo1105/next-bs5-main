@@ -210,8 +210,11 @@ input:checked ~ label .faStar {
 
 @keyframes marquee {
   0% {
-    transform: translateX(100vh);
+    transform: translateX(50vh);
     opacity: 0;
+  }
+  1% {
+    opacity: 1;
   }
   10% {
     opacity: 1;

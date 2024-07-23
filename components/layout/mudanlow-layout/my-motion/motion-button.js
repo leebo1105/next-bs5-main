@@ -23,7 +23,7 @@ function MotionButton(props) {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (currentButton <= 8) {
+      if (currentButton <= 5) {
         setCurrentButton((prev) => prev + 1)
       } else {
         setCurrentButton(1)
@@ -165,7 +165,6 @@ function MotionButton(props) {
             borderRadius: '50%',
             color: 'white',
             border: 'none',
-            animation: currentButton === 6 ? 'pulse 1s alternate' : '',
           }}
         >
           <Link
@@ -184,10 +183,9 @@ function MotionButton(props) {
             borderRadius: '50%',
             color: 'white',
             border: 'none',
-            animation: currentButton === 7 ? 'pulse 1s alternate' : '',
           }}
         >
-          想不到
+          <ChatbotButton />
         </Button>
         <Button
           style={{
@@ -198,7 +196,6 @@ function MotionButton(props) {
             borderRadius: '50%',
             color: 'white',
             border: 'none',
-            animation: currentButton === 8 ? 'pulse 1s alternate' : '',
           }}
         >
           <Link
