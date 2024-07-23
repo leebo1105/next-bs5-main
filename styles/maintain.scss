@@ -278,86 +278,6 @@ section {
   background-size: cover;
 }
 
-.cardCarousel {
-  --card-width: 600px;
-  --card-height: 400px;
-  z-index: 0;
-  position: relative;
-  margin: 0 auto;
-  width: 100%;
-  height: var(--card-height);
-  perspective: 1000px;
-  transition: filter 0.3s ease;
-  user-select: none; // 禁止選中文字
-  cursor: grab; // 提示用戶可以拖動
-}
-
-.cardCarousel.smoothReturn {
-  transition: all 0.2s ease;
-}
-
-.cardCarousel .ImgCard {
-  backdrop-filter: blur(10px);
-  width: var(--card-width);
-  height: var(--card-height);
-  text-align: center;
-  padding: 1em;
-  position: absolute;
-  color: rgba(0, 0, 0, 0.5);
-  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
-  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
-  border-radius: 1em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transform-style: preserve-3d;
-}
-
-.imageContainer {
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  border-radius: 1em;
-}
-
-.carouselImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.cardCarousel:active {
-  cursor: grabbing; // 拖動時的鼠標樣式
-}
-
-.preBtn,
-.nextBtn {
-  position: absolute;
-  top: 50%;
-  cursor: pointer;
-  z-index: 20;
-}
-
-.preBtn {
-  left: 0;
-}
-
-.nextBtn {
-  right: 0;
-}
-
-.carouselBtn {
-  position: absolute;
-  bottom: 30px;
-  background-color: #465952;
-  color: #ffffff;
-  font-size: 24px;
-  border-radius: 10px;
-  padding: 2px 4px;
-  cursor: pointer;
-}
-
 @keyframes moveLeftRight {
   0%,
   100% {
@@ -400,6 +320,78 @@ section {
   position: absolute;
   right: 80px;
   top: 150px;
+}
+
+@media (min-width: 1200px) {
+  .preBtn {
+    color: rgb(76, 78, 78);
+    cursor: pointer;
+    position: absolute;
+    left: 80px;
+    top: 150px;
+    max-width: 70px;
+  }
+
+  .nextBtn {
+    color: rgb(76, 78, 78);
+    cursor: pointer;
+    position: absolute;
+    right: 80px;
+    top: 150px;
+    max-width: 70px;
+  }
+}
+/* Extra large devices */
+@media (max-width: 1200px) {
+  .preBtn {
+    color: rgb(76, 78, 78);
+    cursor: pointer;
+    position: absolute;
+    left: 80px;
+    top: 150px;
+    max-width: 70px;
+  }
+
+  .nextBtn {
+    color: rgb(76, 78, 78);
+    cursor: pointer;
+    position: absolute;
+    right: 80px;
+    top: 150px;
+    max-width: 70px;
+  }
+}
+
+@media (max-width: 1024px) {
+}
+
+/* desktops */
+@media (max-width: 992px) {
+  .preBtn {
+    color: rgb(76, 78, 78);
+    cursor: pointer;
+    position: absolute;
+    left: 80px;
+    top: 150px;
+    max-width: 50px;
+  }
+
+  .nextBtn {
+    color: rgb(76, 78, 78);
+    cursor: pointer;
+    position: absolute;
+    right: 80px;
+    top: 150px;
+    max-width: 70px;
+  }
+}
+
+/* tablets */
+@media (max-width: 768px) {
+}
+
+/* phones */
+@media (max-width: 576px) {
 }
 
 /*關於我們section內部設置*/
