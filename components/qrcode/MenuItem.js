@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import 'react-photo-view/dist/react-photo-view.css'
 import { PhotoProvider, PhotoView } from 'react-photo-view'
 import styles from '@/styles/qrcode.module.scss'
@@ -12,18 +12,60 @@ function MenuItem({ name, price, image, addToCart, removeFromCart, cartItem }) {
     removeFromCart(name, price)
   }
 
+  const [pressedButton, setPressedButton] = useState(null)
+
+  const handleMouseDown = (button) => {
+    setPressedButton(button)
+  }
+
+  const handleMouseUp = () => {
+    setPressedButton(null)
+  }
+
+  const handleMouseLeave = () => {
+    setPressedButton(null)
+  }
+
+  const handleTouchStart = (button) => {
+    setPressedButton(button)
+  }
+
+  const handleTouchEnd = () => {
+    setPressedButton(null)
+  }
+
   return (
     <div className={`${styles.item}`} data-name={name} data-price={price}>
       <div className="col-4">
-        <div>{name}</div>
-        <div>NT$ {price}</div>
+        <h5>{name}</h5>
+        <h6>NT$ {price}</h6>
       </div>
       <div className="col-4">
-        <button className={styles.calculator} onClick={handleRemoveFromCart}>
+        <button
+          className={`${styles.calculator} ${
+            pressedButton === 'remove' ? styles.noShadow : ''
+          }`}
+          onClick={handleRemoveFromCart}
+          onMouseDown={() => handleMouseDown('remove')}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
+          onTouchStart={() => handleTouchStart('remove')}
+          onTouchEnd={handleTouchEnd}
+        >
           -
         </button>
         <span className="">{cartItem ? cartItem.quantity : 0}</span>
-        <button className={styles.calculator} onClick={handleAddToCart}>
+        <button
+          className={`${styles.calculator} ${
+            pressedButton === 'add' ? styles.noShadow : ''
+          }`}
+          onClick={handleAddToCart}
+          onMouseDown={() => handleMouseDown('add')}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
+          onTouchStart={() => handleTouchStart('add')}
+          onTouchEnd={handleTouchEnd}
+        >
           +
         </button>
       </div>
