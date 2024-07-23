@@ -158,7 +158,9 @@ export default function LoginForm() {
             </button>
             <button
               className="mt-2 btn btn-primary w-100"
-              onClick={() => setUser({ username: 'herry', password: '11111' })}
+              onClick={() =>
+                setUser({ username: 'asd123456', password: 'asd123456' })
+              }
             >
               一鍵輸入
             </button>

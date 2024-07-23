@@ -165,9 +165,9 @@ export default function MotionProfile() {
       >
         <Card className="shadow" style={{ width: '31rem' }}>
           <Card.Body>
-            <h2 className="text-center mb-2">會員資料</h2>
+            <h2 className="text-center mb-5">會員資料</h2>
 
-            <div className="text-center mb-1">
+            <div className="text-center">
               {hasProfile ? (
                 // 如果有資料，顯示頭像預覽組件
                 <PreviewUploadImage
@@ -193,7 +193,7 @@ export default function MotionProfile() {
             </div>
             <MemberLevel />
             <Form onSubmit={handleSubmit}>
-              <div className="row">
+              <div className="row mt-4">
                 {/* 表單控制項，用於修改姓名、帳號、電話等資料 */}
                 <Form.Group className="mb-3 col-6" controlId="formName">
                   <Form.Label>姓名</Form.Label>
