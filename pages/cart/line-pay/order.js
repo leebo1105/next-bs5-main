@@ -28,7 +28,7 @@ export default function Order() {
     zip: '100',
     county: '台北市',
     district: '中正區',
-    address: '忠孝東路一段 1 號',
+    address: '忠孝東路一段1號',
   })
   const [address2, setAddress2] = useState({
     name: '',
