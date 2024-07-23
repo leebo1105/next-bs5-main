@@ -49,7 +49,7 @@ export default function Profile() {
     if (res.data.status === 'success') {
       const dbUser = res.data.data.user
       const dbPurchaseOrders = res.data.data.purchaseOrders.filter(
-        (order) => order.status === '完成訂單'
+        (order) => order.status === '完成訂單' || order.status === '已取消訂單'
       )
       setUserProfile({
         ...initUserProfile,
