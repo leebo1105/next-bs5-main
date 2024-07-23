@@ -226,8 +226,9 @@ export default function Lottery() {
     }
   }
 
+  // 用英文跟數字隨機組成兌換序號
   function generateCouponCode(length = 10) {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' // 包含大寫字母和數字
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     let couponCode = ''
     for (let i = 0; i < length; i++) {
       const randomIndex = Math.floor(Math.random() * characters.length)
@@ -251,7 +252,6 @@ export default function Lottery() {
     >
       <div
         style={{
-          // margin: 'auto',
           textAlign: 'center',
         }}
       >

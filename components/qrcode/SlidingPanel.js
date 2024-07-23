@@ -5,7 +5,7 @@ import { ProgressBar } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { color } from 'framer-motion'
 
-// CustomModal 组件
+// 點擊送出訂單後的彈出視窗
 const CustomModal = ({ show, onClose, goECPay }) => {
   if (!show) return null
 
@@ -32,13 +32,13 @@ const SlidingPanel = ({
   cartTotalPrice,
   handleOrderSubmit,
 }) => {
-  const [isOpen, setIsOpen] = useState(false) // 默认为false
+  const [isOpen, setIsOpen] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [order, setOrder] = useState({})
   const [isLoading, setIsLoading] = useState(true)
   const [result, setResult] = useState({ returnCode: '', returnMessage: '' })
-  const [startY, setStartY] = useState(0) // 用于检测拖动开始位置
-  const [isDragging, setIsDragging] = useState(false) // 用于标记是否正在拖动
+  const [startY, setStartY] = useState(0) // 拖動關閉panel
+  const [isDragging, setIsDragging] = useState(false)
   const [lotteryChance, setLotteryChance] = useState('')
 
   const panelRef = useRef(null)
@@ -109,8 +109,6 @@ const SlidingPanel = ({
   }
 
   useEffect(() => {
-    // 设置一个模拟的交易ID和订单ID
-    // 可以根据需要进行更改
     const transactionId = new URLSearchParams(window.location.search).get(
       'transactionId'
     )
@@ -140,7 +138,6 @@ const SlidingPanel = ({
   useEffect(() => {
     if (isOpen) {
       document.addEventListener('click', handleClickOutside)
-      // 滚动到面板底部
       scrollToBottom()
     } else {
       document.removeEventListener('click', handleClickOutside)
@@ -151,10 +148,8 @@ const SlidingPanel = ({
     }
   }, [isOpen])
 
-  // 滚动到最底部
   const scrollToBottom = () => {
     if (scrollToBottomRef.current) {
-      // 添加平滑滚动效果
       scrollToBottomRef.current.scrollIntoView({
         behavior: 'smooth',
         block: 'end',
@@ -162,19 +157,18 @@ const SlidingPanel = ({
     }
   }
 
-  // 处理拖动开始事件
+  // ------------拖動關閉panel----------------
+  // 滑鼠
   const handleMouseDown = (event) => {
     setStartY(event.clientY)
     setIsDragging(true)
   }
 
-  // 处理拖动结束事件
   const handleMouseUp = (event) => {
     if (isDragging) {
       const endY = event.clientY
       const distance = endY - startY
 
-      // 如果拖动距离超过一定阈值，则切换面板的打开状态
       if (distance > 50) {
         togglePanel(event)
       }
@@ -182,7 +176,28 @@ const SlidingPanel = ({
     }
   }
 
-  // 计算进度条的百分比
+  // 觸控
+  const handleTouchStart = (event) => {
+    const touch = event.touches[0] // 获取第一个触摸点的信息
+    setStartY(touch.clientY)
+    setIsDragging(true)
+  }
+
+  const handleTouchEnd = (event) => {
+    if (isDragging) {
+      const touch = event.changedTouches[0] // 获取触摸结束时的信息
+      const endY = touch.clientY
+      const distance = endY - startY
+
+      if (distance > 50) {
+        togglePanel(event)
+      }
+      setIsDragging(false)
+    }
+  }
+  // ------------拖動關閉panel----------------
+
+  // 計算滿額進度條
   const calculateProgress = () => {
     return (cartTotalPrice % 2000) / 20
   }
@@ -203,9 +218,10 @@ const SlidingPanel = ({
         role="button"
         tabIndex="0"
         onKeyPress={handleKeyPress}
-        onMouseDown={handleMouseDown} // 添加 mouseDown 事件处理
-        onMouseUp={handleMouseUp} // 添加 mouseUp 事件处理
-        // onMouseMove={handleMouseMove}  // 添加 mouseMove 事件处理
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
         <h3>購物車詳情</h3>
         <div style={styles.header}>
@@ -234,7 +250,7 @@ const SlidingPanel = ({
           </div>
         </div>
 
-        {/* 使用 react-bootstrap 的 ProgressBar 组件 */}
+        {/* 滿額進度條 */}
         <ProgressBar
           now={calculateProgress()}
           label={lotteryChance}
@@ -273,7 +289,6 @@ const SlidingPanel = ({
   )
 }
 
-// 样式
 const styles = {
   panel: {
     position: 'fixed',
@@ -285,7 +300,7 @@ const styles = {
     padding: '20px',
     boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.1)',
     zIndex: 1000,
-    overflowY: 'auto', // 使面板可滚动
+    overflowY: 'auto',
   },
   header: {
     display: 'flex',
@@ -340,7 +355,7 @@ const styles = {
     width: '40%',
   },
   emptyDiv: {
-    height: '1px', // 空白 div 的高度，可以设置为较小的值
+    height: '1px',
   },
 }
 

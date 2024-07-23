@@ -12,7 +12,6 @@ function MenuItem({ name, price, image, addToCart, removeFromCart, cartItem }) {
     removeFromCart(name, price)
   }
 
-  //點擊button時的效果
   const [pressedButton, setPressedButton] = useState(null)
 
   const handleMouseDown = (button) => {
@@ -24,6 +23,14 @@ function MenuItem({ name, price, image, addToCart, removeFromCart, cartItem }) {
   }
 
   const handleMouseLeave = () => {
+    setPressedButton(null)
+  }
+
+  const handleTouchStart = (button) => {
+    setPressedButton(button)
+  }
+
+  const handleTouchEnd = () => {
     setPressedButton(null)
   }
 
@@ -42,6 +49,8 @@ function MenuItem({ name, price, image, addToCart, removeFromCart, cartItem }) {
           onMouseDown={() => handleMouseDown('remove')}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseLeave}
+          onTouchStart={() => handleTouchStart('remove')}
+          onTouchEnd={handleTouchEnd}
         >
           -
         </button>
@@ -54,6 +63,8 @@ function MenuItem({ name, price, image, addToCart, removeFromCart, cartItem }) {
           onMouseDown={() => handleMouseDown('add')}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseLeave}
+          onTouchStart={() => handleTouchStart('add')}
+          onTouchEnd={handleTouchEnd}
         >
           +
         </button>
