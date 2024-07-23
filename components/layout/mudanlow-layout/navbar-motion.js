@@ -182,6 +182,11 @@ export default function NavbarMotion() {
     setShowTopButton(false)
   }
 
+  // 點擊事件處理, 點擊後showTopButton => false
+  function handleClick() {
+    setShowTopButton(false)
+  }
+
   return (
     <>
       <div
@@ -204,6 +209,7 @@ export default function NavbarMotion() {
         onMouseEnter={handleMouseEnter} //滑鼠懸停開始顯示
         onMouseLeave={handleMouseLeave} // 滑鼠離開消失
         ref={buttonRef} // 引用拖曳按鈕的 ref
+        onClick={handleClick} // Click 事件處理
       >
         {/* topButton */}
         <div
