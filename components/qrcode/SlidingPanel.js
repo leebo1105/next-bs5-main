@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 import toast from 'react-hot-toast'
 import axiosInstance from '@/services/axios-instance'
+import { ProgressBar } from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { color } from 'framer-motion'
 
 // CustomModal 组件
 const CustomModal = ({ show, onClose, goECPay }) => {
@@ -34,6 +37,9 @@ const SlidingPanel = ({
   const [order, setOrder] = useState({})
   const [isLoading, setIsLoading] = useState(true)
   const [result, setResult] = useState({ returnCode: '', returnMessage: '' })
+  const [startY, setStartY] = useState(0) // 用于检测拖动开始位置
+  const [isDragging, setIsDragging] = useState(false) // 用于标记是否正在拖动
+  const [lotteryChance, setLotteryChance] = useState('')
 
   const panelRef = useRef(null)
   const scrollToBottomRef = useRef(null)
@@ -118,6 +124,20 @@ const SlidingPanel = ({
   }, [])
 
   useEffect(() => {
+    const next2000 = Math.ceil(cartTotalPrice / 2000) * 2000
+    const difference = next2000 - cartTotalPrice
+    const timesReached2000 = Math.floor(cartTotalPrice / 2000)
+
+    if (cartTotalPrice < 2000) {
+      setLotteryChance(`還差 ${2000 - cartTotalPrice} 獲得一個抽獎機會！`)
+    } else {
+      setLotteryChance(
+        `可以抽獎 ${timesReached2000} 次，再消費 ${difference} 多一次抽獎機會！`
+      )
+    }
+  }, [cartTotalPrice])
+
+  useEffect(() => {
     if (isOpen) {
       document.addEventListener('click', handleClickOutside)
       // 滚动到面板底部
@@ -142,10 +162,35 @@ const SlidingPanel = ({
     }
   }
 
+  // 处理拖动开始事件
+  const handleMouseDown = (event) => {
+    setStartY(event.clientY)
+    setIsDragging(true)
+  }
+
+  // 处理拖动结束事件
+  const handleMouseUp = (event) => {
+    if (isDragging) {
+      const endY = event.clientY
+      const distance = endY - startY
+
+      // 如果拖动距离超过一定阈值，则切换面板的打开状态
+      if (distance > 50) {
+        togglePanel(event)
+      }
+      setIsDragging(false)
+    }
+  }
+
+  // 计算进度条的百分比
+  const calculateProgress = () => {
+    return (cartTotalPrice % 2000) / 20
+  }
+
   return (
     <div>
       <button onClick={togglePanel} style={styles.button}>
-        查看購物車
+        <h5>查看購物車</h5>
       </button>
       <div
         ref={panelRef}
@@ -158,16 +203,52 @@ const SlidingPanel = ({
         role="button"
         tabIndex="0"
         onKeyPress={handleKeyPress}
+        onMouseDown={handleMouseDown} // 添加 mouseDown 事件处理
+        onMouseUp={handleMouseUp} // 添加 mouseUp 事件处理
+        // onMouseMove={handleMouseMove}  // 添加 mouseMove 事件处理
       >
         <h3>購物車詳情</h3>
-        <ul className="list-group">
+        <div style={styles.header}>
+          <button
+            type="button"
+            style={styles.headerButton}
+            id="submit-order"
+            onClick={() => {
+              handleOrderSubmit()
+              createOrder()
+              setShowModal(true)
+            }}
+          >
+            <h6 className="my-0">送出訂單</h6>
+          </button>
+          <button
+            type="button"
+            style={styles.headerButton}
+            onClick={togglePanel}
+          >
+            <h6 className="my-0">修改訂單</h6>
+          </button>
+
+          <div style={styles.cartTotalPrice}>
+            總金額: NT$ <span>{cartTotalPrice}</span>
+          </div>
+        </div>
+
+        {/* 使用 react-bootstrap 的 ProgressBar 组件 */}
+        <ProgressBar
+          now={calculateProgress()}
+          label={lotteryChance}
+          variant={cartTotalPrice >= 2000 ? 'success' : 'secondary'}
+        />
+
+        <ul className="list-group" style={styles.listGroup}>
           {cart.map((item, index) => (
             <li
               className="list-group-item"
               style={styles.listGroupItem}
               key={index}
             >
-              <div>{item.name}</div>
+              <div style={styles.itemName}>{item.name}</div>
               <div>
                 NT$ {item.price} × {item.quantity}
               </div>
@@ -180,28 +261,7 @@ const SlidingPanel = ({
             </li>
           ))}
         </ul>
-        <div className="mt-3 mx-2">
-          總金額: NT$ <span>{cartTotalPrice}</span>
-        </div>
-        <button
-          type="button"
-          className="btn btn-primary mx-2"
-          onClick={togglePanel}
-        >
-          修改訂單
-        </button>
-        <button
-          type="button"
-          className="btn btn-primary"
-          id="submit-order"
-          onClick={() => {
-            handleOrderSubmit()
-            createOrder()
-            setShowModal(true)
-          }}
-        >
-          送出訂單
-        </button>
+
         <div ref={scrollToBottomRef} style={styles.emptyDiv}></div>
         <CustomModal
           show={showModal}
@@ -227,6 +287,22 @@ const styles = {
     zIndex: 1000,
     overflowY: 'auto', // 使面板可滚动
   },
+  header: {
+    display: 'flex',
+    height: '40px',
+    flexDirection: 'row-reverse',
+    margin: '0 0 5px 0',
+  },
+  cartTotalPrice: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  headerButton: {
+    borderRadius: '5px',
+    margin: '5px',
+    backgroundColor: '#0c301f',
+    color: 'white',
+  },
   button: {
     all: 'unset',
     cursor: 'pointer',
@@ -250,11 +326,18 @@ const styles = {
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
     textAlign: 'center',
   },
+  listGroup: {
+    padding: '0 0 100px 0',
+    margin: '10px 0 0 0',
+  },
   listGroupItem: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  itemName: {
+    width: '40%',
   },
   emptyDiv: {
     height: '1px', // 空白 div 的高度，可以设置为较小的值
