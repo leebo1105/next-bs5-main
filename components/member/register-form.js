@@ -152,19 +152,6 @@ export default function RegisterForm() {
                 </div>
               </div>
             </div>
-            {/* <div className="row mb-3">
-            <div className={`col-sm-12" ${styles['label-left']}`}>
-              <label htmlFor="country" className="form-label">
-                國家/地區
-              </label>
-              <select id="country" className="form-select">
-                <option>台灣</option>
-                <option>日本</option>
-                <option>韓國</option>
-                <option>中國</option>
-              </select>
-            </div>
-          </div> */}
             <div className="row mb-3">
               <div className="btn-group">
                 <input
@@ -217,7 +204,7 @@ export default function RegisterForm() {
                 })
               }}
             >
-              一鍵輸入範例
+              一鍵輸入
             </button>
             <div className="row mt-2">
               <p className={`${styles['notice']}`}>
