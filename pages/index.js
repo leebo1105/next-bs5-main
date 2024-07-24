@@ -107,7 +107,7 @@ export default function MudanlowIndex() {
                 />
               </div>
             </div>
-            <div className="col-lg-5 fade-in-section" ref={textRef}>
+            <div className="col-lg-5 col-md-8 fade-in-section" ref={textRef}>
               <div className="detail p-5">
                 <div className="display-header">
                   <h2 className="display-4 text-dark pb-2 lxgw-wenkai-mono-tc-bold">
