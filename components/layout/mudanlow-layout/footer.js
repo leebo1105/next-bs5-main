@@ -15,16 +15,21 @@ export default function Footer() {
             <li>公休日:每週一</li>
             <li>地址:臺南市中西區永福路二段160號</li>
           </ul>
-          <div className="icon d-flex flex-row-reverse text-dark ">
-            <a href="https://www.facebook.com/peonygardenchinesecuisine/photos_by">
-              <i className="bi bi-facebook primary m-1 text-light"></i>
-            </a>
-            <a href="https://www.instagram.com/p/CzEAO5XRq-P/?img_index=1">
-              <i className="bi bi-instagram m-1 text-light"></i>
-            </a>
-            <a href="https://boylondon.tw/2016-10-10-19/">
-              <i className="bi bi-share m-1 text-light"></i>
-            </a>
+          <div className="icon d-flex flex-row-reverse text-dark justify-content-between align-items-center">
+            <div>
+              <a href="https://www.facebook.com/peonygardenchinesecuisine/photos_by">
+                <i className="bi bi-facebook primary m-1 text-light fs-3"></i>
+              </a>
+              <a href="https://www.instagram.com/p/CzEAO5XRq-P/?img_index=1">
+                <i className="bi bi-instagram m-1 text-light fs-3"></i>
+              </a>
+              <a href="https://boylondon.tw/2016-10-10-19/">
+                <i className="bi bi-share m-1 text-light fs-3"></i>
+              </a>
+            </div>
+            <div>
+              <ChatbotButton />
+            </div>
           </div>
           <div className="small text-center text-muted">
             Copyright &copy; 2024/4 - 你說俊杰G排怎麼了...?

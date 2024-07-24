@@ -150,6 +150,7 @@
     color: white; /* 將文字設為白色以在深色背景上顯示 */
   }
   .offcanvasContent.active {
+    position: sticky;
     top: 0;
   }
 }

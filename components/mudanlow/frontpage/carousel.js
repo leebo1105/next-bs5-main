@@ -86,7 +86,7 @@ export default function FrontPageCarousel() {
     <>
       <section
         id="trending-products"
-        className="section-secondary-color carouselSection background1"
+        className="section-secondary-color carouselSection background1 py-5"
       >
         <div className="row d-flex  justify-content-center  flex-lg-row">
           <div className="col-lg-3 col-md-12 col-sm-12 col text-center">
@@ -204,43 +204,11 @@ export default function FrontPageCarousel() {
           cursor: pointer;
         }
 
-        .preBtn,
-        .nextBtn {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          cursor: pointer;
-          z-index: 10;
-        }
-
-        .preBtn {
-          left: 10px;
-        }
-
-        .nextBtn {
-          right: 10px;
-        }
         @media (min-width: 1440px) {
           .cardCarousel {
             --card-width: 600px;
             --card-height: 400px;
             perspective: 1000px;
-          }
-          .preBtn,
-          .nextBtn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            z-index: 10;
-          }
-
-          .preBtn {
-            left: 10px;
-          }
-
-          .nextBtn {
-            right: 10px;
           }
         }
         @media (max-width: 1440px) {
@@ -248,44 +216,12 @@ export default function FrontPageCarousel() {
             --card-width: 70%;
             perspective: 500px;
           }
-          .preBtn,
-          .nextBtn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            z-index: 10;
-          }
-
-          .preBtn {
-            left: 20px;
-          }
-
-          .nextBtn {
-            right: 20px;
-          }
         }
 
         @media (max-width: 1200px) {
           .cardCarousel {
             --card-width: 70%;
-            perspective: 500px;
-          }
-          .preBtn,
-          .nextBtn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            z-index: 10;
-          }
-
-          .preBtn {
-            left: 20px;
-          }
-
-          .nextBtn {
-            right: 20px;
+            perspective: 400px;
           }
         }
 
@@ -297,7 +233,7 @@ export default function FrontPageCarousel() {
         }
         @media (max-width: 992px) {
           .cardCarousel {
-            --card-width: 40%;
+            --card-width: 60%;
             perspective: 300px;
           }
         }

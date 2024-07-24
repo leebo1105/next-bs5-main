@@ -16,7 +16,7 @@ export default function ChatbotButton() {
   return (
     <div className={`${styles.indexArea}`}>
       <button className={`${styles.chatbotButton}`} onClick={handleButton}>
-        聯絡我們
+        跟客服聯絡
       </button>
 
       {button && <ChatbotClient />}

@@ -90,20 +90,16 @@ export default function MudanlowIndex() {
       {auth.isAuth ? <NavbarLogin /> : <Navbar />}
       <section
         id="about-us"
-        className="background2 aboutUsSection position-relative"
+        className="background2 aboutUsSection position-relative sectionFirst"
       >
         <div className="container-fluid p-5">
           <div className="row align-items-center justify-content-center g-5">
             <div className="col-lg-5 fade-in-image" ref={imageRef}>
               <div className="image-holder mb-4 firstPic">
-                <Image
+                <img
                   src="images/mudanlowWebp/DSC00576.webp"
                   alt="single"
                   className="Image-fluid "
-                  width={720}
-                  height={540}
-                  layout="responsive"
-                  priority
                 />
               </div>
             </div>
@@ -128,27 +124,17 @@ export default function MudanlowIndex() {
           </div>
         </div>
         <div className="backgroundItem">
-          <Image
-            src="/pics/frontItem.png"
-            width={600}
-            height={600}
-            layout="responsive"
-          />
+          <Image src="/pics/frontItem.png" width={600} height={600} />
         </div>
         <div className="backgroundItem2">
-          <Image
-            src="/pics/frontItem.png"
-            width={300}
-            height={300}
-            layout="responsive"
-          />
+          <Image src="/pics/frontItem.png" width={300} height={300} />
         </div>
       </section>
       <FrontPageCarousel />
       {/* 最新消息 */}
       <section
         id="trending-products"
-        className="news-section background2 position-relative"
+        className="news-section background2 position-relative sectionFirst"
       >
         <News />
         <Image
@@ -156,7 +142,6 @@ export default function MudanlowIndex() {
           className="pic1 position-absolute"
           width={500}
           height={500}
-          layout="responsive"
           alt=""
         />
       </section>
@@ -164,43 +149,31 @@ export default function MudanlowIndex() {
       <div className="container-fluid d-flex justify-content-center align-items-center position-relative">
         <div className="row">
           <div className="col-lg-3 col-md-6 p-0">
-            <Image
+            <img
               className="frontpageImage"
               src="images/mudanlowWebp/DSC00587.webp"
               alt=""
-              width={478}
-              height={310}
-              layout="responsive"
             />
           </div>
           <div className="col-lg-3 col-md-6 p-0">
-            <Image
+            <img
               className="frontpageImage"
               src="images/mudanlowWebp/DSC00694.webp"
               alt=""
-              width={478}
-              height={310}
-              layout="responsive"
             />
           </div>
           <div className="col-lg-3 col-md-6 p-0">
-            <Image
+            <img
               className="frontpageImage"
               src="images/mudanlowWebp/DSC00583.webp"
               alt=""
-              width={478}
-              height={310}
-              layout="responsive"
             />
           </div>
           <div className="col-lg-3 col-md-6 p-0">
-            <Image
+            <img
               className="frontpageImage"
               src="images/mudanlowWebp/DSC00699.webp"
               alt=""
-              width={478}
-              height={310}
-              layout="responsive"
             />
           </div>
         </div>
@@ -217,23 +190,20 @@ export default function MudanlowIndex() {
         </div>
       </div>
       {/* <!-- 關於我們&徵才資訊 --> */}
-      <section className="section-secondary-color background2 position-relative">
+      <section className="section-secondary-color background2 position-relative sectionFirst">
         <h2 className="display-4 lxgw-wenkai-mono-tc-bold frontTitle">
           關於我們
         </h2>
         <div className="container mt-5">
           <div className="row d-flex justify-content-evenly align-items-center flex-column flex-lg-row">
-            <div className="col-lg-4 fade-in-image" ref={aboutImage1Ref}>
+            <div className="col-lg-5 fade-in-image" ref={aboutImage1Ref}>
               <div className="aboutHire">
                 <div className="hoverContainer">
                   <div className="hireOverlay"></div>
-                  <Image
+                  <img
                     className="aboutHireImage"
                     src="images/mudanlowWebp/DSC00567.webp"
                     alt=""
-                    width={480}
-                    height={360}
-                    layout="responsive"
                   />
                   <Link href="/mudanlow/about-us/introduce" passHref>
                     <button className="hireBtn mt-5 lxgw-wenkai-mono-tc-light">
@@ -243,9 +213,9 @@ export default function MudanlowIndex() {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4 fade-in-section" ref={aboutText1Ref}>
-              <h2>場地介紹</h2>
-              <p className="text-center lxgw-wenkai-mono-tc-regular fs-5">
+            <div className="col-lg-4 fade-in-section mt-5" ref={aboutText1Ref}>
+              <h2 className="textHire">場地介紹</h2>
+              <p className=" lxgw-wenkai-mono-tc-regular fs-5 textHire">
                 我們的餐廳環境溫馨雅緻，裝潢別緻，擁有舒適的座椅和柔和的燈光。寬敞的用餐區和私密的包廂滿足不同需求，適合家庭聚餐、商務宴請和浪漫約會。
               </p>
             </div>
@@ -254,11 +224,11 @@ export default function MudanlowIndex() {
         <div className="container mt-5">
           <div className="row d-flex justify-content-evenly align-items-center flex-column-reverse flex-lg-row">
             <div
-              className="col-lg-4 text-end fade-in-section"
+              className="col-lg-5 text-end fade-in-section  mt-5 "
               ref={aboutText2Ref}
             >
-              <h2>人才招募</h2>
-              <p className="text-center lxgw-wenkai-mono-tc-regular fs-5">
+              <h2 className="textHire">人才招募</h2>
+              <p className=" lxgw-wenkai-mono-tc-regular fs-5 textHire">
                 我們的餐廳正在招募熱情、有責任心的員工。無論您是廚師、服務員還是管理人員，我們都歡迎您的加入。提供良好的工作環境和培訓機會，讓您在這裡成長和發展。
               </p>
             </div>
@@ -266,13 +236,10 @@ export default function MudanlowIndex() {
               <div className="aboutHire">
                 <div className="hoverContainer">
                   <div className="hireOverlay"></div>
-                  <Image
+                  <img
                     className="aboutHireImage"
                     src="images/mudanlowWebp/DSC00691.webp"
                     alt=""
-                    width={480}
-                    height={360}
-                    layout="responsive"
                   />
                   <Link href="/mudanlow/about-us/hire" passHref>
                     <button className="mt-5 lxgw-wenkai-mono-tc-light hireBtn">
@@ -289,49 +256,49 @@ export default function MudanlowIndex() {
           className="pic2 position-absolute"
           width={500}
           height={500}
-          layout="responsive"
           alt=""
         />
       </section>
 
       {/* <!-- 地圖 --> */}
-      <section id="collections" className="position-relative background1">
-        <h2 className="display-4 lxgw-wenkai-mono-tc-bold frontTitle2">地圖</h2>
-        <div className="container-fluid d-flex justify-content-center">
-          <div
-            className="flip-card"
-            style={{ width: '1000px', height: '600px' }}
-          >
-            <div className="flip-card-inner">
-              <div className="flip-card-front">
-                <Image
-                  src="/pics/map.png"
-                  alt="Front Image"
-                  width={800}
-                  height={480}
-                  layout="responsive"
-                />
-              </div>
-              <div className="flip-card-back">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.7811009728844!2d120.19917717591147!3d22.995075617352622!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e7663c9ef20d3%3A0x1436d2c1ab729309!2z54mh5Li55qiTIOS4reiPnA!5e0!3m2!1szh-TW!2stw!4v1721407306080!5m2!1szh-TW!2stw"
-                  width="800"
-                  height="480"
-                  style={{ border: '0' }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="mudanlow-map"
-                ></iframe>
+      <section id="collections" className="position-relative background1 ">
+        <div className="container-fluid py-5">
+          <h2 className="display-4 lxgw-wenkai-mono-tc-bold frontTitle2 ">
+            地圖
+          </h2>
+          <div className="container-fluid d-flex justify-content-center">
+            <div
+              className="flip-card d-flex justify-content-center align-items-center  pb-3"
+              style={{ width: '840px', height: '500px' }}
+            >
+              <div className="flip-card-inner">
+                <div className="flip-card-front">
+                  <Image
+                    src="/pics/map.png"
+                    alt="Front Image"
+                    width={800}
+                    height={480}
+                  />
+                </div>
+                <div className="flip-card-back">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.7811009728844!2d120.19917717591147!3d22.995075617352622!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e7663c9ef20d3%3A0x1436d2c1ab729309!2z54mh5Li55qiTIOS4reiPnA!5e0!3m2!1szh-TW!2stw!4v1721407306080!5m2!1szh-TW!2stw"
+                    width="800"
+                    height="480"
+                    style={{ border: '0' }}
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="mudanlow-map"
+                  ></iframe>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="swiper-pagination position-absolute text-center"></div>
       </section>
 
       {/* 留言板 */}
-      <MessageBoard />
     </>
   )
 }

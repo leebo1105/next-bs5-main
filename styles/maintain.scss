@@ -82,9 +82,9 @@ a:active {
   color: #e4e3e3;
 }
 /*section上下寬度*/
-section {
-  padding-top: 130px;
-  padding-bottom: 130px;
+.sectionFirst {
+  padding-top: 80px;
+  padding-bottom: 80px;
 }
 
 /* 按鈕設置 */
@@ -202,7 +202,7 @@ section {
   height: 200px;
 }
 
-.frontpageImg {
+.frontpageImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -300,26 +300,22 @@ section {
 
 .cardCarousel:hover .preBtn {
   animation: moveRightLeft 1.5s ease-in-out infinite;
+  position: absolute;
 }
 
 .cardCarousel:hover .nextBtn {
   animation: moveLeftRight 1.5s ease-in-out infinite;
+  position: absolute;
 }
 
 .preBtn {
   color: rgb(76, 78, 78);
   cursor: pointer;
-  position: absolute;
-  left: 80px;
-  top: 150px;
 }
 
 .nextBtn {
   color: rgb(76, 78, 78);
   cursor: pointer;
-  position: absolute;
-  right: 80px;
-  top: 150px;
 }
 
 @media (min-width: 1200px) {
@@ -339,6 +335,12 @@ section {
     right: 80px;
     top: 150px;
     max-width: 70px;
+  }
+  .preBtn,
+  .nextBtn {
+    position: absolute;
+    cursor: pointer;
+    z-index: 10;
   }
 }
 /* Extra large devices */
@@ -363,6 +365,25 @@ section {
 }
 
 @media (max-width: 1024px) {
+  .preBtn {
+    color: rgb(76, 78, 78);
+    cursor: pointer;
+    position: absolute;
+    left: 80px;
+    top: 150px;
+    max-width: 50px;
+    z-index: 5;
+  }
+
+  .nextBtn {
+    color: rgb(76, 78, 78);
+    cursor: pointer;
+    position: absolute;
+    right: 80px;
+    top: 150px;
+    max-width: 50px;
+    z-index: 5;
+  }
 }
 
 /* desktops */
@@ -373,7 +394,7 @@ section {
     position: absolute;
     left: 80px;
     top: 150px;
-    max-width: 50px;
+    max-width: 70px;
   }
 
   .nextBtn {
@@ -395,8 +416,9 @@ section {
 }
 
 /*關於我們section內部設置*/
-.aboutHireImg {
+.aboutHireImage {
   width: 100%;
+  height: 100%;
   object-fit: cover;
   box-shadow: 2px 2px 2px gray;
   z-index: 1;
@@ -447,6 +469,81 @@ section {
   bottom: 50px;
 }
 
+@media (min-width: 1440px) {
+  .aboutHire {
+    position: relative;
+    width: 480px;
+    height: 360px;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 1440px) {
+  .aboutHire {
+    position: relative;
+    width: 480px;
+    height: 360px;
+    overflow: hidden;
+  }
+}
+/* Extra large devices */
+@media (max-width: 1200px) {
+  .aboutHire {
+    position: relative;
+    width: 480px;
+    height: 360px;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 1024px) {
+  .aboutHire {
+    position: relative;
+    width: 480px;
+    height: 360px;
+    overflow: hidden;
+  }
+}
+
+/* desktops */
+@media (max-width: 992px) {
+  .aboutHire {
+    position: relative;
+    width: 480px;
+    height: 360px;
+    overflow: hidden;
+  }
+}
+
+/* tablets */
+@media (max-width: 768px) {
+  .aboutHire {
+    position: relative;
+    width: 480px;
+    height: 360px;
+    overflow: hidden;
+  }
+}
+
+/* phones */
+@media (max-width: 576px) {
+  .aboutHireImg {
+    width: 100%;
+    object-fit: cover;
+    box-shadow: 2px 2px 2px gray;
+    z-index: 1;
+  }
+  .aboutHire {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .textHire {
+    text-align: start;
+  }
+}
+
 /*背景圖片*/
 .pic1 {
   z-index: 1;
@@ -480,7 +577,7 @@ section {
   z-index: 1;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1440px) {
   .backgroundItem {
     position: absolute;
     right: -250px;
@@ -510,8 +607,43 @@ section {
     z-index: 1;
     bottom: -250px;
     left: 0;
+    max-width: 450px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 1440px) {
+  .backgroundItem {
+    position: absolute;
+    right: -250px;
+    top: -250px;
+    z-index: 1;
+    max-width: 600px;
+    width: 100%;
+  }
+  .backgroundItem2 {
+    position: absolute;
+    left: -150px;
+    bottom: -150px;
+    z-index: 1;
+    max-width: 300px;
+    width: 100%;
+  }
+  /*背景圖片*/
+  .pic1 {
+    z-index: 1;
+    bottom: 0;
+    right: 0;
     max-width: 500px;
     width: 100%;
+  }
+
+  .pic2 {
+    z-index: 1;
+    bottom: -200px;
+    left: 0;
+    max-width: 350px;
+    height: 350px;
   }
 }
 /* Extra large devices */
@@ -543,10 +675,10 @@ section {
 
   .pic2 {
     z-index: 1;
-    bottom: -250px;
+    bottom: -180px;
     left: 0;
-    max-width: 500px;
-    width: 100%;
+    width: 350px;
+    height: 350px;
   }
 }
 
@@ -578,10 +710,10 @@ section {
 
   .pic2 {
     z-index: 1;
-    bottom: -250px;
+    bottom: -150px;
     left: 0;
-    max-width: 500px;
-    width: 80%;
+    width: 250px;
+    height: 250px;
   }
 }
 
@@ -614,11 +746,10 @@ section {
 
   .pic2 {
     z-index: 1;
-    bottom: -250px;
+    bottom: -100px;
     left: 0;
-    max-width: 500px;
-    width: 50%;
-    display: none;
+    max-width: 200px;
+    height: 200px;
   }
 }
 
@@ -651,11 +782,10 @@ section {
 
   .pic2 {
     z-index: 1;
-    bottom: -250px;
+    bottom: -100px;
     left: 0;
-    max-width: 500px;
-    width: 40%;
-    display: none;
+    max-width: 200px;
+    height: 200px;
   }
 }
 
@@ -676,15 +806,6 @@ section {
     z-index: 1;
     max-width: 300px;
     width: 60%;
-  }
-  .flip-card-front,
-  .flip-card-back {
-    position: absolute;
-    width: 50%;
-    height: 50%;
-    max-width: 800px;
-    width: 100%;
-    backface-visibility: hidden;
   }
   /*背景圖片*/
   .pic1 {
@@ -731,27 +852,143 @@ section {
   perspective: 1000px;
 }
 
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-}
-
 .flip-card:hover .flip-card-inner {
   transform: rotateY(180deg);
 }
 
-.flip-card-front,
-.flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
+@media (min-width: 992px) {
+  .flip-card {
+    perspective: 1000px;
+    height: 800px;
+  }
+  .flip-card-inner {
+    position: relative;
+    width: 800px;
+    height: 480px;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+  }
+  .flip-card-front > img {
+    height: 100%;
+    width: 100%;
+  }
+  .flip-card-back > iframe {
+    height: 100%;
+    width: 100%;
+  }
 }
 
+@media (max-width: 992px) {
+  .flip-card-inner {
+    position: relative;
+    width: 80%;
+    height: 80%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+  }
+  .flip-card-front > img {
+    height: 100%;
+    width: 100%;
+  }
+  .flip-card-back > iframe {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 824px) {
+  .flip-card-inner {
+    position: relative;
+    width: 80%;
+    height: 80%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+  }
+  .flip-card-front > img {
+    height: 100%;
+    width: 100%;
+  }
+  .flip-card-back > iframe {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .flip-card-inner {
+    position: relative;
+    width: 560px;
+
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+  }
+  .flip-card-front > img {
+    height: 100%;
+    width: 100%;
+  }
+  .flip-card-back > iframe {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 572px) {
+  .flip-card-inner {
+    position: relative;
+    width: 360px;
+    height: 240px;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+  }
+  .flip-card-front > img {
+    height: 100%;
+    width: 100%;
+  }
+  .flip-card-back > iframe {
+    height: 100%;
+    width: 100%;
+  }
+}
 .flip-card-back {
   transform: rotateY(180deg);
 }
@@ -789,6 +1026,7 @@ section {
   transform: none;
 }
 
-.firstPic {
+.firstPic > img {
+  width: 100%;
   z-index: 5;
 }

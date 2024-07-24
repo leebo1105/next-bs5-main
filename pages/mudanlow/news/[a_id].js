@@ -74,11 +74,9 @@ export default function NewsContent() {
   if (error) {
     return (
       <>
-        <Navbar />
         <div className="container-fluid newsPage">
           <div className="error">{error}</div>
         </div>
-        <Footer />
       </>
     )
   }
@@ -86,11 +84,9 @@ export default function NewsContent() {
   if (isLoading) {
     return (
       <>
-        <Navbar />
         <div className="container-fluid newsPage">
           <div className="loading">正在載入...</div>
         </div>
-        <Footer />
       </>
     )
   }
@@ -98,11 +94,9 @@ export default function NewsContent() {
   if (!article) {
     return (
       <>
-        <Navbar />
         <div className="container-fluid newsPage">
           <div className="loading">文章載入中...</div>
         </div>
-        <Footer />
       </>
     )
   }

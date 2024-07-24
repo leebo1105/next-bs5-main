@@ -10,7 +10,6 @@ export default function News() {
     fetch('http://localhost:3005/api/articles/api')
       .then((response) => response.json())
       .then((data) => {
-        console.log('Fetched data:', data)
         if (data.success) {
           console.log('Fetched articles:', data.rows)
           setArticles(data.rows || [])
@@ -30,7 +29,6 @@ export default function News() {
   }, [])
 
   useEffect(() => {
-    console.log('Articles state:', articles)
     const contents = document.querySelectorAll('.content')
 
     contents.forEach(() => {}, [articles])
@@ -62,8 +60,9 @@ export default function News() {
                       <Link
                         href={`/mudanlow/news/${article.a_id}`}
                         title="查看文章"
+                        key={article.a_id}
                       >
-                        <li className="newsList" key={article.a_id}>
+                        <li className="newsList">
                           <div className="border-bottom border-dark row align-items-center py-3 list">
                             <div className="col-4 ">
                               <div className="text-secondary ">

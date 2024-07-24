@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './navbar.module.scss'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -15,6 +15,18 @@ export default function NavbarLogin() {
 
   const { setAuth } = useAuth()
   const router = useRouter()
+
+  useEffect(() => {
+    const navLinks = document.querySelectorAll(`.${styles.navLink}`)
+
+    navLinks.forEach(function (link) {
+      if (router.asPath === link.getAttribute('href')) {
+        link.classList.add(styles.active)
+      } else {
+        link.classList.remove(styles.active)
+      }
+    })
+  }, [router.asPath])
 
   const toggleCanvas = () => {
     setIsCanvasActive(!isCanvasActive)
@@ -236,6 +248,11 @@ export default function NavbarLogin() {
         </ul>
       </div>
       <Toaster />
+      <style jsx>{`
+        .navLink.active {
+          color: #f8b62b;
+        }
+      `}</style>
     </>
   )
 }
