@@ -188,7 +188,7 @@ function MotionButton(props) {
             style={{ color: 'white', textDecoration: 'none' }}
             href="/mudanlow/news/news-list"
           >
-            關於我們
+            最新消息
           </Link>
         </Button>
         <Button
