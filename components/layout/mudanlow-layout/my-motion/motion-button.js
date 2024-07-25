@@ -6,7 +6,6 @@ import { Button, Modal } from 'react-bootstrap'
 import MotionButtonOne from './motion-button-one'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FaInstagram } from 'react-icons/fa'
-import ChatbotButton from '@/pages/chatbotButton'
 function MotionButton(props) {
   const [currentButton, setCurrentButton] = useState(1)
 
@@ -118,7 +117,7 @@ function MotionButton(props) {
             style={{ color: 'white', textDecoration: 'none' }}
             href="/ReservationGet"
           >
-            我的訂單
+            我的預約
           </Link>
         </Button>
         <Button
@@ -185,7 +184,12 @@ function MotionButton(props) {
             border: 'none',
           }}
         >
-          <ChatbotButton />
+          <Link
+            style={{ color: 'white', textDecoration: 'none' }}
+            href="/mudanlow/news/news-list"
+          >
+            關於我們
+          </Link>
         </Button>
         <Button
           style={{

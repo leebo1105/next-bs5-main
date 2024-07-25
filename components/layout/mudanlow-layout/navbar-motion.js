@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import MotionButton from './my-motion/motion-button'
-import { useAuth } from '@/hooks/use-auth'
 import TopButton from './top-button'
 import ChatbotButton from '@/pages/chatbotButton'
 
 export default function NavbarMotion() {
-  const { auth } = useAuth()
   const [dragConstraints, setDragConstraints] = useState({
     top: 50, // 拖曳按鈕的初始頂部邊距
     left: 50, // 拖曳按鈕的初始左邊距
