@@ -224,7 +224,7 @@ export default function MudanlowIndex() {
         <div className="container mt-5">
           <div className="row d-flex justify-content-evenly align-items-center flex-column-reverse flex-lg-row">
             <div
-              className="col-lg-5 text-end fade-in-section  mt-5 "
+              className="col-lg-4 text-end fade-in-section  mt-5 "
               ref={aboutText2Ref}
             >
               <h2 className="textHire">人才招募</h2>
@@ -297,8 +297,8 @@ export default function MudanlowIndex() {
           </div>
         </div>
       </section>
-
       {/* 留言板 */}
+      <MessageBoard />
     </>
   )
 }

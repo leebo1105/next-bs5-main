@@ -1,6 +1,12 @@
+.commentSection,
+.messageBoard {
+  max-width: 100vw;
+  overflow: hidden; /* 防止水平滾動 */
+}
+
 .messageBoard {
   backdrop-filter: blur(10px);
-  padding: 20px;
+  padding: 10px;
   color: #000;
   box-shadow: 5px 5px 10px rgb(0, 0, 0);
   width: 35%;
@@ -74,7 +80,7 @@ input:checked ~ label .faStar {
   width: 300px;
   position: absolute;
   padding: 1rem;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.842);
   border-radius: 10px;
   transition: transform 0.3s ease, background-color 0.3s ease;
   cursor: grab;
@@ -87,7 +93,7 @@ input:checked ~ label .faStar {
 
 .highlight {
   transform: scale(1.2);
-  background-color: rgba(255, 0, 0, 0.7);
+  background-color: rgb(255, 0, 0);
   animation: highlightAnimation 1s ease-in-out;
 }
 
@@ -111,12 +117,6 @@ input:checked ~ label .faStar {
 }
 
 @media (max-width: 540px) {
-  .comments {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-  }
-
   .commentStar {
     font-size: 16px;
   }
@@ -131,12 +131,6 @@ input:checked ~ label .faStar {
 }
 
 @media (min-width: 541px) and (max-width: 720px) {
-  .comments {
-    width: 400px;
-    padding: 15px;
-    font-size: 18px;
-  }
-
   .commentStar {
     font-size: 28px;
   }
@@ -151,12 +145,6 @@ input:checked ~ label .faStar {
 }
 
 @media (min-width: 721px) and (max-width: 960px) {
-  .comments {
-    width: 600px;
-    padding: 20px;
-    font-size: 20px;
-  }
-
   .commentStar {
     font-size: 32px;
   }
@@ -167,12 +155,6 @@ input:checked ~ label .faStar {
 }
 
 @media (min-width: 961px) and (max-width: 1140px) {
-  .comments {
-    width: 800px;
-    padding: 25px;
-    font-size: 22px;
-  }
-
   .commentStar {
     font-size: 36px;
   }
@@ -251,4 +233,12 @@ input:checked ~ label .faStar {
   top: 0;
   left: 0;
   cursor: pointer;
+}
+
+/* 針對992px以下的樣式 */
+@media (max-width: 991px) {
+  .messageBoard {
+    width: 300px;
+    font-size: 16px;
+  }
 }

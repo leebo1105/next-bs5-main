@@ -103,7 +103,7 @@
   color: #f8b62b;
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 1048px) {
   .hamburger {
     display: none;
   }
@@ -118,7 +118,7 @@
   }
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 1048px) {
   .hamburger {
     cursor: pointer;
     z-index: 4; /* 確保漢堡圖標在最上層 */
@@ -184,7 +184,7 @@
 
 .offcanvasContent {
   box-shadow: 2px 2px 5px black;
-  border-radius: 10px;
+  border-radius: 0 0 10px 10px;
 }
 
 .offcanvasContent > ul > li {

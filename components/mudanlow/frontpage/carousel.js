@@ -4,6 +4,7 @@ import {
   faChevronLeft,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
+import Link from 'next/link'
 
 export default function FrontPageCarousel() {
   const cardsContainerRef = useRef(null)
@@ -62,7 +63,7 @@ export default function FrontPageCarousel() {
       const scale = 0.8 + 0.2 * Math.cos(theta) // 使縮放比例更平滑
 
       card.style.transform = `translateX(${x}px) translateZ(${z}px) scale(${scale})`
-      card.style.zIndex = Math.round(scale * 10)
+      card.style.zIndex = Math.round(scale * 5) // 調整z-index範圍到0到5之間
       card.style.opacity = scale
       card.style.transition = isDragging ? 'none' : 'transform 0.5s ease-in-out'
     })
@@ -88,10 +89,10 @@ export default function FrontPageCarousel() {
         id="trending-products"
         className="section-secondary-color carouselSection background1 py-5"
       >
-        <div className="row d-flex  justify-content-center  flex-lg-row">
+        <div className="row d-flex justify-content-center flex-lg-row">
           <div className="col-lg-3 col-md-12 col-sm-12 col text-center">
-            <h2 className="display-4 lxgw-wenkai-mono-tc-bold  ">餐點介紹</h2>
-            <div className="text-center  text-dark py-5 lxgw-wenkai-mono-tc-regular fs-5">
+            <h2 className="display-4 lxgw-wenkai-mono-tc-bold">餐點介紹</h2>
+            <div className="container-fluid text-center text-dark py-5 lxgw-wenkai-mono-tc-regular fs-5">
               我們餐廳提供豐富多樣的美食選擇，從精緻的開胃小菜到美味的主菜和甜品，每道菜品均選用新鮮食材，精心烹製。無論是傳統風味還是創新料理，都能滿足您的味蕾。邀請您來享受一場美食盛宴。
             </div>
           </div>
@@ -125,7 +126,9 @@ export default function FrontPageCarousel() {
                         className="carouselImage"
                       />
                     </div>
-                    <button className="carouselBtn">查看菜單</button>
+                    <Link href="/menu">
+                      <button className="carouselBtn">查看菜單</button>
+                    </Link>
                   </div>
                 ))}
                 <FontAwesomeIcon
@@ -196,6 +199,7 @@ export default function FrontPageCarousel() {
         .carouselBtn {
           position: absolute;
           bottom: 30px;
+          left: 45%;
           background-color: #465952;
           color: #ffffff;
           font-size: 24px;
@@ -210,18 +214,42 @@ export default function FrontPageCarousel() {
             --card-height: 400px;
             perspective: 1000px;
           }
+          .carouselBtn {
+            position: absolute;
+            bottom: 30px;
+            background-color: #465952;
+            color: #ffffff;
+            font-size: 24px;
+            border-radius: 10px;
+            padding: 2px 4px;
+            cursor: pointer;
+          }
+        }
+
+        @media (max-width: 1880px) {
+          .cardCarousel {
+            --card-width: 60%;
+            perspective: 400px;
+          }
+          .carouselBtn {
+            height: 50px;
+          }
         }
         @media (max-width: 1440px) {
           .cardCarousel {
             --card-width: 70%;
-            perspective: 500px;
+            perspective: 300px;
+          }
+          .carouselBtn {
+            height: 50px;
+            font-size: 20px;
           }
         }
 
         @media (max-width: 1200px) {
           .cardCarousel {
             --card-width: 70%;
-            perspective: 400px;
+            perspective: 300px;
           }
         }
 
@@ -249,6 +277,10 @@ export default function FrontPageCarousel() {
           .cardCarousel {
             --card-width: 80%;
             perspective: 100px;
+          }
+          .carouselBtn {
+            height: 40px;
+            font-size: 16px;
           }
         }
       `}</style>

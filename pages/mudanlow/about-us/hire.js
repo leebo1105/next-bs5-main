@@ -7,7 +7,7 @@ export default function Hire() {
     <>
       <div className="container-fluid ">
         <div className="picture d-flex justify-content-center align-items-center">
-          <div className="row justify-content-center align-items-center g-2 card">
+          <div className="row justify-content-center align-items-center hireCard">
             <h2 className="boxsize text-center m-auto mt-5 mb-5 text-light  p-3">
               人&nbsp;才&nbsp;招&nbsp;募
             </h2>
@@ -21,7 +21,7 @@ export default function Hire() {
               快上104人力銀行投下您的履歷!
             </div>
             <a
-              className="button fw-bolder fs-4 p-3 mt-5 mb-5 hire"
+              className="hireButton fw-bolder fs-4 p-3 mt-5 mb-5 hire"
               href="https://www.104.com.tw/company/1a2x6bmrma?jobsource=analysis_jobsame_b"
             >
               立即應徵
@@ -40,7 +40,7 @@ export default function Hire() {
           }
 
           .picture {
-            height: 40rem;
+            height: 80vh;
             background-image: url(/images/mudanlowWebp/DSC00567.webp);
             background-position: 0px -380px;
             z-index: 1;
@@ -52,7 +52,7 @@ export default function Hire() {
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.9);
             /* 使用 RGBA 設置遮罩顏色和透明度 */
             pointer-events: none;
             /* 讓遮罩不影響鼠標事件 */
@@ -65,14 +65,23 @@ export default function Hire() {
             }
           }
 
-          .card {
+          .hireCard {
+            border: 1px solid #465952;
             margin-top: 50px;
             margin-bottom: 50px;
-            background-color: #336e56;
+            backdrop-filter: blur(50px);
             border-radius: 10px;
             width: 400px;
             box-shadow: 10px 10px 10px black;
             z-index: 2;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            perspective: 1000px;
+
+            &:hover {
+              transform: scale(1.05);
+              box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.5);
+              background: #465952;
+            }
           }
 
           .boxsize {
@@ -85,7 +94,7 @@ export default function Hire() {
             width: 25rem;
           }
 
-          .button {
+          .hireButton {
             width: 200px;
             border: 2px;
             text-decoration-line: none;
@@ -99,7 +108,8 @@ export default function Hire() {
           }
 
           .hire:hover {
-            color: #2a483a;
+            background-color: lightgray;
+            color: black;
           }
         `}
       </style>

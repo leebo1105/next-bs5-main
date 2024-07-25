@@ -62,7 +62,6 @@ export default function FirstPicture() {
             role="button"
             onKeyDown={handleKeyDown}
             tabIndex="0"
-            height={70}
           />
         </div>
         <div className="overlay"></div>
@@ -120,17 +119,38 @@ export default function FirstPicture() {
           position: absolute;
         }
 
-        @media (min-width: 1660px) {
+        @media (min-width: 1660px) (max-width: 1440px) {
           .frontpage-logo > img {
             height: 200px;
           }
           .frontpage-logo {
             position: fixed;
             z-index: 8;
-            top: 30%;
-            left: 30%;
+            top: 50%;
+            left: 50%;
+          }
+          .arrow {
+            z-index: 8;
+            position: absolute;
+            color: #fff;
+            font-size: 70px;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
           }
         }
+        @media (max-width: 1440px) {
+          .frontpage-logo > img {
+            height: 80%;
+          }
+          .frontpage-logo {
+            position: fixed;
+            z-index: 8;
+            top: 40%;
+            left: 29%;
+          }
+        }
+
         @media (max-width: 1100px) {
           .frontpage-logo > img {
             height: 80%;
@@ -138,8 +158,8 @@ export default function FirstPicture() {
           .frontpage-logo {
             position: fixed;
             z-index: 8;
-            top: 30%;
-            left: 30%;
+            top: 40%;
+            left: 22%;
           }
         }
 
@@ -163,8 +183,8 @@ export default function FirstPicture() {
           .frontpage-logo {
             position: fixed;
             z-index: 8;
-            top: 30%;
-            left: 30%;
+            top: 40%;
+            left: 31%;
           }
         }
 
@@ -184,13 +204,52 @@ export default function FirstPicture() {
         /* phones */
         @media (max-width: 576px) {
           .frontpage-logo > img {
-            height: 50px;
+            height: 60px;
           }
           .frontpage-logo {
             position: fixed;
             z-index: 8;
             top: 30%;
-            left: 30%;
+            left: 21%;
+          }
+          .arrow {
+            height: 10%;
+          }
+        }
+
+        /* Extra large devices */
+        @media (min-width: 1200px) {
+          .frontpage {
+            height: 100vh;
+            position: relative;
+            z-index: 2;
+          }
+        }
+
+        /* desktops */
+        @media (max-width: 992px) {
+          .frontpage {
+            height: 100vh;
+            position: relative;
+            z-index: 2;
+          }
+        }
+
+        /* tablets */
+        @media (max-width: 768px) {
+          .frontpage {
+            height: 100vh;
+            position: relative;
+            z-index: 2;
+          }
+        }
+
+        /* phones */
+        @media (max-width: 576px) {
+          .frontpage {
+            height: 100vh;
+            position: relative;
+            z-index: 2;
           }
         }
       `}</style>

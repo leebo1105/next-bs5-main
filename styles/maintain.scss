@@ -87,6 +87,10 @@ a:active {
   padding-bottom: 80px;
 }
 
+section {
+  max-width: 100vw;
+}
+
 /* 按鈕設置 */
 .btn-color {
   background-color: #eece6c;
@@ -134,38 +138,79 @@ a:active {
 }
 
 /* Extra large devices */
-@media (min-width: 1200px) {
-  .frontpage {
-    height: 100vh;
-    position: relative;
-    z-index: 2;
+@media (min-width: 1440px) {
+  .arrow {
+    z-index: 8;
+    position: fixed;
+    color: #ffffff;
+    height: 70px;
+    top: 65%;
+    left: 48%;
+    font-size: 16px;
+  }
+}
+
+/* Extra large devices */
+@media (max-width: 1440px) {
+  .arrow {
+    z-index: 8;
+    position: fixed;
+    color: #ffffff;
+    height: 70px;
+    top: 65%;
+    left: 48%;
+    font-size: 70px;
+  }
+}
+
+/* Extra large devices */
+@media (max-width: 1200px) {
+  .arrow {
+    z-index: 8;
+    position: fixed;
+    color: #ffffff;
+    height: 70px;
+    top: 65%;
+    left: 47%;
+    font-size: 40px;
   }
 }
 
 /* desktops */
 @media (max-width: 992px) {
-  .frontpage {
-    height: 80vh;
-    position: relative;
-    z-index: 2;
+  .arrow {
+    z-index: 8;
+    position: fixed;
+    color: #ffffff;
+    height: 60px;
+    top: 65%;
+    left: 48%;
+    font-size: 24px;
   }
 }
 
 /* tablets */
 @media (max-width: 768px) {
-  .frontpage {
-    height: 60vh;
-    position: relative;
-    z-index: 2;
+  .arrow {
+    z-index: 8;
+    position: fixed;
+    color: #ffffff;
+    height: 50px;
+    top: 65%;
+    left: 47%;
+    font-size: 20px;
   }
 }
 
 /* phones */
 @media (max-width: 576px) {
-  .frontpage {
-    height: 30vh;
-    position: relative;
-    z-index: 2;
+  .arrow {
+    z-index: 8;
+    position: fixed;
+    color: #ffffff;
+    height: 50px;
+    top: 60%;
+    left: 44%;
   }
 }
 
@@ -175,14 +220,6 @@ a:active {
   height: 100vh;
   position: relative;
   z-index: 2;
-}
-
-.arrow {
-  z-index: 8;
-  position: fixed;
-  color: #fff;
-  top: 65%;
-  left: 49%;
 }
 
 /*主頁圖片動畫*/
@@ -219,6 +256,11 @@ a:active {
 
 /*首頁標題*/
 
+@media (max-width: 1200px) {
+  .frontTitle {
+    margin-left: -75px;
+  }
+}
 .frontTitle {
   font-family: 'LXGW WenKai Mono TC', monospace;
   font-weight: 700;
@@ -318,7 +360,7 @@ a:active {
   cursor: pointer;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1880px) {
   .preBtn {
     color: rgb(76, 78, 78);
     cursor: pointer;
@@ -343,13 +385,13 @@ a:active {
     z-index: 10;
   }
 }
-/* Extra large devices */
-@media (max-width: 1200px) {
+
+@media (max-width: 1880px) {
   .preBtn {
     color: rgb(76, 78, 78);
     cursor: pointer;
     position: absolute;
-    left: 80px;
+    left: 50px;
     top: 150px;
     max-width: 70px;
   }
@@ -358,7 +400,59 @@ a:active {
     color: rgb(76, 78, 78);
     cursor: pointer;
     position: absolute;
-    right: 80px;
+    right: 50px;
+    top: 150px;
+    max-width: 70px;
+  }
+  .preBtn,
+  .nextBtn {
+    position: absolute;
+    cursor: pointer;
+    z-index: 10;
+  }
+}
+
+@media (max-width: 1440px) {
+  .preBtn {
+    color: rgb(76, 78, 78);
+    cursor: pointer;
+    position: absolute;
+    left: 10px;
+    top: 150px;
+    max-width: 70px;
+  }
+
+  .nextBtn {
+    color: rgb(76, 78, 78);
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 150px;
+    max-width: 70px;
+  }
+  .preBtn,
+  .nextBtn {
+    position: absolute;
+    cursor: pointer;
+    z-index: 10;
+  }
+}
+/* Extra large devices */
+@media (max-width: 1200px) {
+  .preBtn {
+    color: rgb(76, 78, 78);
+    cursor: pointer;
+    position: absolute;
+    left: -30px;
+    top: 150px;
+    max-width: 70px;
+  }
+
+  .nextBtn {
+    color: rgb(76, 78, 78);
+    cursor: pointer;
+    position: absolute;
+    right: -30px;
     top: 150px;
     max-width: 70px;
   }
@@ -369,20 +463,20 @@ a:active {
     color: rgb(76, 78, 78);
     cursor: pointer;
     position: absolute;
-    left: 80px;
+    left: 0;
     top: 150px;
     max-width: 50px;
-    z-index: 5;
+    z-index: 10;
   }
 
   .nextBtn {
     color: rgb(76, 78, 78);
     cursor: pointer;
     position: absolute;
-    right: 80px;
+    right: 0;
     top: 150px;
     max-width: 50px;
-    z-index: 5;
+    z-index: 10;
   }
 }
 
@@ -392,27 +486,61 @@ a:active {
     color: rgb(76, 78, 78);
     cursor: pointer;
     position: absolute;
-    left: 80px;
+    left: 50px;
     top: 150px;
-    max-width: 70px;
+    max-width: 50px;
   }
 
   .nextBtn {
     color: rgb(76, 78, 78);
     cursor: pointer;
     position: absolute;
-    right: 80px;
+    right: 50px;
     top: 150px;
-    max-width: 70px;
+    max-width: 50px;
   }
 }
 
 /* tablets */
 @media (max-width: 768px) {
+  .preBtn {
+    color: rgb(76, 78, 78);
+    cursor: pointer;
+    position: absolute;
+    left: 20px;
+    top: 150px;
+    max-width: 50px;
+  }
+
+  .nextBtn {
+    color: rgb(76, 78, 78);
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 150px;
+    max-width: 50px;
+  }
 }
 
 /* phones */
 @media (max-width: 576px) {
+  .preBtn {
+    color: rgb(76, 78, 78);
+    cursor: pointer;
+    position: absolute;
+    left: 10px;
+    top: 150px;
+    max-width: 30px;
+  }
+
+  .nextBtn {
+    color: rgb(76, 78, 78);
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 150px;
+    max-width: 30px;
+  }
 }
 
 /*關於我們section內部設置*/
@@ -568,6 +696,28 @@ a:active {
   right: -250px;
   top: -250px;
   z-index: 1;
+  width: 600px;
+  height: 600px;
+  transition: all 0.5s ease;
+
+  @media (max-width: 1200px) {
+    width: 500px;
+    height: 500px;
+  }
+
+  @media (max-width: 768px) {
+    width: 300px;
+    height: 300px;
+  }
+
+  @media (max-width: 576px) {
+    width: 200px;
+    height: 200px;
+  }
+
+  @media (max-width: 992px) {
+    display: none;
+  }
 }
 
 .backgroundItem2 {
@@ -575,6 +725,13 @@ a:active {
   left: -150px;
   bottom: -150px;
   z-index: 1;
+  width: 300px;
+  height: 300px;
+  transition: all 0.5s ease;
+
+  @media (max-width: 992px) {
+    display: none;
+  }
 }
 
 @media (min-width: 1440px) {
@@ -671,6 +828,7 @@ a:active {
     right: 0;
     max-width: 500px;
     width: 100%;
+    height: 100%;
   }
 
   .pic2 {
@@ -706,6 +864,7 @@ a:active {
     right: 0;
     max-width: 500px;
     width: 80%;
+    height: 80%;
   }
 
   .pic2 {
@@ -742,6 +901,7 @@ a:active {
     right: 0;
     max-width: 500px;
     width: 60%;
+    height: 60%;
   }
 
   .pic2 {
@@ -750,6 +910,17 @@ a:active {
     left: 0;
     max-width: 200px;
     height: 200px;
+    width: 200px;
+  }
+  .frontpageImage {
+    display: none;
+  }
+  .runHorseLight {
+    background: #465952;
+    color: #000;
+    z-index: 3;
+    padding-top: 30px;
+    padding-bottom: 50px;
   }
 }
 
@@ -778,6 +949,7 @@ a:active {
     right: 0;
     max-width: 500px;
     width: 40%;
+    height: 40%;
   }
 
   .pic2 {
@@ -786,6 +958,7 @@ a:active {
     left: 0;
     max-width: 200px;
     height: 200px;
+    width: 200px;
   }
 }
 
@@ -814,6 +987,7 @@ a:active {
     right: 0;
     max-width: 500px;
     width: 20%;
+    height: 20%;
   }
 
   .pic2 {
@@ -822,7 +996,14 @@ a:active {
     left: 0;
     max-width: 500px;
     width: 20%;
+    height: 20%;
     display: none;
+  }
+  .frontpageImage {
+    display: none;
+  }
+  .runHorseLight {
+    height: 50px;
   }
 }
 
@@ -835,7 +1016,7 @@ a:active {
 }
 /*跑馬燈*/
 .runHorseLight {
-  height: 20%;
+  height: 80px;
   color: #ffffff;
   font-family: 'Chocolate Classical Sans', sans-serif;
   font-size: 60px;

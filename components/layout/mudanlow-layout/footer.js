@@ -7,7 +7,7 @@ export default function Footer() {
     <>
       <footer className={`py-4 ${styles.footer}`}>
         <div className="container">
-          <ul>
+          <ul className="text-light">
             <li>店家電話:06-221-7509</li>
             <li>
               營業時間:週二~週日上午11:30 - 下午2:00 、下午5:30 - 下午9:00

@@ -9,94 +9,117 @@ export default function MessageBoard() {
   const [formData, setFormData] = useState({ value: '', content: '' })
   const [comments, setComments] = useState([])
   const [expandedComment, setExpandedComment] = useState(null)
-  const maxZIndex = 1
   const maxHeight = 400
   const minHeight = 100
 
   const handleRatingChange = (e) => {
     setRating(Number(e.target.value))
+    console.log('Rating changed to:', e.target.value)
   }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
+    console.log('Form input changed:', name, value)
   }
 
-  const sendData = (e) => {
+  const sendData = async (e) => {
     e.preventDefault()
+    console.log('Submitting form with data:', formData, 'Rating:', rating)
 
     const fd = new FormData()
     fd.append('value', rating)
     fd.append('content', formData.content)
 
-    fetch('http://localhost:3005/api/message-board/add', {
-      method: 'POST',
-      body: fd,
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        console.log(data)
-        if (data.success) {
-          alert('成功送出！')
-          const newComment = {
-            ...data.comment,
-            position: generateRandomPosition(),
-            zIndex: comments.length + 1,
-            highlight: true,
-          }
-          setComments([newComment, ...comments])
-          setFormData({ value: '', content: '' })
-          setRating(0)
-          getComments()
-          // Remove highlight after animation
+    try {
+      const response = await fetch(
+        'http://localhost:3005/api/message-board/add',
+        {
+          method: 'POST',
+          body: fd,
+        }
+      )
+      console.log('Response received:', response)
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      const data = await response.json()
+      console.log('API Response:', data)
+
+      if (data.success) {
+        alert('成功送出！')
+        setFormData({ value: '', content: '' })
+        setRating(0)
+        await getComments(true) // 確保最新資料被抓取並設置高亮
+      } else {
+        console.log('資料新增失敗')
+      }
+    } catch (ex) {
+      console.log('fetch() 發生錯誤, 回傳的 JSON 格式是錯的')
+      console.log(ex)
+    }
+  }
+
+  const getComments = async (highlightNewest = false) => {
+    try {
+      const response = await fetch(
+        'http://localhost:3005/api/message-board/api'
+      )
+      console.log('Fetching comments. Response:', response)
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      const data = await response.json()
+      console.log('Fetched Comments:', data)
+
+      if (!data.comments) {
+        throw new Error(
+          'Unexpected response structure: ' + JSON.stringify(data)
+        )
+      }
+
+      if (data.success) {
+        const commentsWithPosition = data.comments.map((comment, index) => ({
+          ...comment,
+          position: generateRandomPosition(),
+          zIndex: 1, // 默認 zIndex 為 1
+          highlight: highlightNewest && index === 0, // 如果需要高亮則高亮最新的評論
+        }))
+        console.log(
+          'Updated comments with positions and highlight:',
+          commentsWithPosition
+        )
+        setComments(commentsWithPosition)
+        // 如果有需要高亮的評論，設置定時器移除高亮效果
+        if (highlightNewest) {
           setTimeout(() => {
             setComments((prevComments) =>
               prevComments.map((comment) =>
-                comment.c_id === newComment.c_id
-                  ? { ...comment, highlight: false }
-                  : comment
+                comment.highlight ? { ...comment, highlight: false } : comment
               )
             )
-          }, 1000) // 動畫時間設為1秒
-        } else {
-          console.log('資料新增失敗')
+            console.log('Highlight removed after 5 seconds')
+          }, 5000) // 動畫時間設為5秒
         }
-      })
-      .catch((ex) => {
-        console.log('fetch() 發生錯誤, 回傳的 JSON 格式是錯的')
-        console.log(ex)
-      })
-  }
-
-  const getComments = () => {
-    fetch('http://localhost:3005/api/message-board/api')
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.success) {
-          const commentsWithPosition = data.comments.map((comment, index) => ({
-            ...comment,
-            position: generateRandomPosition(),
-            zIndex: Math.min(maxZIndex, data.comments.length - index),
-          }))
-          setComments(commentsWithPosition)
-        } else {
-          console.log('獲取評論失敗')
-        }
-      })
-      .catch((ex) => {
-        console.log('fetch() 發生錯誤, 回傳的 JSON 格式是錯的')
-        console.log(ex)
-      })
+      } else {
+        console.log('獲取評論失敗')
+      }
+    } catch (ex) {
+      console.log('fetch() 發生錯誤, 回傳的 JSON 格式是錯的')
+      console.log(ex)
+    }
   }
 
   const generateRandomPosition = () => {
     const top = Math.random() * (maxHeight - minHeight) + minHeight
     const left = Math.random() * (window.innerWidth - 50)
+    console.log('Generated random position:', { top, left })
     return { top, left }
   }
 
   const handleDragStart = (e, index) => {
     e.dataTransfer.setData('text/plain', index)
+    console.log('Drag started for comment index:', index)
   }
 
   const handleDrop = (e) => {
@@ -106,21 +129,26 @@ export default function MessageBoard() {
     const left = e.clientX - 100
     newComments[index].position = { top, left }
     setComments(newComments)
+    console.log('Comment dropped at new position:', { top, left })
   }
 
   const handleDragOver = (e) => {
     e.preventDefault()
+    console.log('Drag over event')
   }
 
   const handleExpandComment = (comment) => {
     setExpandedComment(comment)
+    console.log('Comment expanded:', comment)
   }
 
   const handleCloseComment = () => {
     setExpandedComment(null)
+    console.log('Comment closed')
   }
 
   useEffect(() => {
+    console.log('Component mounted, fetching comments')
     getComments()
   }, [])
 
@@ -202,7 +230,7 @@ export default function MessageBoard() {
             style={{
               top: comment.position.top,
               left: comment.position.left,
-              zIndex: comment.zIndex,
+              zIndex: comment.highlight ? 1000 : 1, // 新生成的評論 zIndex 設為 1000
             }}
             onClick={() => handleExpandComment(comment)}
           >
