@@ -123,9 +123,9 @@ export default function MudanlowIndex() {
             </div>
           </div>
         </div>
-        <div className="backgroundItem">
+        {/* <div className="backgroundItem">
           <Image src="/pics/frontItem.png" width={600} height={600} />
-        </div>
+        </div> */}
         <div className="backgroundItem2">
           <Image src="/pics/frontItem.png" width={300} height={300} />
         </div>

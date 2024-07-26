@@ -226,9 +226,11 @@ export default function NewsList() {
                     <div className="w-25 my-2 text-secondary">
                       {article.date}
                     </div>
-                    <div className="w-50 fw-bolder my-2">{article.title}</div>
+                    <div className="w-75 fs-4 lxgw-wenkai-mono-tc-bold my-2">
+                      {article.title}
+                    </div>
                     <div className="d-flex justify-content-between position-relative">
-                      <div className="inside-content w-75 py-4">
+                      <div className="inside-content w-75  py-2">
                         {truncateContent(article.content)}
                       </div>
                       <div className="position-absolute end-0">

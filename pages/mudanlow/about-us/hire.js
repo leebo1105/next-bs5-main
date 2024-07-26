@@ -12,7 +12,7 @@ export default function Hire() {
               人&nbsp;才&nbsp;招&nbsp;募
             </h2>
             <div className="boxsize2 fs-5 text-center text-light ">
-              牡丹亭招募對於餐飲業有熱情的夥伴們
+              牡丹樓招募對於餐飲業有熱情的夥伴們
               <br />
               不分年齡一起加入這個大家庭!
               <br />
