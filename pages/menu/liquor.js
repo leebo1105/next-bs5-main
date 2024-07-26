@@ -4,7 +4,6 @@ import Image from 'next/image'
 import MenuNav from '@/components/menu/menu-nav'
 import LiquorTitle from '@/components/menu/liquor-title'
 import MudanlowLayout from '@/components/layout/mudanlow-layout'
-import TopButton from '@/components/menu/top-button'
 import Cooker from '@/components/menu/cooker'
 import lightGallery from 'lightgallery'
 import lgZoom from 'lightgallery/plugins/zoom'
@@ -97,6 +96,7 @@ export default function Liquor() {
                             width="250"
                             height="320"
                             className="card-top"
+                            loading="lazy"
                           />
                         </a>
                       </div>

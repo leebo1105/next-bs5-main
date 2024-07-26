@@ -4,7 +4,6 @@ import MenuNav from '@/components/menu/menu-nav'
 import Image from 'next/image'
 import { useState, useEffect, useRef } from 'react'
 import { ImSpoonKnife } from 'react-icons/im'
-import TopButton from '@/components/menu/top-button'
 import MudanlowLayout from '@/components/layout/mudanlow-layout'
 import Cooker from '@/components/menu/cooker'
 
@@ -99,6 +98,7 @@ export default function One() {
                             width="315"
                             height="200"
                             className="card-top"
+                            loading="lazy"
                           />
                         </a>
                       </div>
