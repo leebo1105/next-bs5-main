@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import KcalTitle from '@/components/menu/kcal-title'
 import MenuNav from '@/components/menu/menu-nav'
-import TopButton from '@/components/menu/top-button'
 import DefaultLayout from '@/components/layout/default-layout'
 import Cooker from '@/components/menu/cooker'
 import MudanlowLayout from '@/components/layout/mudanlow-layout'
@@ -192,7 +191,7 @@ export default function Kcal() {
           </div>
         </div>
 
-        <div className="mt-2 position">
+        <div className="mt-4 position">
           <button
             className="button"
             data-text="一鍵清桌"
@@ -220,7 +219,7 @@ export default function Kcal() {
             className="list-group list-group-flush text-center"
             id="calorieDisplay"
           >
-            <li className="list-group-item" id="putcal">
+            <li className="list-group-item " id="putcal">
               卡路里計算
             </li>
             <li className="list-group-item" id="totalCalories">
@@ -272,7 +271,7 @@ export default function Kcal() {
         height: 400px;
         border-radius: 50%;
         background-image: url(/menu-d/fabric.webp);
-        top: 790px;
+        top: 675px;
         left: 50%;
         transform: translate(-50%, -46%);
         z-index: 1; /* 確保在最上層 */

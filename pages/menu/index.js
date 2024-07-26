@@ -34,6 +34,7 @@ export default function IndexTest() {
                   width={268}
                   height={190}
                   alt="..."
+                  loading="lazy"
                 />
                 <div className="card-body">
                   <div
@@ -66,6 +67,7 @@ export default function IndexTest() {
                   width={268}
                   height={190}
                   alt="..."
+                  loading="lazy"
                 />
                 <div className="card-body">
                   <div
@@ -98,6 +100,7 @@ export default function IndexTest() {
                   width={268}
                   height={190}
                   alt="..."
+                  loading="lazy"
                 />
                 <div className="card-body">
                   <div
@@ -130,6 +133,7 @@ export default function IndexTest() {
                   width={268}
                   height={190}
                   alt="..."
+                  loading="lazy"
                 />
                 <div className="card-body">
                   <div
@@ -163,6 +167,7 @@ export default function IndexTest() {
                   width={268}
                   height={190}
                   alt="..."
+                  loading="lazy"
                 />
                 <div className="card-body">
                   <div
@@ -195,6 +200,7 @@ export default function IndexTest() {
                   width={268}
                   height={190}
                   alt="..."
+                  loading="lazy"
                 />
                 <div className="card-body">
                   <div
