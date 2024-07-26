@@ -130,7 +130,7 @@ export default function NewsContent() {
                   <div className="date">{article.date}</div>
                 </div>
                 <div className="newsMainContent position-relative">
-                  <div className="contentInside">{article.content}</div>
+                  <div className="contentInside ms-3">{article.content}</div>
                 </div>
               </div>
               <div className="d-flex justify-content-between align-items-center other">
@@ -149,7 +149,9 @@ export default function NewsContent() {
                   {latestArticles.map((latestArticle) => (
                     <li key={latestArticle.a_id}>
                       <a href={`/mudanlow/news/${latestArticle.a_id}`}>
-                        {latestArticle.content}
+                        {latestArticle.content.length > 20
+                          ? `${latestArticle.content.slice(0, 20)}...`
+                          : latestArticle.content}
                       </a>
                     </li>
                   ))}
@@ -205,6 +207,7 @@ export default function NewsContent() {
           font-size: 30px;
         }
         .newsContentPic {
+          object-fit: contain;
           margin-top: 30px;
           width: 400px;
           height: 600px;
@@ -212,7 +215,8 @@ export default function NewsContent() {
         }
         .newsContentPic > img {
           width: 100%;
-          object-fit: fill;
+          height: 100%;
+          object-fit: contain;
         }
         .line1 {
           height: 25%;
@@ -225,11 +229,11 @@ export default function NewsContent() {
           width: 50%;
           border-bottom: 5px solid gray;
           position: absolute;
-          bottom: 7%;
+          bottom: -3%;
           right: 0;
         }
         .date {
-          bottom: 3%;
+          bottom: -7%;
           left: 0px;
           position: absolute;
           color: rgb(177, 176, 176);
@@ -238,7 +242,6 @@ export default function NewsContent() {
         .newsMainContent {
           width: 400px;
           height: 100%;
-          margin-bottom: 100px;
         }
         .other {
           width: 100%;
@@ -246,9 +249,11 @@ export default function NewsContent() {
           font-size: 18px;
         }
         .contentInside {
-          margin-top: 70px;
-          height: 500px;
+          margin-top: 30px;
+          height: 600px;
           font-size: 18px;
+          overflow: auto;
+          overflow-x: hidden;
         }
 
         .nextPageBtn {
