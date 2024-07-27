@@ -1,31 +1,21 @@
-//表單判斷
 import { useForm } from 'react-hook-form'
 import React, { useState, useEffect } from 'react'
-//時間相關套件
 import moment from 'moment'
-//實現自動展開日歷且介面直觀
 import DatePicker from 'react-datepicker'
-//引入DatePicker的css
 import 'react-datepicker/dist/react-datepicker.css'
 import styles from './ReservationEdit.module.css' // 引入 CSS 模組
-//使用axios提交預約資訊到資料庫
 import axios from 'axios'
 import Link from 'next/link'
 import 'bootstrap/dist/css/bootstrap.min.css'
-//引入FontAwesomeIcon
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-//笑臉
 import { faFaceSmileWink } from '@fortawesome/free-solid-svg-icons'
 
 export default function ReservationEdit({
   id,
   setSelectedReservationId,
-  //把重新搜尋預約的函式拿出來
   fetchReservations,
 }) {
-  // 使用 id 屬性進行相關操作
   console.log('Editing reservation with ID:', id)
-  //統一狀態進行管理
   const [formState, setFormState] = useState({
     id: 0,
     numberOfPeopleId: null,
@@ -37,18 +27,12 @@ export default function ReservationEdit({
     selectedTime: '請選擇時間(必選)',
     textAreaInput: '',
   })
-  //控制日歷顯示隱藏
   const [isOpen, setIsOpen] = useState(false)
-  // 控制按鈕是否禁用
   const [isButtonDisabled, setIsButtonDisabled] = useState(true)
-  //控制確認區域1顯示與否狀態
   const [whiteSquareVisible, setWhiteSquareVisible] = useState(false)
-  //控制確認區域2顯示與否狀態
   const [whiteSquareVisible2, setWhiteSquareVisible2] = useState(false)
-  //控制毛玻璃顯示與否狀態
   const [overLayVisible, setOverLayVisible] = useState(false)
-  // 生成 1 到 12 的數字陣列
-  // const numbers = Array.from({ length: 12 }, (_, index) => index + 1)
+
   const numbers = [
     { id: 1, type: '1人' },
     { id: 2, type: '2人' },
@@ -63,7 +47,7 @@ export default function ReservationEdit({
     { id: 11, type: '11人' },
     { id: 12, type: '12人' },
   ]
-  //透過點擊事件更新numberOfPeople
+
   const handleNumberClick = (number) => {
     setFormState({
       ...formState,
@@ -72,7 +56,6 @@ export default function ReservationEdit({
     })
   }
 
-  //建立一個陣列裡面包含1個12人桌6個4人桌2個2人桌
   const tables = [
     { id: 1, type: '12人桌' },
     { id: 2, type: '4人桌' },
@@ -84,19 +67,15 @@ export default function ReservationEdit({
     { id: 8, type: '2人桌' },
     { id: 9, type: '2人桌' },
   ]
-  // 點擊桌子時的處理函式
-  // 用來更新table.id的active
-  //一開始我使用table.type作為參數 這是違反規定的
+
   const handleTableClick = (id, type) => {
     setFormState({
       ...formState,
-      // 更新選中桌子的id
       tableSelect: id,
-      // 更新選中桌子的桌型
       selectedTableType: type,
     })
   }
-  // 創建時間資訊的陣列
+
   const times = [
     { value: '11:30', label: '11:30' },
     { value: '12:00', label: '12:00' },
@@ -109,15 +88,14 @@ export default function ReservationEdit({
     { value: '19:30', label: '19:30' },
     { value: '20:00', label: '20:00' },
   ]
-  // 處理選擇時間變更的函式
+
   const handleTimeChange = (event) => {
-    // 更新選擇的時間值
     setFormState({
       ...formState,
       selectedTime: event.target.value,
     })
   }
-  //若是"今天"被點擊
+
   const handleTodayClick = () => {
     //轉換格式
     setFormState({
@@ -125,21 +103,18 @@ export default function ReservationEdit({
       selectedDate: moment().format('YYYY-MM-DD'),
     })
     console.log(typeof selectedDate)
-    //紀錄被點擊的是today
     setIsOpen(false)
   }
-  //若是"明天"被點擊
+
   const handleTomorrowClick = () => {
-    //日期+1，轉換格式
     setFormState({
       ...formState,
       selectedDate: moment().add(1, 'days').format('YYYY-MM-DD'),
     })
     console.log(typeof selectedDate)
-    //紀錄被點擊的是tomorrow
     setIsOpen(false)
   }
-  //星期一為公休，並清除selectedDate值
+
   const handleDateChange = (date) => {
     if (moment(date).day() === 1) {
       alert('很抱歉,星期一為公休日，都不對外開放預約。請選擇其他日期。')
@@ -153,11 +128,10 @@ export default function ReservationEdit({
         selectedDate: moment(date).format('YYYY-MM-DD'),
       })
       console.log(formState.selectedDate)
-      setIsOpen(false) // 選擇日期後關閉日曆
+      setIsOpen(false)
     }
-    // console.log(typeof selectedDate)
+
   }
-  // 點擊按鈕展開日曆
   const handleButtonClick = () => {
     setFormState({
       ...formState,
@@ -166,14 +140,12 @@ export default function ReservationEdit({
     setIsOpen(true)
     console.log(isOpen)
   }
-  //更新選擇的用餐方式
   const handleMenuChange = (event) => {
     setFormState({
       ...formState,
       menuSelect: event.target.value,
     })
   }
-  //更新輸入的備註
   const handleTextAreaInput = (event) => {
     setFormState({
       ...formState,
@@ -182,19 +154,14 @@ export default function ReservationEdit({
     console.log(formState.textAreaInput)
   }
   const onSubmit = (data) => {
-    // 在這裡處理表單提交後的邏輯，例如提交到後端或者其他操作
     console.log(data)
   }
-  //初始化表單
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
-  //透過useEffect是否完成
-  //透過useState更新輸入值
   useEffect(() => {
-    // 檢查是否所有必填項目都已填寫
     if (
       formState.numberOfPeopleId > 0 &&
       formState.selectedDate &&
@@ -222,18 +189,15 @@ export default function ReservationEdit({
       console.log('Reservation updated:', response.data)
       setWhiteSquareVisible(false)
       setWhiteSquareVisible2(true)
-      // 可以根據需要進行其他操作，比如顯示成功訊息或重定向
     } catch (error) {
       console.error('Error updating reservation:', error)
     }
   }
-  //送出按鈕被點擊時顯示毛玻璃與確認方塊
   const handleConfirmButtonClick = () => {
     setWhiteSquareVisible(true)
     setOverLayVisible(true)
     console.log(overLayVisible)
   }
-  //上一頁按鈕被點擊時隱藏毛玻璃與確認方塊
   const handleReturnButtonClick = () => {
     setWhiteSquareVisible(false)
     setOverLayVisible(false)
@@ -243,7 +207,6 @@ export default function ReservationEdit({
     setWhiteSquareVisible2(false)
     setOverLayVisible(false)
     setSelectedReservationId(null)
-    //按下返回就重新搜尋預約
     fetchReservations()
   }
   return (
@@ -262,8 +225,6 @@ export default function ReservationEdit({
           </div>
         </div>
         <div className={`${styles.numberdiv}`}>
-          {/* 更改為圓形 取消預設樣式 flex */}
-          {/* 透過map更新1~12的圈圈，點擊事件後更改狀態為avtive，再將number更新狀態後一併顯示在peoplecount欄位 */}
           <ul className={`${styles.number}`}>
             {numbers.map((number) => (
               <li
@@ -279,7 +240,6 @@ export default function ReservationEdit({
             ))}
           </ul>
         </div>
-        {/* 加入上下border flex between */}
         <div className="d-flex justify-content-around border-bottom border-top mb-3">
           <div className="p-2" id="selectedDate">
             選擇的日期:{formState.selectedDate}
@@ -366,9 +326,6 @@ export default function ReservationEdit({
                 )}
               </form>
             </div>
-            {/* 上下箭頭排列為上跟下 */}
-            {/* <i className="bi bi-chevron-up"></i>
-                <i className="bi bi-chevron-down"></i> */}
             <div>
               <form
                 method="post"
@@ -380,7 +337,6 @@ export default function ReservationEdit({
                   name="timeSelect"
                   className={`form-select mb-3 mt-3`}
                   aria-label="Large select example"
-                  //這裡偷偷使用可控表單 value綁定狀態+onChange事件
                   value={formState.selectedTime}
                   onChange={handleTimeChange}
                   required
@@ -388,7 +344,6 @@ export default function ReservationEdit({
                   <option selected disabled>
                     請選擇時間(必選)
                   </option>
-                  {/* 使用 .map() 方法生成選項 */}
                   {times.map((time, index) => (
                     <option key={index} value={time.value}>
                       {time.label}
@@ -409,7 +364,6 @@ export default function ReservationEdit({
           </div>
         </div>
         <div className={`${styles.tablesdiv}`}>
-          {/* 更改為圓形 取消預設樣式 flex */}
           <ul className={styles.tablesChairs}>
             {tables.map((table) => (
               <li
@@ -439,15 +393,14 @@ export default function ReservationEdit({
             ></textarea>
             <label htmlFor="floatingTextarea2">留下任何你想說的~</label>
           </div>
-          {/* 加入按鈕外框線 */}
           <div className={`${styles.confirmButtondiv}`}>
             <button
               type="submit"
               id="confirmButton"
               className="btn btn-warning shadow mb-3 mt-3 px-5"
               onClick={handleConfirmButtonClick}
-              disabled={isButtonDisabled} // 根據狀態控制按鈕禁用
-              //以isButtonDisabled為基礎使用三元判斷式自動切換顏色
+              disabled={isButtonDisabled}
+
               style={{
                 background: isButtonDisabled
                   ? 'linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(231, 175, 47, 1))'
@@ -455,17 +408,14 @@ export default function ReservationEdit({
                 color: 'black',
               }}
             >
-              {/* 以isButtonDisabled為基礎使用三元判斷式自動切換文字內容 */}
               {isButtonDisabled ? '尚未填寫完成' : '送出'}
             </button>
           </div>
         </div>
       </main>
-      {/* 毛玻璃背景 */}
       {overLayVisible && (
         <div id="overlay" className={`${styles.overlay}`}></div>
       )}
-      {/* 使用邏輯運算符號與whiteSquareVisible狀態來決定是否開啟確認方塊 */}
       {whiteSquareVisible && (
         <div id="whiteSquare" className={`${styles.square3}`}>
           <h4 className="text-center mt-3">確認您的預約資訊</h4>
@@ -517,7 +467,6 @@ export default function ReservationEdit({
           </div>
         </div>
       )}
-      {/* 白色正方形區塊2 */}
       {whiteSquareVisible2 && (
         <div id="whiteSquare2" className={`${styles.square3}`}>
           <h4 className="text-center mt-3  align-items-center">
