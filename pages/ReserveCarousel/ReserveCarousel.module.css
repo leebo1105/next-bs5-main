@@ -6,7 +6,7 @@
 
   display: flex;
   justify-content: center;
-  background: rgb(7, 7, 56);
+  background: RGB(0, 17, 54);
 }
 .iframe {
   width: 100%;
