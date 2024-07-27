@@ -1,15 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
-// import Header from '../../components/header/imdex'
-import Navbar from '@/components/layout/mudanlow-layout/navbar' // 確保這個路徑是正確的
-import styles from './ReservationRules.module.css' // 確保正確導入 CSS 模組
+import Navbar from '@/components/layout/mudanlow-layout/navbar'
+import styles from './ReservationRules.module.css'
 import Footer from '@/components/layout/mudanlow-layout/footer'
 
 export default function ReservationRules() {
   return (
     <>
       <div className={styles.body}>
-        {/* <Header /> */}
         <main className={styles.mainContent}>
           <div className={styles.container}>
             <div className={styles.titlePage}>
