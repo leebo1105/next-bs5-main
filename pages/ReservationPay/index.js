@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Drawer, Button, List, FlexboxGrid } from 'rsuite'
 import axios from 'axios'
+import toast, { Toaster } from 'react-hot-toast'
 
 export default function ReservationPay({
   open,
@@ -50,7 +51,7 @@ export default function ReservationPay({
   }
   const fetchBalance = async () => {
     try {
-      if (!memberId) return // 如果 memberId 不存在,直接返回
+      if (!memberId) return
       const response = await axios.get(
         `http://localhost:3001/reserve/SaveMoneySystem/balance/${memberId}`
       )
@@ -60,9 +61,6 @@ export default function ReservationPay({
     }
   }
 
-  //亭安
-  // 生成唯一訂單編號
-  // 處理第三方支付的函數
   const handleThirdPartyPayment = async () => {
     onStepChange(reservation.id, 3)
     try {
@@ -74,10 +72,10 @@ export default function ReservationPay({
       document.write(response.data.html)
       console.log(response.data)
       document.close()
-      onStepChange(reservation.id, 3) // 更新步驟狀態
+      onStepChange(reservation.id, 3)
     } catch (error) {
       console.error('Error initiating third-party payment:', error)
-      alert('發起第三方支付時發生錯誤，請重試。')
+      toast.error('發起第三方支付時發生錯誤，請重試!!')
     }
   }
 
@@ -86,26 +84,22 @@ export default function ReservationPay({
     console.log(memberId)
     console.log(total)
     if (balance < total) {
-      alert('餘額不足，請儲值後再嘗試。')
+      toast.error('餘額不足，請儲值後再嘗試')
       return
     }
 
     try {
-      // 扣除餘額
       const response = await axios.post(`http://localhost:3001/reserve/pay`, {
         memberId: memberId,
         amount: total,
       })
-      //一開始這裡用比較字串的方式對應前後端 後來發現用response.data.success狀態值會比較妥當
       if (response.data.success) {
-        // 更新步驟狀態
         onStepChange(reservation.id, 3)
-
-        // 更新餘額
         fetchBalance()
+        toast.success('支付成功')
       } else {
         console.error('Error in response:', response.data.error)
-        alert('支付過程中發生錯誤，請重試。')
+        toast.error('支付過程中發生錯誤，請重試。')
       }
     } catch (error) {
       console.error('Error confirming payment:', error)
@@ -132,14 +126,14 @@ export default function ReservationPay({
                 取消
               </Button>
               <Button
-                onClick={handleConfirm} // 更新父元件的 currentStep 狀態
+                onClick={handleConfirm}
                 appearance="primary"
                 style={{ ...buttonStyle, marginLeft: 10 }}
               >
                 使用餘額支付
               </Button>
               <Button
-                onClick={handleThirdPartyPayment} // 更新父元件的 currentStep 狀態
+                onClick={handleThirdPartyPayment}
                 appearance="primary"
                 style={{ ...buttonStyle, marginLeft: 10 }}
               >
@@ -149,6 +143,7 @@ export default function ReservationPay({
           </FlexboxGrid.Item>
         </FlexboxGrid>
       </Drawer.Body>
+      <Toaster />
     </Drawer>
   )
 }
