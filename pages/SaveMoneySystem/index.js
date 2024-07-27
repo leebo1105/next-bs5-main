@@ -11,14 +11,14 @@ import {
   Checkbox,
 } from 'rsuite'
 import SendIcon from '@rsuite/icons/Send'
-import Navbar from '@/components/layout/mudanlow-layout/navbar'
-import Footer from '@/components/layout/mudanlow-layout/footer'
 import styles from './SaveMoneySystem.module.css'
 import CreditCardForm from '../CreditCardForm'
 import axios from 'axios'
+import toast, { Toaster } from 'react-hot-toast'
+import { useRouter } from 'next/router'
 
 export default function SaveMoneySystem() {
-  const [balance, setBalance] = useState(0) // 新增餘額狀態
+  const [balance, setBalance] = useState(0)
   const [creditCardFormData, setCreditCardFormData] = useState({
     StoredMemberId: '',
     name: '',
@@ -30,6 +30,7 @@ export default function SaveMoneySystem() {
   })
 
   const [emailError, setEmailError] = useState('')
+  const router = useRouter()
 
   const saveMoneyNumber = [
     '儲值NT$1000',
@@ -45,12 +46,11 @@ export default function SaveMoneySystem() {
   ].map((item) => ({ label: item, value: item }))
 
   useEffect(() => {
-    // 在客戶端獲取localStorage
     const memberId = localStorage.getItem('memberId')
     if (memberId) {
       handleChange('StoredMemberId', memberId)
     }
-  }, []) // 只在組件mount時執行一次
+  }, [])
 
   const handleChange = (name, value) => {
     setCreditCardFormData((prevState) => ({
@@ -59,10 +59,10 @@ export default function SaveMoneySystem() {
     }))
   }
 
-  // const handlePayMoney = (value) => {
-  //   const newValue = value.replace('儲值NT$', '')
-  //   handleChange('PayMoney', newValue)
-  // }
+  const handlePayMoney = (value) => {
+    const newValue = value.replace('儲值NT$', '')
+    handleChange('PayMoney', newValue)
+  }
 
   const handleEmail = (value) => {
     handleChange('email', value)
@@ -88,7 +88,6 @@ export default function SaveMoneySystem() {
     e.preventDefault()
     console.log('creditCardFormData:', creditCardFormData)
 
-    // 檢查所有字段是否有值
     const requiredFields = [
       'StoredMemberId',
       'name',
@@ -119,8 +118,14 @@ export default function SaveMoneySystem() {
         expiry: '',
         cvc: '',
       })
-      //儲值後更新餘額
       fetchBalance()
+      toast.success('已成功儲值')
+      setTimeout(() => {
+        toast.success('即將前往查詢預約')
+      }, 1500)
+      setTimeout(() => {
+        router.push('/ReservationRules')
+      }, 3000)
     } catch (error) {
       console.error('提交表單時出錯!', error)
     }
@@ -144,7 +149,6 @@ export default function SaveMoneySystem() {
   }, [creditCardFormData.StoredMemberId])
   return (
     <>
-      <Navbar />
       <Container>
         <Header></Header>
         <Content>
@@ -254,7 +258,7 @@ export default function SaveMoneySystem() {
           </PanelGroup>
         </Content>
       </Container>
-      <Footer />
+      <Toaster />
     </>
   )
 }
