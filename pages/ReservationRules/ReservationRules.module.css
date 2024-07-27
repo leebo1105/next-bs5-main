@@ -47,14 +47,6 @@
     background-color: rgba(176, 214, 229, 1);
 }
 
-/* a:hover,
-a:visited,
-a:link,
-a:active {
-    text-decoration: none;
-} */
-
-/* Breakpoints */
 @media (min-width: 1024px) {
     .container {
         width: 80%;
@@ -73,19 +65,6 @@ a:active {
     }
 }
 
-/* 針對手機設計的CSS
-@media (max-width: 375px) {
-    nav ul {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    nav li {
-        margin-bottom: 0.5rem;
-    }
-} */
-
-/* 針對大屏幕設計的CSS */
 @media (min-width: 1920px) {
     .body {
         font-size: 1.2rem;
