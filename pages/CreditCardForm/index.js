@@ -124,7 +124,7 @@ export default function CreditCardForm({ creditCardFormData, handleChange }) {
               <Form.ControlLabel>卡片安全碼</Form.ControlLabel>
               <Form.Control
                 name="creditCardCvc"
-                type="tel"
+                type="password"
                 size="lg"
                 placeholder="cvc"
                 value={creditCardFormData.cvc}
