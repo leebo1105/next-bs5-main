@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react'
-import Navbar from '@/components/layout/mudanlow-layout/navbar' // 確保這個路徑是正確的
-import styles from './ReserveCarousel.module.css' // 引入 CSS 模組
-import Footer from '@/components/layout/mudanlow-layout/footer'
+import styles from './ReserveCarousel.module.css'
 
 export default function ReserveCarousel() {
   useEffect(() => {
@@ -33,12 +31,11 @@ export default function ReserveCarousel() {
           title="牡丹樓的3D動畫"
         ></iframe>
       </div>
-      {/* 預約按鈕 */}
       <div className={styles.ButtonContainer}>
         <iframe
           src="https://my.spline.design/untitled-0a1e43fdfdfa42bd62812b4035cf447d/"
           frameborder="0"
-          width="80%"
+          width="100%"
           height="100%"
           title="牡丹樓的3D預約按鈕"
         ></iframe>
