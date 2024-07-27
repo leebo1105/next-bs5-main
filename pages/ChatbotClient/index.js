@@ -1,48 +1,58 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useSpring, animated } from 'react-spring'
+import Image from 'next/image'
 import io from 'socket.io-client'
 import styles from './ChatbotClient.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import {
+  faAngleLeft,
+  faAngleRight,
+  faCheck,
+  faCheckDouble,
+} from '@fortawesome/free-solid-svg-icons'
+import toast, { Toaster } from 'react-hot-toast'
 
 const socket = io.connect('http://localhost:3002')
 
 function ChatbotClient() {
-  const [room] = useState('room2') // 固定進入room2
+  const [room] = useState('room2')
   const [message, setMessage] = useState('')
   const [messages, setMessages] = useState([])
   const [memberId, setMemberId] = useState(0)
   const [isMerchant, setIsMerchant] = useState(false)
   const [typing, setTyping] = useState(false)
-  // const [isOnline, setIsOnline] = useState(false);
+  const [lastMessage, setLastMessage] = useState('')
+  const [status, setStatus] = useState(null)
+  const [isOnlineContainerVisible, setOnlineContainerVisible] = useState(true)
 
-  //設定對方輸入中的動畫持續時間
   const typingAnimation = useSpring({
     opacity: typing ? 1 : 0,
     config: { duration: 2000 },
     reset: true,
   })
 
-  // 每次 messages 更新後，滾動到底部
-  //這是錯了n次才想到的好方法 即使我在每次事件中都添加scrollToBottom() 他也不一樣會置底 這很惱人
-  //通過messages每次更新都置底才是最保險的
+  const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp)
+    return date.toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    })
+  }
+
   useEffect(() => {
     scrollToBottom()
   }, [messages])
 
-  // 創建一個 ref 來引用底部空的 div 元素
   const messagesEndRef = useRef(null)
 
-  // 每次 messages 更新後，滾動到底部
-  //我有在最下方預留空白div這樣就不會讓訊息貼著聊天是有夠難看
-  //為了不讓她瞬間移動還特地查了behavior: 'smooth'的這個方法 他會滑滑的
   const scrollToBottom = () => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
     }
+    console.log('scrollToBottom')
   }
-  //幸好預約功能做得很完善 這個一鍵查詢有夠懶
-  //找時間來做email通知 或官網內部的訊息通知
+
   const fetchRecentReservation = async () => {
     try {
       const response = await fetch(
@@ -53,7 +63,6 @@ function ChatbotClient() {
       }
       const data = await response.json()
 
-      // 格式化預約資訊為條列式
       const reservationMessage = `
         <ul>
           <li>預約日期：${data.selectedDate}</li>
@@ -63,21 +72,32 @@ function ChatbotClient() {
           <li>桌型選擇：${data.selectedTableType}</li>
         </ul>
       `
-
-      // 根據 memberId 設定 sender
       const sender = memberId === 1 ? 1 : 2
 
-      // 更新聊天室訊息的顯示區域，設定 sender 為 memberId
       setMessages((prevMessages) => [
         ...prevMessages,
         { message: reservationMessage, sender: sender, type: 'system' },
       ])
-
-      // 每次 messages 更新後，滾動到底部
       scrollToBottom()
     } catch (error) {
       console.error('錯誤查詢最近預約的原因:', error)
-      // 處理錯誤，例如顯示錯誤訊息給使用者
+      toast.error('您還沒有預約唷~~~')
+    }
+  }
+
+  const fetchLastMessage = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/history/lastMessage')
+      const data = await response.json()
+      if (data && data.lastMessage) {
+        setLastMessage(data.lastMessage.message)
+        setStatus(data.lastMessage.status)
+        console.log(data.lastMessage.status)
+      }
+      console.log(data.lastMessage)
+      console.log('fetchLastMessage')
+    } catch (error) {
+      console.error('Error fetching last message:', error)
     }
   }
 
@@ -88,8 +108,24 @@ function ChatbotClient() {
         if (response.ok) {
           const history = await response.json()
           setMessages(history)
-          // 每次 messages 更新後，滾動到底部
-          // scrollToBottom()
+
+          socket.emit('roomRestart', { room })
+
+          if (history.length > 0) {
+            const latestMessage = history[history.length - 1]
+            setStatus(latestMessage.isRead === 1 ? 'read' : 'sent')
+            setLastMessage(latestMessage.message)
+
+            history.forEach((msg) => {
+              if (!msg.isRead && msg.sender !== memberId) {
+                socket.emit('messageRead', {
+                  room,
+                  sender: memberId,
+                  id: msg.id,
+                })
+              }
+            })
+          }
         } else {
           throw new Error('Failed to load message history')
         }
@@ -106,37 +142,54 @@ function ChatbotClient() {
       setIsMerchant(parseInt(storedMemberId) === 1)
     }
 
-    socket.on('newMessage', (data) => {
-      setMessages((prevMessages) => [...prevMessages, data])
-      setTyping(false) // 收到新訊息時關閉動畫
-      // 每次 messages 更新後，滾動到底部
-      // scrollToBottom()
+    socket.on('newMessage', async (newMessage) => {
+      if (newMessage.sender !== memberId && !newMessage.isRead) {
+        socket.emit('messageRead', {
+          room,
+          sender: memberId,
+          id: newMessage.id,
+        })
+      }
+
+      if (newMessage.sender !== memberId) {
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          {
+            ...newMessage,
+          },
+        ])
+      }
+
+      await fetchLastMessage()
+      setTyping(false)
+    })
+
+    socket.on('roomRestart', async () => {
+      await fetchLastMessage()
     })
 
     socket.on('typing', (data) => {
       if (data.sender !== memberId) {
         setTyping(true)
         setTimeout(() => setTyping(false), 4000)
-        // 每次 messages 更新後，滾動到底部
-        // scrollToBottom()
       }
     })
 
+    socket.on('messageRead', async (data) => {
+      setMessages((prevMessages) =>
+        prevMessages.map((msg) =>
+          msg.id === data.id ? { ...msg, status: 'read' } : msg
+        )
+      )
+      await fetchLastMessage()
+    })
     return () => {
       socket.off('newMessage')
       socket.off('typing')
+      socket.off('messageRead')
+      socket.off('roomRestart')
     }
   }, [memberId])
-
-  // 儲存訊息到localStorage
-  //訊息會在對方離線後先保存 在他上線時發送 就不怕她收不到貨是發我洗澡卡
-
-  // const saveMessageLocally = (messageData) => {
-  //   const offlineMessages =
-  //     JSON.parse(localStorage.getItem('offlineMessages')) || []
-  //   offlineMessages.push(messageData)
-  //   localStorage.setItem('offlineMessages', JSON.stringify(offlineMessages))
-  // }
 
   const sendMessage = () => {
     if (message.trim() !== '') {
@@ -145,75 +198,90 @@ function ChatbotClient() {
         room,
         sender: memberId,
         isMerchant,
+        timestamp: new Date(),
+        id: new Date().getTime(),
+        isRead: false,
       }
-      // // 如果對方離線，儲存訊息到本地
-      // if (!isOnline) {
-      //   saveMessageLocally(messageData)
-      //   // 可以顯示提示訊息，告知用戶訊息將在對方上線後發送
-      //   // 例如：showOfflineMessageNotification();
-      // } else {
-      //   // 否則，直接發送到 socket
-      //   socket.emit('sendMessage', messageData)
-      // }
+
       socket.emit('sendMessage', messageData)
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          ...messageData,
+        },
+      ])
+      setLastMessage(messageData.message)
+      setStatus('sent')
       setMessage('')
-      // 滾動到底部等操作...
     }
   }
-  // 監聽查看對方是不是在線上，並更新 isOnline 狀態
-  // socket.on('onlineStatus', (status) => {
-  //   setIsOnline(status)
-  //   if (status && localStorage.getItem('offlineMessages')) {
-  //     const offlineMessages = JSON.parse(
-  //       localStorage.getItem('offlineMessages')
-  //     )
-  //     offlineMessages.forEach((msg) => {
-  //       socket.emit('sendMessage', msg)
-  //     })
-  //     localStorage.removeItem('offlineMessages')
-  //   }
-  // })
 
   const handleTyping = () => {
     socket.emit('typing', { room, sender: memberId })
     scrollToBottom()
   }
 
+  const toggleOnlineContainer = () => {
+    setOnlineContainerVisible(!isOnlineContainerVisible)
+  }
+
   return (
     <div className={styles.outerLayer}>
-      <div className={styles.onlineContainer}>
+      <div
+        className={`${styles.onlineContainer} ${
+          isOnlineContainerVisible ? styles.visible : styles.hidden
+        }`}
+      >
         <div className={styles.userName}>
-          <img
-            src="/images/chatbot/avatar-a.jpg"
+          <Image
+            src={
+              memberId !== 1
+                ? '/images/chatbot/avatar-a.jpg'
+                : '/images/chatbot/avatar-b.jpg'
+            }
             alt="Avatar"
+            width={40}
+            height={40}
             className={styles.avatar}
           />
-          <h5 className={styles.headerAvatar}>牡丹樓客服中心</h5>
+          <div className={styles.previewMessage}>
+            <h5>{`${memberId !== 1 ? '牡丹樓客服' : '岳泓'}`}</h5>
+            <div>{lastMessage}</div>
+          </div>
         </div>
       </div>
-      <div className={styles.chatContainer}>
+      <div
+        className={`${styles.chatContainer} ${
+          !isOnlineContainerVisible ? styles.expanded : ''
+        }`}
+      >
         <div className={styles.chatUserName}>
           <div className={styles.chatUserName1}>
             <FontAwesomeIcon
-              icon={faAngleRight}
+              icon={
+                isOnlineContainerVisible == true ? faAngleRight : faAngleLeft
+              }
               height={30}
-              className={`${styles.faAngleRight}`}
+              onClick={toggleOnlineContainer}
+              className={styles.faAngleRight}
             />
-            <img
+            <Image
               src={
                 memberId !== 1
                   ? '/images/chatbot/avatar-a.jpg'
                   : '/images/chatbot/avatar-b.jpg'
               }
               alt="Avatar"
+              width={40}
+              height={40}
               className={styles.avatar2}
             />
-            <h6>{`${memberId !== 1 ? '牡丹樓客服中心' : '岳泓'}`}</h6>
+            <h6>{`${memberId !== 1 ? '牡丹樓客服' : '岳泓'}`}</h6>
           </div>
           <div>
             <button
               onClick={() => fetchRecentReservation()}
-              className={`${styles.reservationsOrder}`}
+              className={styles.reservationsOrder}
             >
               查詢最近預約
             </button>
@@ -229,20 +297,21 @@ function ChatbotClient() {
                   : styles.messageLeft
               }`}
             >
-              <img
+              <Image
                 src={
                   msg.sender === 1
                     ? '/images/chatbot/avatar-a.jpg'
                     : '/images/chatbot/avatar-b.jpg'
                 }
                 alt="Avatar"
+                width={40}
+                height={40}
                 className={styles.avatar}
               />
               <div
                 className={`${styles.message} ${
                   msg.sender === 1 ? styles.messageUser : styles.messageMerchant
                 } ${msg.type === 'system' ? styles.system : ''}`}
-                //單純使用${msg.type === 'system' ? styles.system : ''}`}無法套用系統訊息樣式所以使用style內聯樣式覆蓋
                 style={
                   msg.type === 'system'
                     ? {
@@ -254,6 +323,15 @@ function ChatbotClient() {
                 }
                 dangerouslySetInnerHTML={{ __html: msg.message }}
               ></div>
+              <div className={styles.timestamp}>
+                {formatTimestamp(msg.timestamp)}
+                {index === messages.length - 1 && (
+                  <FontAwesomeIcon
+                    icon={status === 'read' ? faCheckDouble : faCheck}
+                    className={styles.statusIcon}
+                  />
+                )}
+              </div>
             </div>
           ))}
           {typing && (
@@ -261,8 +339,7 @@ function ChatbotClient() {
               對方正在輸入中...
             </animated.div>
           )}
-          {/* 底部空 div，用來滾動到最下方 */}
-          <div ref={messagesEndRef} className={`${styles.messagesEndRef}`} />
+          <div ref={messagesEndRef} className={styles.messagesEndRef} />
         </div>
         <div className={styles.messageInputContainer}>
           <input
@@ -273,7 +350,6 @@ function ChatbotClient() {
               setMessage(event.target.value)
               handleTyping()
             }}
-            //按下enter鍵就傳送
             onKeyDown={(event) => {
               if (event.keyCode === 13) {
                 sendMessage()
@@ -284,6 +360,7 @@ function ChatbotClient() {
           <button onClick={sendMessage} className={styles.sendMessageButton}>
             傳送
           </button>
+          <Toaster />
         </div>
       </div>
     </div>
