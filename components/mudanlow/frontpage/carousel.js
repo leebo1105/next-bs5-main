@@ -89,8 +89,8 @@ export default function FrontPageCarousel() {
         id="trending-products"
         className="section-secondary-color carouselSection background1 py-5"
       >
-        <div className="row d-flex justify-content-center flex-lg-row">
-          <div className="col-lg-3 col-md-12 col-sm-12 col text-center">
+        <div className="row d-flex justify-content-center flex-lg-row w-100">
+          <div className="col-lg-3 col-md-12 col-sm-12 text-center">
             <h2 className="display-4 lxgw-wenkai-mono-tc-bold">餐點介紹</h2>
             <div className="container-fluid text-center text-dark py-5 lxgw-wenkai-mono-tc-regular fs-5">
               我們餐廳提供豐富多樣的美食選擇，從精緻的開胃小菜到美味的主菜和甜品，每道菜品均選用新鮮食材，精心烹製。無論是傳統風味還是創新料理，都能滿足您的味蕾。邀請您來享受一場美食盛宴。

@@ -1,7 +1,7 @@
 // 全域css
 body {
-  /* margin: 0;
-  padding: 0; */
+  margin: 0;
+  padding: 0;
   font-family: 'Merriweather', serif;
   font-size: 18px;
   font-weight: 300;
@@ -618,8 +618,8 @@ section {
 @media (max-width: 1200px) {
   .aboutHire {
     position: relative;
-    width: 480px;
-    height: 360px;
+    width: 400px;
+    height: 300px;
     overflow: hidden;
   }
 }
@@ -627,8 +627,8 @@ section {
 @media (max-width: 1024px) {
   .aboutHire {
     position: relative;
-    width: 480px;
-    height: 360px;
+    width: 400px;
+    height: 300px;
     overflow: hidden;
   }
 }
@@ -921,6 +921,7 @@ section {
     z-index: 3;
     padding-top: 30px;
     padding-bottom: 50px;
+    overflow: hidden;
   }
 }
 
@@ -960,6 +961,14 @@ section {
     height: 200px;
     width: 200px;
   }
+  .runHorseLight {
+    background: #465952;
+    color: #000;
+    z-index: 3;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    overflow: hidden;
+  }
 }
 
 /* phones */
@@ -986,7 +995,6 @@ section {
     bottom: 0;
     right: 0;
     max-width: 500px;
-    width: 20%;
     height: 20%;
   }
 
@@ -1003,7 +1011,12 @@ section {
     display: none;
   }
   .runHorseLight {
-    height: 50px;
+    background: #465952;
+    color: #000;
+    z-index: 3;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    overflow: hidden;
   }
 }
 
