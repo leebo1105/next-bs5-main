@@ -242,3 +242,11 @@ input:checked ~ label .faStar {
     font-size: 16px;
   }
 }
+
+@media (max-width: 576px) {
+  .messageBoard {
+    width: 300px;
+    font-size: 16px;
+    margin-top: 100px;
+  }
+}

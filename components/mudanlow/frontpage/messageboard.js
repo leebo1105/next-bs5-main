@@ -161,7 +161,7 @@ export default function MessageBoard() {
       >
         <h2 className="display-4 frontTitle2 mt-5">留言板</h2>
         <div
-          className={`row gx-4 gx-lg-5 m-3 justify-content-center ${styles.messageBoard} flex-column align-items-center`}
+          className={`row gx-4 gx-lg-5 mt-5 justify-content-center ${styles.messageBoard} flex-column align-items-center`}
         >
           <div className="col-lg-8 col-xl-7 text-center mb-3">
             <h2>寫下你想說的話吧~</h2>

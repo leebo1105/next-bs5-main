@@ -98,7 +98,10 @@ export default function Introduce() {
         </div>
         <div className="row align-items-center text-center g-2 mt-5">
           <div className="col-6 col-sm-12 col-lg-6 fade-in-image" ref={imgRef3}>
-            <img className="content-img" src="/images/mudanlowWebp/front.jpg" />
+            <img
+              className="content-img"
+              src="/images/mudanlowWebp/frontside.jpg"
+            />
           </div>
           <div
             className="col-6 col-sm-12 col-lg-6 content fade-in-section"
