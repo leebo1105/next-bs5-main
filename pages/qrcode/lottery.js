@@ -222,7 +222,20 @@ export default function Lottery() {
         setButtons(updatedButtons)
       }, 2500)
     } else {
-      alert('抽獎次數已用完，請增加消費金額來獲得更多抽獎機會！')
+      Swal.fire({
+        title: '抽獎次數已用完',
+        text: '請增加消費金額來獲得更多抽獎機會！',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '繼續點餐',
+        cancelButtonText: '取消',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = 'http://localhost:3000/qrcode/'
+        }
+      })
     }
   }
 
@@ -287,13 +300,20 @@ export default function Lottery() {
             } else {
               Swal.fire({
                 title: '中獎序號' + generateCouponCode(),
-                text:
-                  '恭喜你抽到 ' +
-                  prize.imgs[0].alt +
-                  '，請於當次消費出示給現場人員兌換',
-                imageUrl: prize.imgs[0].src,
-                imageHeight: 450,
-                imageAlt: '中獎',
+                // text:
+                //   '恭喜你抽到 ' +
+                //   prize.imgs[0].alt +
+                //   '，請於當次消費出示給現場人員兌換',
+                html: `
+      <div style="text-align: center;margin-bottom: 10px">
+        <img src="${prize.imgs[0].src}" alt="中獎" style="width: 100%; max-height: 50vh; object-fit: contain;">
+      </div>
+      <div style="text-align: center;">
+        <p>恭喜你抽到${prize.imgs[0].alt}，請於當次消費出示給現場人員兌換</p>
+      </div>
+    `,
+                width: '80%',
+                padding: '1em',
               })
             }
           }}
