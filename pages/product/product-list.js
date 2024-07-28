@@ -85,7 +85,7 @@ export default function ProductList() {
               <div className="card-footer">
                 <button
                   type="button"
-                  className="btn btn-success"
+                  className="btn btn-success "
                   onClick={() => {
                     const item = {
                       ...v,

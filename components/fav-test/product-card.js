@@ -66,7 +66,7 @@ const ProductCard = ({ id, name, price, photos, info }) => {
       </div>
       <button
         type="button"
-        className="btn btn-success"
+        className="btn btn-success lxgw-wenkai-mono-tc-regular"
         onClick={handleAddToCart}
       >
         加入購物車
