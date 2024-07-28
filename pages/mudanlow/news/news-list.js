@@ -487,7 +487,7 @@ export default function NewsList() {
         .custom-checkbox + label:before {
           content: '';
           position: absolute;
-          left: 0;
+          left: -6px;
           top: 18px;
           width: 25px;
           height: 25px;
