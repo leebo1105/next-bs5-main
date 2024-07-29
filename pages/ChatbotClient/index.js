@@ -259,13 +259,13 @@ function ChatbotClient() {
       const reader = new FileReader()
       reader.onloadend = () => {
         const imageMessage = {
-          message: reader.result, // 使用 base64 圖片數據
+          message: reader.result,
           room,
           sender: memberId,
           isMerchant,
           timestamp: new Date(),
           isRead: false,
-          type: 'image', // 標記此消息為圖片類型
+          type: 'image',
         }
 
         // 發送圖片訊息到 Socket.IO
@@ -274,7 +274,7 @@ function ChatbotClient() {
         setLastMessage(imageMessage.message)
         setStatus('sent')
       }
-      reader.readAsDataURL(file) // 讀取文件
+      reader.readAsDataURL(file)
     }
   }
 
@@ -387,7 +387,7 @@ function ChatbotClient() {
                     } ${msg.type === 'system' ? styles.system : ''}`}
                   >
                     {msg.type === 'image' ? (
-                      <img
+                      <Image
                         src={msg.message}
                         alt="Uploaded"
                         className={styles.imageMessage}
@@ -435,9 +435,9 @@ function ChatbotClient() {
               <input
                 type="file"
                 accept="image/*"
-                style={{ display: 'none' }} // 隱藏文件輸入
-                id="imageUpload" // 添加 id 以便連結
-                onChange={handleImageUpload} // 添加事件處理
+                style={{ display: 'none' }}
+                id="imageUpload"
+                onChange={handleImageUpload}
               />
 
               <label htmlFor="imageUpload" className={styles.uploadButton}>
