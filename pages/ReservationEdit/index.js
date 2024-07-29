@@ -130,7 +130,6 @@ export default function ReservationEdit({
       console.log(formState.selectedDate)
       setIsOpen(false)
     }
-
   }
   const handleButtonClick = () => {
     setFormState({
@@ -400,7 +399,6 @@ export default function ReservationEdit({
               className="btn btn-warning shadow mb-3 mt-3 px-5"
               onClick={handleConfirmButtonClick}
               disabled={isButtonDisabled}
-
               style={{
                 background: isButtonDisabled
                   ? 'linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(231, 175, 47, 1))'
@@ -520,4 +518,3 @@ export default function ReservationEdit({
     </div>
   )
 }
-
