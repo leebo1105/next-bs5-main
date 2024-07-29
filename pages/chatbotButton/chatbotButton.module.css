@@ -1,18 +1,28 @@
 .chatbotButton {
+  width: 150px;
   background-color: gray;
   border-radius: 10px;
   box-shadow: 2px 2px 5px black;
   color: white;
-  padding: 2px 10px;
+  padding: 5px 10px;
   margin-bottom: 20px;
 }
+.chatbotButtonImage {
+  margin-right: 8px;
+  margin-bottom: 3px;
+}
 .saveMoneyButton {
+  width: 150px;
   background-color: gray;
   text-decoration: none;
   border-radius: 10px;
   box-shadow: 2px 2px 5px black;
   color: white;
-  padding: 2px 10px;
+  padding: 5px 10px;
+}
+.saveMoneyButtonImage {
+  margin-right: 8px;
+  margin-bottom: 3px;
 }
 .indexArea {
   display: flex;
