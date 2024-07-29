@@ -178,6 +178,28 @@ function ChatbotClient() {
       setTyping(false)
     })
 
+    socket.on('newImageMessage', async (imageMessage) => {
+      if (imageMessage.sender !== memberId && !imageMessage.isRead) {
+        socket.emit('messageRead', {
+          room,
+          sender: memberId,
+          id: imageMessage.id,
+        })
+      }
+
+      if (imageMessage.sender !== memberId) {
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          {
+            ...imageMessage,
+          },
+        ])
+      }
+
+      await fetchLastMessage()
+      setTyping(false)
+    })
+
     socket.on('roomRestart', async () => {
       await fetchLastMessage()
     })
@@ -202,6 +224,7 @@ function ChatbotClient() {
       socket.off('typing')
       socket.off('messageRead')
       socket.off('roomRestart')
+      socket.off('newImageMessage')
     }
   }, [memberId])
 
@@ -227,6 +250,31 @@ function ChatbotClient() {
       setLastMessage(messageData.message)
       setStatus('sent')
       setMessage('')
+    }
+  }
+
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        const imageMessage = {
+          message: reader.result, // 使用 base64 圖片數據
+          room,
+          sender: memberId,
+          isMerchant,
+          timestamp: new Date(),
+          isRead: false,
+          type: 'image', // 標記此消息為圖片類型
+        }
+
+        // 發送圖片訊息到 Socket.IO
+        socket.emit('sendImage', imageMessage)
+        setMessages((prevMessages) => [...prevMessages, imageMessage])
+        setLastMessage(imageMessage.message)
+        setStatus('sent')
+      }
+      reader.readAsDataURL(file) // 讀取文件
     }
   }
 
@@ -337,17 +385,17 @@ function ChatbotClient() {
                         ? styles.messageUser
                         : styles.messageMerchant
                     } ${msg.type === 'system' ? styles.system : ''}`}
-                    style={
-                      msg.type === 'system'
-                        ? {
-                            backgroundColor: '#f9f9f9',
-                            color: 'black',
-                            border: '3px rgba(176, 198, 233, 1) solid',
-                          }
-                        : {}
-                    }
-                    dangerouslySetInnerHTML={{ __html: msg.message }}
-                  ></div>
+                  >
+                    {msg.type === 'image' ? (
+                      <img
+                        src={msg.message}
+                        alt="Uploaded"
+                        className={styles.imageMessage}
+                      />
+                    ) : (
+                      <div dangerouslySetInnerHTML={{ __html: msg.message }} />
+                    )}
+                  </div>
                   {msg.type !== 'system' && (
                     <div className={styles.timestamp}>
                       {formatTimestamp(msg.timestamp)}
@@ -384,6 +432,18 @@ function ChatbotClient() {
                 }}
                 className={styles.messageInput}
               />
+              <input
+                type="file"
+                accept="image/*"
+                style={{ display: 'none' }} // 隱藏文件輸入
+                id="imageUpload" // 添加 id 以便連結
+                onChange={handleImageUpload} // 添加事件處理
+              />
+
+              <label htmlFor="imageUpload" className={styles.uploadButton}>
+                上傳圖片
+              </label>
+
               <button
                 onClick={sendMessage}
                 className={styles.sendMessageButton}

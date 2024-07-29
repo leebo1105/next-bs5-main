@@ -33,15 +33,15 @@
 }
 
 .userName {
-    width: 240px;
-    height: 90px ;
-    background: #f9f9f9;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
-    margin-inline: auto;
-    display: flex;
+  width: 240px;
+  height: 90px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  margin-inline: auto;
+  display: flex;
 }
 .chatUserName {
   width: 100%;
@@ -60,16 +60,16 @@
   display: flex;
 }
 .headerAvatar {
-    margin-top: 5px;
+  margin-top: 5px;
 }
 .avatar {
-    width: 40px;
-    height: 40px;
-    border: 3px gray solid;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 10px;
-  }
+  width: 40px;
+  height: 40px;
+  border: 3px gray solid;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
 
 .avatar2 {
   width: 40px;
@@ -92,7 +92,6 @@
 .statusIcon {
   width: 16px;
   height: 16px;
-  
 }
 
 .previewMessage {
@@ -118,163 +117,193 @@
   text-align: start;
 }
 
-  .onlineContainer {
-    border-radius: 10px;
-    background-color: #eff1f3;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: opacity 1s ease-out;
-  }
+.onlineContainer {
+  border-radius: 10px;
+  background-color: #eff1f3;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: opacity 1s ease-out;
+}
 
-  .onlineContainer.hidden {
-    animation: slideOut 1s ease-out forwards;
-  }
+.onlineContainer.hidden {
+  animation: slideOut 1s ease-out forwards;
+}
 
-  .onlineContainer.visible {
-    animation: slideIn 1s ease-out forwards;
-  }
+.onlineContainer.visible {
+  animation: slideIn 1s ease-out forwards;
+}
 
-  .chatContainer {
-    background-color: #f0f2f5;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 400px;
-    max-width: 90%;
-    display: flex;
-    flex-direction: column;
-  }
+.chatContainer {
+  background-color: #f0f2f5;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  max-width: 90%;
+  display: flex;
+  flex-direction: column;
+}
 
 .chatContainer.expanded {
   margin-left: 60px;
 }
-  
-  .roomInputContainer,
-  .messageInputContainer {
-    display: flex;
-    margin-bottom: 10px;
-  }
-  
-  .roomInput,
-  .messageInput {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .joinRoomButton,
-  .sendMessageButton {
-    padding: 10px 20px;
-    margin-left: 10px;
-    border: none;
-    background-color:rgba(102, 167, 242, 1);
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .joinRoomButton:hover,
-  .sendMessageButton:hover {
-    background-color: #0056b3;
-  }
-  
-  .messagesContainer {
-    height: 400px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    flex: 1;
-    padding: 10px;
-    padding-bottom: 15px;
-    background: #f9f9f9;
-    border-radius: 4px;
-    overflow-y: auto;
-    margin-bottom: 10px;
-    max-height: 300px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .messageRow {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-  }
-  
-  .messageLeft {
-    justify-content: flex-start;
-  }
-  
-  .messageRight {
-    justify-content: flex-end;
-    margin-right: 10px;
-  }
-  
-  .message {
-    padding: 10px;
-    border-radius: 4px;
-    max-width: 70%;
-    word-wrap: break-word;
-  }
-  
-  .messageMerchant {
-    background:rgba(176, 198, 233, 1);
-    color: white;
-  }
 
-  .system{
-    background: #f9f9f9;
-    color: black;
-    border: 3px rgba(176, 198, 233, 1) solid;
-  }
-  .messageUser {
-    background: rgba(157, 236, 157, 1);
-    color: white;
-  }
+.messageInputContainer {
+  display: flex;
+  margin-bottom: 10px;
+  width: 400px;
+}
 
-  .closeButton {
-    display: flex;
-    margin-bottom: 10px;
-  }
+.messageInput {
+  padding-inline: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 50%;
+}
 
-  .faXmark {
-    margin-top: 5px;
-    margin-right: -10px;
-    margin-left: 10px;
-    color: gray;
-  }
+.uploadButton {
+  padding-inline: 5px;
+  margin-left: 10px;
+  background-color: rgba(102, 167, 242, 1);
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .faXmark:hover {
-    cursor: pointer;
-  }
+.uploadButton:hover {
+  background-color: #0056b3;
+}
 
-  .faAngleRight {
-    margin-right: 10px;
-    margin-left: -10px;
-    margin-top: 5px;
-    color: gray;
-    cursor: pointer;
-  }
 
-  .messagesEndRef {
-    width: 15px;
-    margin-bottom: 20px;
-  }
+.sendMessageButton {
+  padding: 10px 20px;
+  margin-left: 10px;
+  border: none;
+  background-color: rgba(102, 167, 242, 1);
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
-  .messageList {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .messageList li {
-    margin-bottom: 5px;
-  }
-  
-  .reservationsOrder {
-    width: 120px;
-    margin-left: 66px;
-    margin-top: -3px;
-    margin-bottom: 3px;
-    border: 2px gray solid ;
-    border-radius: 10px;
-    background-color: rgb(246, 199, 139);
-  }
+.sendMessageButton:hover {
+  background-color: #0056b3;
+}
+
+.messagesContainer {
+  height: 400px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  padding: 10px;
+  padding-bottom: 15px;
+  background: #f9f9f9;
+  border-radius: 4px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  max-height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.messageRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.messageLeft {
+  justify-content: flex-start;
+}
+
+.messageRight {
+  justify-content: flex-end;
+  margin-right: 10px;
+}
+
+.imageMessage {
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.message {
+  padding: 10px;
+  border-radius: 4px;
+  max-width: 60%;
+  word-wrap: break-word;
+}
+
+.messageMerchant {
+  background: rgba(176, 198, 233, 1);
+  color: white;
+}
+
+.system {
+  background: #f9f9f9;
+  color: black;
+  border: 3px rgba(176, 198, 233, 1) solid;
+}
+
+.uploadInput {
+  width: 50px;
+  height: 30px;
+}
+.uploadIcon {
+  color: rgb(63, 57, 57);
+  width: 50px;
+  height: 30px;
+}
+
+.messageUser {
+  background: rgba(157, 236, 157, 1);
+  color: white;
+}
+
+.closeButton {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.faXmark {
+  margin-top: 5px;
+  margin-right: -10px;
+  margin-left: 10px;
+  color: gray;
+}
+
+.faXmark:hover {
+  cursor: pointer;
+}
+
+.faAngleRight {
+  margin-right: 10px;
+  margin-left: -10px;
+  margin-top: 5px;
+  color: gray;
+  cursor: pointer;
+}
+
+.messagesEndRef {
+  width: 15px;
+  margin-bottom: 20px;
+}
+
+.messageList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.messageList li {
+  margin-bottom: 5px;
+}
+
+.reservationsOrder {
+  width: 120px;
+  margin-left: 66px;
+  margin-top: -3px;
+  margin-bottom: 3px;
+  border: 2px gray solid;
+  border-radius: 10px;
+  background-color: rgb(246, 199, 139);
+}
