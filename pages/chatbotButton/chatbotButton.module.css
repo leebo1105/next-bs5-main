@@ -18,3 +18,14 @@
   display: flex;
   flex-direction: column;
 }
+.outerLayer {
+  position: fixed;
+  right: 20px;
+  bottom: 20px; /* 將聊天室固定在底部 */
+  display: flex;
+  flex-direction: column; /* 可能需要根據內容調整 */
+  width: 400px; /* 展開後的寬度 */
+  opacity: 0; /* 初始透明度為 0 */
+  overflow: hidden; /* 隱藏超出範圍的內容 */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* 添加過渡效果 */
+}

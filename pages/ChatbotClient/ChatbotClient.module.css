@@ -50,6 +50,9 @@
   padding: 10px;
   display: flex;
 }
+.chatUserName h6 {
+  margin-top: 10px;
+}
 .chatUserName1 {
   width: 50%;
   height: auto;
@@ -75,7 +78,7 @@
   border-radius: 50%;
   object-fit: cover;
   margin-right: 10px;
-  margin-top: -10px;
+  /* margin-top: -10px; */
 }
 
 .timestamp {
@@ -114,11 +117,6 @@
   color: gray;
   text-align: start;
 }
-  
-  .outerLayer {
-    display: flex;
-
-  }
 
   .onlineContainer {
     border-radius: 10px;
@@ -233,9 +231,26 @@
     color: white;
   }
 
+  .closeButton {
+    display: flex;
+    margin-bottom: 10px;
+  }
+
+  .faXmark {
+    margin-top: 5px;
+    margin-right: -10px;
+    margin-left: 10px;
+    color: gray;
+  }
+
+  .faXmark:hover {
+    cursor: pointer;
+  }
+
   .faAngleRight {
     margin-right: 10px;
     margin-left: -10px;
+    margin-top: 5px;
     color: gray;
   }
 
@@ -254,8 +269,10 @@
   }
   
   .reservationsOrder {
-    width: 150px;
-    margin-left: 22px;
+    width: 120px;
+    margin-left: 66px;
+    margin-top: -3px;
+    margin-bottom: 3px;
     border: 2px gray solid ;
     border-radius: 10px;
     background-color: rgb(246, 199, 139);
