@@ -344,10 +344,10 @@ function ChatbotClient() {
                 height={40}
                 className={styles.avatar2}
               />
-              <h6>{`${memberId !== 1 ? '牡丹樓客服' : '岳泓'}`}</h6>
+              <h5>{`${memberId !== 1 ? '牡丹樓客服' : '岳泓'}`}</h5>
               <button
                 onClick={() => fetchRecentReservation()}
-                className={styles.reservationsOrder}
+                className={`${styles.reservationsOrder}`}
               >
                 <h6>查詢最近預約</h6>
               </button>
@@ -388,6 +388,8 @@ function ChatbotClient() {
                   >
                     {msg.type === 'image' ? (
                       <Image
+                        width={80}
+                        height={80}
                         src={msg.message}
                         alt="Uploaded"
                         className={styles.imageMessage}
