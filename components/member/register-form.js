@@ -194,10 +194,10 @@ export default function RegisterForm() {
               onClick={() => {
                 // 測試帳號 herry/11111
                 setUser({
-                  name: 'apple',
-                  email: 'ron@test.com',
-                  username: 'asd123456',
-                  password: '11111',
+                  name: '張豪誠',
+                  email: 'test@gmail.com',
+                  username: 'zxc123456',
+                  password: 'zxc123456',
                   sex: '男',
                   birth_date: '1999-01-11',
                   phone: '0962033555',
