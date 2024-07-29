@@ -11,15 +11,18 @@ $custom-color-2: rgba(151, 114, 91, 0.748); // 自定義顏色
     font-weight: bold; // 變粗體
     color: $custom-color-1; // 更改為主要顏色，可以根據需要更改顏色變數
   }
+  &:visited {
+    color: $custom-color-2;
+    font-weight: bold;
+  }
+  &:active {
+    color: $custom-color-2;
+    font-weight: bold;
+  }
 }
-
 
 @media (max-width: 768px) {
   .nav {
     display: none;
   }
-  
 }
-
-
-
