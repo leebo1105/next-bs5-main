@@ -690,6 +690,7 @@ CREATE TABLE messages (
   isMerchant BOOLEAN,
   message TEXT,
   isRead BOOLEAN DEFAULT FALSE,
+  type VARCHAR(20),
   timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
