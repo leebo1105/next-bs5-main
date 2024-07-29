@@ -9,6 +9,7 @@ import {
   faAngleRight,
   faCheck,
   faCheckDouble,
+  faXmark,
 } from '@fortawesome/free-solid-svg-icons'
 import toast, { Toaster } from 'react-hot-toast'
 
@@ -24,11 +25,24 @@ function ChatbotClient() {
   const [lastMessage, setLastMessage] = useState('')
   const [status, setStatus] = useState(null)
   const [isOnlineContainerVisible, setOnlineContainerVisible] = useState(true)
+  const [isChatVisible, setChatVisible] = useState(true)
+  const [isClosing, setIsClosing] = useState(false)
 
   const typingAnimation = useSpring({
     opacity: typing ? 1 : 0,
     config: { duration: 2000 },
     reset: true,
+  })
+
+  const chatAnimation = useSpring({
+    opacity: isChatVisible ? 1 : 0,
+    transform: isChatVisible ? 'translateY(0%)' : 'translateY(100%)',
+    config: { tension: 220, friction: 30 },
+    onRest: () => {
+      if (!isChatVisible) {
+        setIsClosing(false)
+      }
+    },
   })
 
   const formatTimestamp = (timestamp) => {
@@ -225,81 +239,24 @@ function ChatbotClient() {
     setOnlineContainerVisible(!isOnlineContainerVisible)
   }
 
+  const closeChat = () => {
+    setIsClosing(true)
+    setChatVisible(false)
+  }
+
   return (
-    <div className={styles.outerLayer}>
-      <div
-        className={`${styles.onlineContainer} ${
-          isOnlineContainerVisible ? styles.visible : styles.hidden
-        }`}
-      >
-        <div className={styles.userName}>
-          <Image
-            src={
-              memberId !== 1
-                ? '/images/chatbot/avatar-a.jpg'
-                : '/images/chatbot/avatar-b.jpg'
-            }
-            alt="Avatar"
-            width={40}
-            height={40}
-            className={styles.avatar}
-          />
-          <div className={styles.previewMessage}>
-            <h5>{`${memberId !== 1 ? '牡丹樓客服' : '岳泓'}`}</h5>
-            <div>{lastMessage}</div>
-          </div>
-        </div>
-      </div>
-      <div
-        className={`${styles.chatContainer} ${
-          !isOnlineContainerVisible ? styles.expanded : ''
-        }`}
-      >
-        <div className={styles.chatUserName}>
-          <div className={styles.chatUserName1}>
-            <FontAwesomeIcon
-              icon={
-                isOnlineContainerVisible == true ? faAngleRight : faAngleLeft
-              }
-              height={30}
-              onClick={toggleOnlineContainer}
-              className={styles.faAngleRight}
-            />
-            <Image
-              src={
-                memberId !== 1
-                  ? '/images/chatbot/avatar-a.jpg'
-                  : '/images/chatbot/avatar-b.jpg'
-              }
-              alt="Avatar"
-              width={40}
-              height={40}
-              className={styles.avatar2}
-            />
-            <h6>{`${memberId !== 1 ? '牡丹樓客服' : '岳泓'}`}</h6>
-          </div>
-          <div>
-            <button
-              onClick={() => fetchRecentReservation()}
-              className={styles.reservationsOrder}
-            >
-              查詢最近預約
-            </button>
-          </div>
-        </div>
-        <div className={styles.messagesContainer}>
-          {messages.map((msg, index) => (
-            <div
-              key={index}
-              className={`${styles.messageRow} ${
-                msg.sender === memberId
-                  ? styles.messageRight
-                  : styles.messageLeft
-              }`}
-            >
+    <>
+      {isChatVisible || isClosing ? (
+        <animated.div style={chatAnimation} className={`${styles.outerLayer}`}>
+          <div
+            className={`${styles.onlineContainer} ${
+              isOnlineContainerVisible ? styles.visible : styles.hidden
+            }`}
+          >
+            <div className={styles.userName}>
               <Image
                 src={
-                  msg.sender === 1
+                  memberId !== 1
                     ? '/images/chatbot/avatar-a.jpg'
                     : '/images/chatbot/avatar-b.jpg'
                 }
@@ -308,62 +265,137 @@ function ChatbotClient() {
                 height={40}
                 className={styles.avatar}
               />
-              <div
-                className={`${styles.message} ${
-                  msg.sender === 1 ? styles.messageUser : styles.messageMerchant
-                } ${msg.type === 'system' ? styles.system : ''}`}
-                style={
-                  msg.type === 'system'
-                    ? {
-                        backgroundColor: '#f9f9f9',
-                        color: 'black',
-                        border: '3px rgba(176, 198, 233, 1) solid',
-                      }
-                    : {}
-                }
-                dangerouslySetInnerHTML={{ __html: msg.message }}
-              ></div>
-              <div className={styles.timestamp}>
-                {formatTimestamp(msg.timestamp)}
-                {index === messages.length - 1 && (
-                  <FontAwesomeIcon
-                    icon={status === 'read' ? faCheckDouble : faCheck}
-                    className={styles.statusIcon}
-                  />
-                )}
+              <div className={styles.previewMessage}>
+                <h5>{`${memberId !== 1 ? '牡丹樓客服' : '岳泓'}`}</h5>
+                <div>{lastMessage}</div>
               </div>
             </div>
-          ))}
-          {typing && (
-            <animated.div style={typingAnimation}>
-              對方正在輸入中...
-            </animated.div>
-          )}
-          <div ref={messagesEndRef} className={styles.messagesEndRef} />
-        </div>
-        <div className={styles.messageInputContainer}>
-          <input
-            type="text"
-            placeholder="輸入訊息..."
-            value={message}
-            onChange={(event) => {
-              setMessage(event.target.value)
-              handleTyping()
-            }}
-            onKeyDown={(event) => {
-              if (event.keyCode === 13) {
-                sendMessage()
-              }
-            }}
-            className={styles.messageInput}
-          />
-          <button onClick={sendMessage} className={styles.sendMessageButton}>
-            傳送
-          </button>
-          <Toaster />
-        </div>
-      </div>
-    </div>
+          </div>
+          <div
+            className={`${styles.chatContainer} ${
+              !isOnlineContainerVisible ? styles.expanded : ''
+            }`}
+          >
+            <div className={styles.chatUserName}>
+              <FontAwesomeIcon
+                icon={
+                  isOnlineContainerVisible == true ? faAngleRight : faAngleLeft
+                }
+                height={30}
+                onClick={toggleOnlineContainer}
+                className={styles.faAngleRight}
+              />
+              <Image
+                src={
+                  memberId !== 1
+                    ? '/images/chatbot/avatar-a.jpg'
+                    : '/images/chatbot/avatar-b.jpg'
+                }
+                alt="Avatar"
+                width={40}
+                height={40}
+                className={styles.avatar2}
+              />
+              <h6>{`${memberId !== 1 ? '牡丹樓客服' : '岳泓'}`}</h6>
+              <button
+                onClick={() => fetchRecentReservation()}
+                className={styles.reservationsOrder}
+              >
+                <h6>查詢最近預約</h6>
+              </button>
+              <FontAwesomeIcon
+                icon={faXmark}
+                height={30}
+                onClick={closeChat}
+                className={styles.faXmark}
+              />
+            </div>
+            <div className={styles.messagesContainer}>
+              {messages.map((msg, index) => (
+                <div
+                  key={index}
+                  className={`${styles.messageRow} ${
+                    msg.sender === memberId
+                      ? styles.messageRight
+                      : styles.messageLeft
+                  }`}
+                >
+                  <Image
+                    src={
+                      msg.sender === 1
+                        ? '/images/chatbot/avatar-a.jpg'
+                        : '/images/chatbot/avatar-b.jpg'
+                    }
+                    alt="Avatar"
+                    width={40}
+                    height={40}
+                    className={styles.avatar}
+                  />
+                  <div
+                    className={`${styles.message} ${
+                      msg.sender === 1
+                        ? styles.messageUser
+                        : styles.messageMerchant
+                    } ${msg.type === 'system' ? styles.system : ''}`}
+                    style={
+                      msg.type === 'system'
+                        ? {
+                            backgroundColor: '#f9f9f9',
+                            color: 'black',
+                            border: '3px rgba(176, 198, 233, 1) solid',
+                          }
+                        : {}
+                    }
+                    dangerouslySetInnerHTML={{ __html: msg.message }}
+                  ></div>
+                  {msg.type !== 'system' && (
+                    <div className={styles.timestamp}>
+                      {formatTimestamp(msg.timestamp)}
+                      {index === messages.length - 1 && (
+                        <FontAwesomeIcon
+                          icon={status === 'read' ? faCheckDouble : faCheck}
+                          className={styles.statusIcon}
+                        />
+                      )}
+                    </div>
+                  )}
+                </div>
+              ))}
+              {typing && (
+                <animated.div style={typingAnimation}>
+                  對方正在輸入中...
+                </animated.div>
+              )}
+              <div ref={messagesEndRef} className={styles.messagesEndRef} />
+            </div>
+            <div className={styles.messageInputContainer}>
+              <input
+                type="text"
+                placeholder="輸入訊息..."
+                value={message}
+                onChange={(event) => {
+                  setMessage(event.target.value)
+                  handleTyping()
+                }}
+                onKeyDown={(event) => {
+                  if (event.keyCode === 13) {
+                    sendMessage()
+                  }
+                }}
+                className={styles.messageInput}
+              />
+              <button
+                onClick={sendMessage}
+                className={styles.sendMessageButton}
+              >
+                傳送
+              </button>
+              <Toaster />
+            </div>
+          </div>
+        </animated.div>
+      ) : null}
+    </>
   )
 }
 
