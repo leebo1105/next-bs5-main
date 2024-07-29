@@ -694,17 +694,11 @@ CREATE TABLE messages (
 );
 
 
+
+
 --
 -- 傾印資料表的資料 `messages`
 --
-
-INSERT INTO `messages` (`id`, `room`, `sender`, `isMerchant`, `message`, `timestamp`) VALUES
-(1, 'room2', 1, 1, '1234', '2024-07-18 02:20:26'),
-(2, 'room2', 2, 0, '5678', '2024-07-18 02:20:35'),
-(3, 'room2', 1, 1, '你好嗎', '2024-07-18 02:20:53'),
-(4, 'room2', 2, 0, '我很好', '2024-07-18 02:20:59'),
-(5, 'room2', 1, 1, '123456', '2024-07-18 03:52:26'),
-(6, 'room2', 1, 1, '123', '2024-07-18 07:45:56');
 
 -- --------------------------------------------------------
 
@@ -1351,9 +1345,10 @@ ALTER TABLE `menu_items`
 
 --
 -- 資料表索引 `messages`
---
-ALTER TABLE `messages`
-  ADD PRIMARY KEY (`id`);
+
+
+
+
 
 --
 -- 資料表索引 `one`
@@ -1572,8 +1567,7 @@ ALTER TABLE `menu_items`
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `messages`
 --
-ALTER TABLE `messages`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `one`
@@ -2422,26 +2416,11 @@ INSERT INTO `menu_items` (`item_id`, `item_name`) VALUES
 -- 資料表結構 `messages`
 --
 
-CREATE TABLE `messages` (
-  `id` int NOT NULL,
-  `room` varchar(255) DEFAULT NULL,
-  `sender` int DEFAULT NULL,
-  `isMerchant` tinyint(1) DEFAULT NULL,
-  `message` text,
-  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- 傾印資料表的資料 `messages`
 --
 
-INSERT INTO `messages` (`id`, `room`, `sender`, `isMerchant`, `message`, `timestamp`) VALUES
-(1, 'room2', 1, 1, '1234', '2024-07-18 02:20:26'),
-(2, 'room2', 2, 0, '5678', '2024-07-18 02:20:35'),
-(3, 'room2', 1, 1, '你好嗎', '2024-07-18 02:20:53'),
-(4, 'room2', 2, 0, '我很好', '2024-07-18 02:20:59'),
-(5, 'room2', 1, 1, '123456', '2024-07-18 03:52:26'),
-(6, 'room2', 1, 1, '123', '2024-07-18 07:45:56');
 
 -- --------------------------------------------------------
 
@@ -3089,8 +3068,6 @@ ALTER TABLE `menu_items`
 --
 -- 資料表索引 `messages`
 --
-ALTER TABLE `messages`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- 資料表索引 `one`
@@ -3309,8 +3286,6 @@ ALTER TABLE `menu_items`
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `messages`
 --
-ALTER TABLE `messages`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `one`
