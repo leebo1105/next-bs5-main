@@ -271,7 +271,7 @@ export default function Kcal() {
         height: 400px;
         border-radius: 50%;
         background-image: url(/menu-d/fabric.webp);
-        top: 675px;
+        top: 805px;
         left: 50%;
         transform: translate(-50%, -46%);
         z-index: 1; /* 確保在最上層 */
