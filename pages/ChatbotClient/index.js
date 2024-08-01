@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useSpring, animated } from 'react-spring'
+import debounce from 'lodash.debounce'
 import Image from 'next/image'
 import io from 'socket.io-client'
 import styles from './ChatbotClient.module.css'
@@ -99,7 +100,7 @@ function ChatbotClient() {
     }
   }
 
-  const fetchLastMessage = async () => {
+  const debouncedFetchLastMessage = debounce(async () => {
     try {
       const response = await fetch('http://localhost:3001/history/lastMessage')
       const data = await response.json()
@@ -113,7 +114,7 @@ function ChatbotClient() {
     } catch (error) {
       console.error('Error fetching last message:', error)
     }
-  }
+  }, 1000)
 
   useEffect(() => {
     const loadHistoryMessages = async () => {
@@ -156,7 +157,7 @@ function ChatbotClient() {
       setIsMerchant(parseInt(storedMemberId) === 1)
     }
 
-    socket.on('newMessage', async (newMessage) => {
+    const handleNewMessage = async (newMessage) => {
       if (newMessage.sender !== memberId && !newMessage.isRead) {
         socket.emit('messageRead', {
           room,
@@ -166,42 +167,18 @@ function ChatbotClient() {
       }
 
       if (newMessage.sender !== memberId) {
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          {
-            ...newMessage,
-          },
-        ])
+        setMessages((prevMessages) => [...prevMessages, newMessage])
       }
 
-      await fetchLastMessage()
+      await debouncedFetchLastMessage()
       setTyping(false)
-    })
+    }
 
-    socket.on('newImageMessage', async (imageMessage) => {
-      if (imageMessage.sender !== memberId && !imageMessage.isRead) {
-        socket.emit('messageRead', {
-          room,
-          sender: memberId,
-          id: imageMessage.id,
-        })
-      }
-
-      if (imageMessage.sender !== memberId) {
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          {
-            ...imageMessage,
-          },
-        ])
-      }
-
-      await fetchLastMessage()
-      setTyping(false)
-    })
+    socket.on('newMessage', handleNewMessage)
+    socket.on('newImageMessage', handleNewMessage)
 
     socket.on('roomRestart', async () => {
-      await fetchLastMessage()
+      await debouncedFetchLastMessage()
     })
 
     socket.on('typing', (data) => {
@@ -217,14 +194,14 @@ function ChatbotClient() {
           msg.id === data.id ? { ...msg, status: 'read' } : msg
         )
       )
-      await fetchLastMessage()
+      await debouncedFetchLastMessage()
     })
     return () => {
-      socket.off('newMessage')
+      socket.off('newMessage', handleNewMessage)
+      socket.off('newImageMessage', handleNewMessage)
       socket.off('typing')
       socket.off('messageRead')
       socket.off('roomRestart')
-      socket.off('newImageMessage')
     }
   }, [memberId])
 
