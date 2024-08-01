@@ -15,7 +15,7 @@ export default function IndexTest() {
     <>
       <div className="container">
         <Mymasonry />
-        <div className="container menu mt-5 mb-5">
+        <div className="container menu mt-5 mb-5  h-100">
           <MenuNav />
           <div className="row align-items-center text-center g-2">
             {/* 1 */}
